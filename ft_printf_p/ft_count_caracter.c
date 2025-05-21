@@ -1,5 +1,6 @@
 #include "printf.h"
 
+
 int	ft_count_caracter(char *str)
 {
 	int	count;

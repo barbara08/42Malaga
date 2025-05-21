@@ -1,5 +1,6 @@
 #include "printf.h"
 
+
 int	ft_count_digit(unsigned long n, int base)
 {
 	int len;

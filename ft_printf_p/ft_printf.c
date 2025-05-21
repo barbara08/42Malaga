@@ -6,11 +6,12 @@
 /*   By: bmartin- <bmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 15:13:27 by bmartin-          #+#    #+#             */
-/*   Updated: 2025/05/21 19:25:40 by bmartin-         ###   ########.fr       */
+/*   Updated: 2025/05/21 19:58:12 by bmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
+
 
 int	ft_printf(const char *format, ...)
 {

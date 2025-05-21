@@ -1,5 +1,6 @@
 #include "printf.h"
 
+
 int	ft_putstr(char *s)
 {
 	int len = 0;
