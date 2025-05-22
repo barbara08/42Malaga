@@ -41,17 +41,17 @@ int	ft_printf(const char *format, ...)
 
 int main(void)
 {
-	ft_printf("Imprime un solo carácter: %c\n", 'c');
-	ft_printf("Imprime una string: %s\n", "hola");
-	ft_printf("El puntero void * dado como argumento se imprime en formato hexadecimal: %p\n", 'c');
-	ft_printf("Imprime un número decimal (base 10): %d\n", 42);
-	ft_printf("Imprime un entero en base 10: %i\n", 24);
-	ft_printf("Imprime un número decimal (base 10) sin signo: %u\n", 2244);
-	ft_printf("Imprime un número hexadecimal (base 16) en minúsculas: %x\n", 255);
-	ft_printf("Imprime un número hexadecimal (base 16) en mayúsculas: %X\n", 255);
-	ft_printf("para imprimir el símbolo del porcentaje: %%\n", '%');
-	ft_printf("Un puntero: %p\n", (void *)0x1234abcd);
-
+	ft_printf("%%c Imprime un solo carácter: %c\n", 'c');
+	ft_printf("%%s Imprime una string (como se define por defecto en C): %s\n", "hola");
+	ft_printf("%%p El puntero void * dado como argumento se imprime en formato hexadecimal: %p\n", 'c');
+	ft_printf("%%p El puntero void * dado como argumento se imprime en formato hexadecimal %p\n", (void *)0x1234abcd);
+	ft_printf("%%d Imprime un número decimal (base 10): %d\n", 42);
+	ft_printf("%%i Imprime un entero en base 10: %i\n", 24);
+	ft_printf("%%u Imprime un número decimal (base 10) sin signo: %u\n", 2244);
+	ft_printf("%%x Imprime un número hexadecimal (base 16) en minúsculas: %x\n", 255);
+	ft_printf("%%X Imprime un número hexadecimal (base 16) en mayúsculas: %X\n", 255);
+	ft_printf("%%%% Para imprimir el símbolo del porcentaje: %%\n", '%');
+	ft_printf("---------------------\n", "--------______-------------");
 	ft_printf("Hola %% mundo\n");
 	ft_printf("Número: %d\n", 42);
 	ft_printf("Unsigned: %u\n", 123456);

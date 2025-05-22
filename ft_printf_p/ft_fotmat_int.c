@@ -6,6 +6,7 @@ int	ft_format_int(const char *specifier, int *i, va_list args)
 {
     //char	*str;
     int		count;
+	unsigned long ptr;
 
 	count = 0;
 	if (specifier[*i] == '%')
@@ -16,7 +17,7 @@ int	ft_format_int(const char *specifier, int *i, va_list args)
 		count += ft_putchar((char)va_arg(args, int));
 	else if (specifier[*i] == 'p')
 	{
-		unsigned long ptr = (unsigned long)va_arg(args, void *);
+		ptr = (unsigned long)va_arg(args, void *);
 		count += ft_putstr("0x");
 		//str = ft_converse_base(ptr, "0123456789abcdef");
 		count += ft_count_caracter(ft_converse_base(ptr, "0123456789abcdef"));

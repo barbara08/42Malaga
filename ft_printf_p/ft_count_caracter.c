@@ -11,5 +11,5 @@ int	ft_count_caracter(char *str)
 		count += ft_putstr(str);
 		free(str);
 	}
-	return count;
+	return (count);
 }
