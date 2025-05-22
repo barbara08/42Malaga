@@ -51,7 +51,10 @@ int main(void)
 	ft_printf("%%x Imprime un número hexadecimal (base 16) en minúsculas: %x\n", 255);
 	ft_printf("%%X Imprime un número hexadecimal (base 16) en mayúsculas: %X\n", 255);
 	ft_printf("%%%% Para imprimir el símbolo del porcentaje: %%\n", '%');
-	ft_printf("---------------------\n", "--------______-------------");
+	ft_printf("---------------------\n", "BONUS");
+	
+
+	/* 
 	ft_printf("Hola %% mundo\n");
 	ft_printf("Número: %d\n", 42);
 	ft_printf("Unsigned: %u\n", 123456);
@@ -60,6 +63,7 @@ int main(void)
 	ft_printf("Char: %c\n", 'A');
 	ft_printf("String: %s\n", "Hola mundo");
 	ft_printf("Pointer: %p\n", (void *)0x1234abcd);
+	*/
 
 	return(0);
 }
