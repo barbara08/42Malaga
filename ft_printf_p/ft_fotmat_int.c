@@ -1,10 +1,12 @@
 
 #include "printf.h"
 
+//DEJO ESTA FUNCION PERO NO SIRVE POR LA NORMINETTE
+// LA PARTE DEL 'P'
 
 int	ft_format_int(const char *specifier, int *i, va_list args)
 {
-    //char	*str;
+    char	*str;
     int		count;
 	unsigned long ptr;
 
@@ -19,8 +21,10 @@ int	ft_format_int(const char *specifier, int *i, va_list args)
 	{
 		ptr = (unsigned long)va_arg(args, void *);
 		count += ft_putstr("0x");
-		//str = ft_converse_base(ptr, "0123456789abcdef");
-		count += ft_count_caracter(ft_converse_base(ptr, "0123456789abcdef"));
+		str = ft_converse_base(ptr, "0123456789abcdef");
+		count += ft_putstr(str);
+		//count += ft_count_caracter(str);
+		free(str);
 	}
 	else
 	{

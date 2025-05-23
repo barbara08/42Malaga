@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf.h                                           :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmartin- <bmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:25:51 by bmartin-          #+#    #+#             */
-/*   Updated: 2025/05/21 19:59:02 by bmartin-         ###   ########.fr       */
+/*   Updated: 2025/05/23 17:31:21 by bmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINTF_H
-# define PRINTF_H
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 # include <unistd.h>
 # include <stdlib.h>
 # include <limits.h>
@@ -27,5 +27,6 @@ char	*ft_itoa(int n);
 int		ft_putchar(char c);
 int		ft_putstr(char *s);
 int		ft_printf(const char *format, ...);
+int		ft_putnbr(int n);
 
 #endif

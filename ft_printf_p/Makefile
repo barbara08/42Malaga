@@ -1,8 +1,10 @@
-CC = cc
+NAME = libftprintf.a
+
+OBJ = $(SRC:.c=.o)
 
 CFLAGS = -Wall -Wextra -Werror 
 
-NAME = libftprintf.a
+CC = cc
 
 SRC = ft_converse_base.c \
 ft_count_caracter.c \
@@ -13,6 +15,7 @@ ft_itoa.c \
 ft_printf.c \
 ft_putchar.c \
 ft_putstr.c \
+ft_putnbr.c \
 
 all: $(NAME)
 
@@ -20,11 +23,11 @@ $(NAME): $(OBJ)
 	ar rc $(NAME) $(OBJ)
 	ranlib $(NAME)
 
-execute: 
-	@$(CC) $(CFLAGS) *.c
-	@./a.out
+#execute: 
+#	@$(CC) $(CFLAGS) *.c
+#	@./a.out
 
-%.o: %.c printf.h
+%.o: %.c ft_printf.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
