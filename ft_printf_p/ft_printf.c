@@ -6,7 +6,7 @@
 /*   By: bmartin- <bmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 15:13:27 by bmartin-          #+#    #+#             */
-/*   Updated: 2025/05/23 14:12:24 by bmartin-         ###   ########.fr       */
+/*   Updated: 2025/05/26 19:31:49 by bmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,17 @@ int	ft_printf(const char *format, ...)
 	}
 	va_end(args);
 	return (count);
+}
+
+int main(void)
+{
+	char *name = "Barbara";
+	int age = 42;
+	void *ptr = (void *)0x12345678;
+
+	ft_printf("Im %s, my age is %d and my pointer is %p.\n", name, age, ptr);
+	ft_printf("%%u => %u, %%x => %x, %%X => %X \n", 4294967295, 4125, 4125);
+	ft_printf("Este es: %% \n");
+
+	return (0);
 }

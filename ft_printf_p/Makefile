@@ -23,9 +23,9 @@ $(NAME): $(OBJ)
 	ar rc $(NAME) $(OBJ)
 	ranlib $(NAME)
 
-#execute: 
-#	@$(CC) $(CFLAGS) *.c
-#	@./a.out
+execute: 
+	@$(CC) $(CFLAGS) *.c
+	@./a.out
 
 %.o: %.c ft_printf.h
 	$(CC) $(CFLAGS) -c $< -o $@

@@ -6,7 +6,7 @@
 /*   By: bmartin- <bmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 13:02:20 by bmartin-          #+#    #+#             */
-/*   Updated: 2025/05/23 17:24:13 by bmartin-         ###   ########.fr       */
+/*   Updated: 2025/05/26 19:36:28 by bmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,20 @@ int	ft_putnbr(int n)
 	count++;
 	return (count);
 }
+
+/* 
+int main(void)
+{
+	//int number = -123456789;
+	int number = 123456789;
+	int count = ft_putnbr(number);
+	printf("\nNumber of characters printed: %d\n", count);
+	return (0);
+}
+*/
+
 /*
+SIN PROBAR
 int main()
 {
     int len;
