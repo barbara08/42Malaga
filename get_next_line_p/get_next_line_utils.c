@@ -1,6 +1,56 @@
 
 #include "get_next_line.h"
 
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i] != '\0')
+	{
+		i++;
+	}
+	return (i);
+}
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
+{
+	size_t	src_len;
+	size_t	i;
+
+	src_len = ft_strlen(src);
+	i = 0;
+	if (size == 0)
+		return (src_len);
+	while (src[i] != '\0' && i < size - 1)
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (src_len);
+}
+
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
+{
+	size_t	dst_len;
+	size_t	src_len;
+	size_t	i;
+
+	dst_len = ft_strlen(dst);
+	src_len = ft_strlen(src);
+	i = 0;
+	if (size <= dst_len)
+		return (src_len + size);
+	while (src[i] != '\0' && (dst_len + i) < size - 1)
+	{
+		dst[dst_len + i] = src[i];
+		i++;
+	}
+	dst[dst_len + i] = '\0';
+	return (dst_len + src_len);
+}
+
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	size_t	s1_len;
@@ -43,36 +93,27 @@ char	*ft_strchr(const char *s, int c)
 		return (NULL);
 }
 
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i] != '\0')
-	{
-		i++;
-	}
-	return (i);
-}
-
 // ssize_t se utiliza para representar el tamaño de un bloque de datos 
 // o el número de bytes leídos o escritos, permitiendo valores negativos en caso de error.
 
 // Read File
     // Lee fichero en bloques (BUFFER_SIZE) y acumula lo leido en str
     // hasta encontar \n o el final del file
+
 char    *ft_read_file(int fd, char *str)
 {
     char    *buffer;
     ssize_t len;
-    //BUFFER_SIZE, está definida en el .h
-    buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
+    int xx = 0;
+
+    //BUFFER_SIZE, se puede definir en el .h
+    buffer = malloc((xx + 1) * sizeof(char));
     if (!buffer)
         return (NULL);
     len = 1;
     while (!(ft_strchr(str, '\n')) && len > 0)
     {
-        len = read(fd, buffer, BUFFER_SIZE);
+        len = read(fd, buffer, xx);
         if (len == -1)
         {
             free(buffer);
@@ -108,15 +149,15 @@ char    *ft_extract_line(char *line)
         //Copia caracter por caracter hasta llegar '\n'
     while (line[i] && line[i] != '\n')
     {
-        new_line = line[i];
+        new_line[i] = line[i];
         i++;
     }
     if (line[i] == '\n')
     {
-        new_line = '\n';
+        new_line[i] = '\n';
         i++;
     }
-    new_line = '\0';
+    new_line[i] = '\0';
     return (new_line);
 }
 

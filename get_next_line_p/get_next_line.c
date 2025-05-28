@@ -5,6 +5,7 @@ char    *get_next_line(int fd)
 {
     char        *line_read;
     static char *line;
+    char    BUFFER_SIZE;
 
     if (BUFFER_SIZE <= 0 || fd < 0)
     {
