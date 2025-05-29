@@ -6,7 +6,7 @@
 /*   By: bmartin- <bmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 13:00:56 by bmartin-          #+#    #+#             */
-/*   Updated: 2025/05/26 19:34:47 by bmartin-         ###   ########.fr       */
+/*   Updated: 2025/05/26 17:44:35 by bmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,14 @@ int	ft_count_digit(unsigned long n, int base)
 /* 
 int main(void)
 {
-	unsigned long n = 6524712543;
+	unsigned long number = 254123;
 	//int base = 16;
 	//int base = 10;
-	//int base = 8; 
+	//int base = 8;
 	int base = 2;
-	int result = ft_count_digit(n, base);
+	int digit_count = ft_count_digit(number, base);
 	
-	printf("Number of digits in base %d: %d\n", base, result);
-	
-	return 0;
+	printf("Number of digits in %lu in base %d: %d\n", number, base, digit_count);
+	return (0);
 }
 */

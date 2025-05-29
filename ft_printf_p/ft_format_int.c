@@ -6,7 +6,7 @@
 /*   By: bmartin- <bmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 13:01:19 by bmartin-          #+#    #+#             */
-/*   Updated: 2025/05/23 17:54:11 by bmartin-         ###   ########.fr       */
+/*   Updated: 2025/05/26 18:22:35 by bmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 int	count_ptr(va_list args)
 {
-	void *p = va_arg(args, void *);
-	unsigned long ptr;
-	int count = 0;
+	void				*p;
+	unsigned long		ptr;
+	int					count;
 
+	p = va_arg(args, void *);
+	count = 0;
 	if (p == NULL)
 	{
 		count += ft_putstr("(nil)");
@@ -31,11 +33,9 @@ int	count_ptr(va_list args)
 	return (count);
 }
 
-
 int	ft_format_int(const char *specifier, int *i, va_list args)
 {
 	int				count;
-	//unsigned long	ptr;
 
 	count = 0;
 	if (specifier[*i] == '%')
@@ -44,21 +44,10 @@ int	ft_format_int(const char *specifier, int *i, va_list args)
 		count += (ft_putnbr(va_arg(args, int)));
 	else if (specifier[*i] == 's')
 		count += ft_putstr(va_arg(args, char *));
-    else if (specifier[*i] == 'c')
+	else if (specifier[*i] == 'c')
 		count += ft_putchar((char)va_arg(args, int));
 	else if (specifier[*i] == 'p')
-	{
 		count += count_ptr(args);
-		/*void *p = va_arg(args, void *);
-		if (p == NULL)
-			count += ft_putstr("(nil)");
-		else
-		{
-			ptr = (unsigned long)p;
-			count += ft_putstr("0x");
-			count += ft_count_caracter(ft_converse_base(ptr, "0123456789abcdef"));
-		}*/
-	}
 	else
 		count += ft_count_caracter(ft_format(specifier[*i], args));
 	return (count);

@@ -6,7 +6,7 @@
 /*   By: bmartin- <bmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 13:02:20 by bmartin-          #+#    #+#             */
-/*   Updated: 2025/05/26 19:36:28 by bmartin-         ###   ########.fr       */
+/*   Updated: 2025/05/26 18:31:09 by bmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	ft_putnbr(int n)
 	count++;
 	return (count);
 }
-
 /* 
 int main(void)
 {
@@ -47,28 +46,3 @@ int main(void)
 	return (0);
 }
 */
-
-/*
-SIN PROBAR
-int main()
-{
-    int len;
-
-    // Ejemplo 1: Número positivo
-    len = ft_putnbr(1234);
-    write(1, "\n", 1);  // Para agregar un salto de línea
-    printf("Caracteres escritos: %d\n", len);  // Debería imprimir "1234" y la cantidad de caracteres escritos
-
-    // Ejemplo 2: Número negativo
-    len = ft_putnbr(-5678);
-    write(1, "\n", 1);  // Para agregar un salto de línea
-    printf("Caracteres escritos: %d\n", len);  // Debería imprimir "-5678" y la cantidad de caracteres escritos
-
-    // Ejemplo 3: Número cero
-    len = ft_putnbr(0);
-    write(1, "\n", 1);  // Para agregar un salto de línea
-    printf("Caracteres escritos: %d\n", len);  // Debería imprimir "0" y la cantidad de caracteres escritos
-
-    return 0;
-}
-	 */

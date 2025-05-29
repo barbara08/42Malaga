@@ -6,7 +6,7 @@
 /*   By: bmartin- <bmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 13:00:22 by bmartin-          #+#    #+#             */
-/*   Updated: 2025/05/26 19:32:52 by bmartin-         ###   ########.fr       */
+/*   Updated: 2025/05/29 17:41:56 by bmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*ft_converse_base(unsigned long n, char *base_str)
 	while (base_str[base])
 		base++;
 	len = ft_count_digit(n, base);
-	str = malloc(len + 1);
+	str = malloc((len + 1) * sizeof(char));
 	if (!str)
 		return (NULL);
 	str[len] = '\0';
@@ -33,15 +33,16 @@ char	*ft_converse_base(unsigned long n, char *base_str)
 	}
 	return (str);
 }
+
 /* 
 int main(void)
 {
-	unsigned long n = 2512452145521;
+	unsigned long num = 255;
 	//char *base_str = "0123456789ABCDEF";
-	//char *base_str = "01";
+	char *base_str = "01";
 	//char *base_str = "0123456789";
-	char *base_str = "01234567";
-	char *result = ft_converse_base(n, base_str);
+	//char *base_str = "01234567";
+	char *result = ft_converse_base(num, base_str);
 	
 	if (result)
 	{
@@ -49,10 +50,7 @@ int main(void)
 		free(result);
 	}
 	else
-	{
-		printf("Memory failed.\n");
-	}
-	
-	return 0;
+		printf("/Memory Failed.\n");
+	return (0);
 }
 */

@@ -6,7 +6,7 @@
 /*   By: bmartin- <bmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 13:00:45 by bmartin-          #+#    #+#             */
-/*   Updated: 2025/05/26 19:33:15 by bmartin-         ###   ########.fr       */
+/*   Updated: 2025/05/29 17:46:05 by bmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,9 @@ int	ft_count_caracter(char *str)
 
 	count = 0;
 	if (str)
-	{
 		count += ft_putstr(str);
-		free(str);
-	}
 	return (count);
 }
-
 /* 
 int main(void)
 {

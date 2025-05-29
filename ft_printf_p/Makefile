@@ -11,7 +11,6 @@ ft_count_caracter.c \
 ft_count_digit.c \
 ft_format.c \
 ft_format_int.c \
-ft_itoa.c \
 ft_printf.c \
 ft_putchar.c \
 ft_putstr.c \
