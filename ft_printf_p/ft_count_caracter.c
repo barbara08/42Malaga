@@ -6,7 +6,7 @@
 /*   By: bmartin- <bmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 13:00:45 by bmartin-          #+#    #+#             */
-/*   Updated: 2025/05/29 17:46:05 by bmartin-         ###   ########.fr       */
+/*   Updated: 2025/05/29 19:11:00 by bmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,4 @@ int main(void)
 	int count = ft_count_caracter(str);
 	printf("Number of characters printed: %d\n", count);
 	return (0);
-}
-*/
+}*/
