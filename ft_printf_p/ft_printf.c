@@ -6,7 +6,7 @@
 /*   By: bmartin- <bmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 15:13:27 by bmartin-          #+#    #+#             */
-/*   Updated: 2025/05/29 19:46:39 by bmartin-         ###   ########.fr       */
+/*   Updated: 2025/05/29 19:51:57 by bmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int main(void)
 	ft_printf("All the format to try:\n");
 	ft_printf("Im %s, my age is %d and my pointer is %p.\n", name, age, ptr);
 	ft_printf("%%u => %u, %%x => %x, %%X => %X \n", 4294967295, 4125, 4125);
+	ft_printf("%%u => %u, %%x => %x, %%X => %X \n", 48754, 824, 824);
 	ft_printf("Este es: %% \n");
 
 	return (0);
