@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bmartin- <bmartin-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/29 18:10:36 by bmartin-          #+#    #+#             */
+/*   Updated: 2025/05/29 18:34:04 by bmartin-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "get_next_line.h"
 
@@ -7,9 +18,7 @@ size_t	ft_strlen(const char *s)
 
 	i = 0;
 	while (s[i] != '\0')
-	{
 		i++;
-	}
 	return (i);
 }
 
@@ -100,30 +109,29 @@ char	*ft_strchr(const char *s, int c)
     // Lee fichero en bloques (BUFFER_SIZE) y acumula lo leido en str
     // hasta encontar \n o el final del file
 
-char    *ft_read_file(int fd, char *str)
+char	*ft_read_file(int fd, char *str)
 {
-    char    *buffer;
-    ssize_t len;
-    int xx = 0;
-
-    //BUFFER_SIZE, se puede definir en el .h
-    buffer = malloc((xx + 1) * sizeof(char));
-    if (!buffer)
-        return (NULL);
-    len = 1;
-    while (!(ft_strchr(str, '\n')) && len > 0)
-    {
-        len = read(fd, buffer, xx);
-        if (len == -1)
-        {
-            free(buffer);
-            return(NULL);
-        }
-        buffer[len] = '\0';
-        str = ft_strjoin(str, buffer);
-    }
-    free (buffer);
-    return (str);
+	char	*buffer;
+	ssize_t	len;
+	
+	//BUFFER_SIZE, se puede definir en el .h
+	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!buffer)
+		return (NULL);
+	len = 1;
+	while (!(ft_strchr(str, '\n')) && len > 0)
+	{
+	len = read(fd, buffer, BUFFER_SIZE);
+	if (len == -1)
+	{
+		free(buffer);
+		return (NULL);
+	}
+	buffer[len] = '\0';
+	str = ft_strjoin(str, buffer);
+}
+free (buffer);
+	return (str);
 }
 
 // Extract Line

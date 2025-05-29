@@ -23,6 +23,7 @@ int main(int argc, char **argv)
         while ((line != NULL))
         {
             printf("%s\n", line);
+			printf("Estoy en main");
             free(line);
             line = get_next_line(fd);
         }
