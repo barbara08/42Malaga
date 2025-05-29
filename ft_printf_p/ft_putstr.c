@@ -6,7 +6,7 @@
 /*   By: bmartin- <bmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 13:02:46 by bmartin-          #+#    #+#             */
-/*   Updated: 2025/05/26 17:31:55 by bmartin-         ###   ########.fr       */
+/*   Updated: 2025/05/29 19:04:30 by bmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,4 @@ int main(void)
 	printf("\nNumber of characters printed: %d\n", count);
 	return (0);
 }
-*/
+	*/
