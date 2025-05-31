@@ -1,11 +1,14 @@
 
 #include "get_next_line.h"
+#include <string.h>
 
 size_t	ft_strlen(const char *s)
 {
 	size_t	i;
 
 	i = 0;
+    if (!s)
+		return (0);
 	while (s[i] != '\0')
 	{
 		i++;
@@ -18,6 +21,8 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 	size_t	src_len;
 	size_t	i;
 
+    if (!src)
+	return (0);
 	src_len = ft_strlen(src);
 	i = 0;
 	if (size == 0)
@@ -37,6 +42,10 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size)
 	size_t	src_len;
 	size_t	i;
 
+    if (!dst && size == 0)
+        return (ft_strlen(src));
+    if (!dst || !src)
+	    return (0);
 	dst_len = ft_strlen(dst);
 	src_len = ft_strlen(src);
 	i = 0;
@@ -57,6 +66,10 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	size_t	s2_len;
 	char	*reserve_join;
 
+     if (!s1)
+		s1 = "";
+	if (!s2)
+		s2 = "";
 	s1_len = ft_strlen(s1);
 	s2_len = ft_strlen(s2);
 	reserve_join = (char *)malloc((s1_len + s2_len + 1) * sizeof(char));
@@ -65,6 +78,24 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	ft_strlcpy(reserve_join, s1, s1_len + s2_len + 1);
 	ft_strlcat(reserve_join, s2, s1_len + s2_len + 1);
 	return (reserve_join);
+}
+
+char	*ft_strdup(const char *s)
+{
+	char	*copys;
+	int		i;
+
+	copys = (char *)malloc(ft_strlen(s) + 1 * sizeof(char));
+	i = 0;
+	if (copys == NULL)
+		return (NULL);
+	while (s[i] != '\0')
+	{
+		copys[i] = s[i];
+		i++;
+	}
+	copys[i] = '\0';
+	return (copys);
 }
 
 char	*ft_strchr(const char *s, int c)
@@ -102,27 +133,49 @@ char	*ft_strchr(const char *s, int c)
 
 char    *ft_read_file(int fd, char *str)
 {
-    char    *buffer;
-    ssize_t len;
-    int xx = 0;
+    char    *buffer; //para leer bloques de datos desde el file
+    char    *aux; //aux para hacer strjoin
+    ssize_t len; //cantidad leida por read
 
-    //BUFFER_SIZE, se puede definir en el .h
-    buffer = malloc((xx + 1) * sizeof(char));
+    //BUFFER_SIZE, está definida en el .h
+    //reservamos memoria para leer hasta BUFFER_SIZE bytes + 1 que es el \0
+    buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
     if (!buffer)
         return (NULL);
     len = 1;
-    while (!(ft_strchr(str, '\n')) && len > 0)
+    //No encontramos '\n' en str, y la última lectura sea mayor que 0 (NO estamos en EOF)
+    while (!(str && ft_strchr(str, '\n')) && len > 0)
     {
-        len = read(fd, buffer, xx);
+        //Lee hasta BUFFER_SIZE bytes del fd al buffer
+        //devuelve la cantidad de bytes que se leyeron
+        //EOF = 0; error = -1
+        len = read(fd, buffer, BUFFER_SIZE);
+        //Si hay error de lectura libera buffer y devuelve NULL
         if (len == -1)
         {
             free(buffer);
             return(NULL);
         }
+        //Nos aseguramos que buffer termina con '\0'
+        //Luego join de str con lo que acaba de leer
+        //Libera memoria anterior de str y actualiza con el nuevo string
         buffer[len] = '\0';
-        str = ft_strjoin(str, buffer);
+        aux = ft_strjoin(str, buffer);
+        if (str)
+            free(str);
+        str = aux;
     }
-    free (buffer);
+    //libera buffer antes de salir
+    free(buffer);
+    // Si llegamos al EOF y no hay nada leído (str es NULL o cadena vacía)
+    //también se libera str y devuelve NULL
+    if (len == 0 && (str == NULL || *str == '\0'))
+    {
+        if (str)
+            free(str);
+        return (NULL);
+    }
+    //si se leyó algo (aunque no haya '\n') devulve str acumulado
     return (str);
 }
 
@@ -167,22 +220,25 @@ char    *ft_extract_line(char *line)
 char    *ft_exclude_line(char *line)
 {
     char    *str;
-    int     i;
-    int     j;
+    int     i; //recorrer line hasta el primer '\n'
+    int     j; //para copiar después del '\n' al new_line
 
     i = 0;
-    while (!line[i] && line[i] != '\n')
+    //Busca hasta encontrar el primer '\n' o el final
+    while (line[i] && line[i] != '\n')
         i++;
-        //Si no hay \n, significa que no hay más líneas
+    //Si no hay \n, significa que no hay más líneas
     if (!line[i])
     {
         //Libera la cadena original y retorna NULL
         free(line);
         return (NULL);
     }
-    //Reserva memoria para copiar desde después del \n hasta el final
+    //Reserva memoria para el nuevo str
     // - i salta los caracteres de la primera línea
-    str = (char *)malloc((ft_strlen(line) - i + 1) * sizeof(char));
+    //str = (char *)malloc((ft_strlen(line) - i + 1) * sizeof(char));
+    //line + 1 apunta justo donde está el '\n'
+    str = malloc((ft_strlen(line + i) + 1) * sizeof(char));
     if (!str)
         return (NULL);
     //Copiar el resto del string
@@ -197,4 +253,36 @@ char    *ft_exclude_line(char *line)
 }
 
 
+/* 
+int main(void)
+{
+    //char *linea = strdup("Hola\nMundo\nFinal");
+    char *str = "Hola\nMundo\nFinal";
+    char *linea = ft_strdup(str);
+    char *primera = ft_extract_line(linea);
+    printf("Primera: %s", primera);
 
+    linea = ft_exclude_line(linea);
+    char *segunda = ft_extract_line(linea);
+    printf("Segunda: %s", segunda);
+    
+    char *linea_completa = "Primera parte\nSegunda parte\nTercera parte";
+    char *lc = ft_strdup(linea_completa);
+    char *linea_extraida = ft_extract_line(lc);
+    char *linea_excluida = ft_exclude_line(lc);
+    if (linea_extraida || linea_excluida)
+    {
+        //printf("Línea extraída: \"%s\"\n", linea_extraida);
+        printf("Línea extraída: %s", linea_extraida);
+        printf("Línea excluida: %s", linea_excluida);
+
+        free(linea_extraida);
+        //free(linea_excluida);
+
+    }
+    else
+        printf("No se pudo extraer ninguna línea.\n");
+    return (0);
+}
+
+*/
