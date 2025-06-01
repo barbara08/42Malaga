@@ -20,7 +20,7 @@ int	ft_count_caracter(char *str)
 	if (str)
 	{
 		count += ft_putstr(str);
-		free(str);
+		//free(str);
 	}
 	return (count);
 }
