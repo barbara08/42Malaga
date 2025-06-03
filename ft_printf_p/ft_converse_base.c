@@ -6,7 +6,7 @@
 /*   By: bmartin- <bmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 13:00:22 by bmartin-          #+#    #+#             */
-/*   Updated: 2025/05/26 19:32:52 by bmartin-         ###   ########.fr       */
+/*   Updated: 2025/06/03 12:23:44 by bmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*ft_converse_base(unsigned long n, char *base_str)
 	while (base_str[base])
 		base++;
 	len = ft_count_digit(n, base);
-	str = malloc(len + 1);
+	str = malloc((len + 1) * sizeof(char));
 	if (!str)
 		return (NULL);
 	str[len] = '\0';
