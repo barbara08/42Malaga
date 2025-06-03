@@ -12,10 +12,41 @@
 
 #include "get_next_line.h"
 
+//Funcion read en 3
+void	validate_pointer_and_free(char *str)
+{
+	if (str)
+		free(str);
+}
+
+char	*ft_read_and_strjoin(int fd, char *str, char *buffer)
+{
+    ssize_t len;
+    char *aux;
+
+    len = read(fd, buffer, BUFFER_SIZE);
+	// controla error (-1) y EOF (0)
+    if (len <= 0)
+    {
+        free(buffer);
+		validate_pointer_and_free(str);
+        return (NULL);
+    }
+    buffer[len] = '\0';
+    aux = ft_strjoin(str, buffer);
+    if (!aux)
+    {
+        free(buffer);
+		validate_pointer_and_free(str);
+        return (NULL);
+    }
+	validate_pointer_and_free(str);
+    return (aux);
+}
+
 char	*ft_read_file(int fd, char *str)
 {
 	char	*buffer;
-	char	*aux;
 	ssize_t	len;
 
 	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
@@ -24,32 +55,14 @@ char	*ft_read_file(int fd, char *str)
 	len = 1;
 	while (!(str && ft_strchr(str, '\n')) && len > 0)	
 	{
-		len = read(fd, buffer, BUFFER_SIZE);
-		if (len == -1)
-		{
-			free(buffer);
-			if (str)
-				free(str);
+		str = ft_read_and_strjoin(fd, str, buffer);
+		if (!str)
 			return (NULL);
-		}
-		buffer[len] = '\0';
-		aux = ft_strjoin(str, buffer);
-		if (!aux)
-		{
-			free(buffer);
-			if (str)
-				free(str);
-			return (NULL);
-		}
-		if (str)
-			free(str);
-		str = aux;
 	}
 	free(buffer);
 	if (len == 0 && (str == NULL || *str == '\0'))
 	{
-		if (str)
-			free(str);
+		validate_pointer_and_free(str);
 		return (NULL);
 	}
 	return (str);
@@ -134,3 +147,112 @@ char	*get_next_line(int fd)
 			line = NULL;
 	return (line_read);
 }
+
+
+/* --------------------------------------- */
+/*
+FUNCION DIVIDIDA EN 2  (ft_read_and_strjoin) y (ft_read_file)
+
+char *ft_read_and_strjoin(int fd, char *str, char *buffer)
+{
+    ssize_t len;
+    char *aux;
+
+    len = read(fd, buffer, BUFFER_SIZE);
+	// controla error (-1) y EOF (0)
+    if (len <= 0)
+    {
+        free(buffer);		
+        if (str)
+            free(str);
+        return NULL;
+    }
+    buffer[len] = '\0';
+    aux = ft_strjoin(str, buffer);
+    if (!aux)
+    {
+        free(buffer);
+        if (str)
+            free(str);
+        return NULL;
+    }	
+    if (str)
+        free(str);
+    return (aux);
+}
+
+
+char	*ft_read_file(int fd, char *str)
+{
+	char	*buffer;
+	ssize_t	len;
+
+	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!buffer)
+		return (NULL);
+	len = 1;
+	while (!(str && ft_strchr(str, '\n')) && len > 0)	
+	{
+		str = ft_read_and_strjoin(fd, str, buffer);
+		if (!str)
+    		return (NULL);
+	}
+	free(buffer);
+	if (len == 0 && (str == NULL || *str == '\0'))
+	{
+		if (str)
+			free(str);
+		return (NULL);
+	}
+	return (str);
+}
+*/
+
+
+/* --------------------------------------- */
+
+/* ORIGINAL SIN DIVIDIR
+
+char	*fSSSft_read_file(int fd, char *str)
+{
+	char	*buffer;
+	char	*aux;
+	ssize_t	len;
+
+	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!buffer)
+		return (NULL);
+	len = 1;
+	while (!(str && ft_strchr(str, '\n')) && len > 0)	
+	{
+		len = read(fd, buffer, BUFFER_SIZE);
+		if (len == -1)
+		{
+			free(buffer);
+			if (str)
+				free(str);
+			return (NULL);
+		}
+		buffer[len] = '\0';
+		aux = ft_strjoin(str, buffer);
+		if (!aux)
+		{
+			free(buffer);
+			if (str)
+				free(str);
+			return (NULL);
+		}
+		if (str)
+			free(str);
+		str = aux;
+	}
+	free(buffer);
+	if (len == 0 && (str == NULL || *str == '\0'))
+	{
+		if (str)
+			free(str);
+		return (NULL);
+	}
+	return (str);
+}
+*/
