@@ -6,7 +6,7 @@
 /*   By: bmartin- <bmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 13:01:19 by bmartin-          #+#    #+#             */
-/*   Updated: 2025/05/23 17:54:11 by bmartin-         ###   ########.fr       */
+/*   Updated: 2025/06/03 12:08:52 by bmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	count_ptr(va_list args)
 	{
 		ptr = (unsigned long)p;
 		count += ft_putstr("0x");
-		count += ft_count_caracter(ft_converse_base(ptr, "0123456789abcdef"));
+		count += ft_putstr(ft_converse_base(ptr, "0123456789abcdef"));
 	}
 	return (count);
 }
@@ -60,6 +60,6 @@ int	ft_format_int(const char *specifier, int *i, va_list args)
 		}*/
 	}
 	else
-		count += ft_count_caracter(ft_format(specifier[*i], args));
+		count += ft_putstr(ft_format_char(specifier[*i], args));
 	return (count);
 }
