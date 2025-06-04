@@ -6,63 +6,55 @@
 /*   By: bmartin- <bmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 13:05:28 by bmartin-          #+#    #+#             */
-/*   Updated: 2025/06/03 14:30:24 by bmartin-         ###   ########.fr       */
+/*   Updated: 2025/06/04 16:37:29 by bmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-//Funcion read en 3
-void	validate_pointer_and_free(char *str)
-{
-	if (str)
-		free(str);
-}
-
-char	*ft_read_and_strjoin(int fd, char *str, char *buffer)
-{
-    ssize_t len;
-    char *aux;
-
-    len = read(fd, buffer, BUFFER_SIZE);
-	// controla error (-1) y EOF (0)
-    if (len <= 0)
-    {
-        free(buffer);
-		validate_pointer_and_free(str);
-        return (NULL);
-    }
-    buffer[len] = '\0';
-    aux = ft_strjoin(str, buffer);
-    if (!aux)
-    {
-        free(buffer);
-		validate_pointer_and_free(str);
-        return (NULL);
-    }
-	validate_pointer_and_free(str);
-    return (aux);
-}
-
-char	*ft_read_file(int fd, char *str)
+char	*ft_read_file(int fd, char *str, char *resto)
 {
 	char	*buffer;
+	char	*aux;
 	ssize_t	len;
 
 	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
 		return (NULL);
+	if (*resto)
+	{
+		str = ft_strjoin(str, resto);
+		if (!str)
+		{
+			free(buffer);
+			return (NULL);
+		}
+		resto[0] = '\0';
+	}
 	len = 1;
 	while (!(str && ft_strchr(str, '\n')) && len > 0)	
 	{
-		str = ft_read_and_strjoin(fd, str, buffer);
-		if (!str)
+		len = read(fd, buffer, BUFFER_SIZE);
+		if (len == -1)
+		{
+			free(buffer);
+			free(str);
 			return (NULL);
+		}
+		buffer[len] = '\0';
+		aux = ft_strjoin(str, buffer);
+		if (!aux)
+		{
+			free(buffer);
+			free(str);
+			return (NULL);
+		}
+		str = aux;
 	}
 	free(buffer);
 	if (len == 0 && (str == NULL || *str == '\0'))
 	{
-		validate_pointer_and_free(str);
+		free(str);
 		return (NULL);
 	}
 	return (str);
@@ -78,7 +70,9 @@ char	*ft_extract_line(char *line)
 		return (NULL);
 	while (line[i] && line[i] != '\n')
 		i++;
-	new_line = malloc((i + 2) * sizeof(char));
+	if (line[i] == '\n')
+		i++;
+	new_line = malloc((i + 1) * sizeof(char));
 	if (!new_line)
 		return (NULL);
 	i = 0;
@@ -88,69 +82,57 @@ char	*ft_extract_line(char *line)
 		i++;
 	}
 	if (line[i] == '\n')
-	{
-		new_line[i] = '\n';
-		i++;
-	}
+		new_line[i++] = '\n';
 	new_line[i] = '\0';
 	return (new_line);
 }
 
-char	*ft_exclude_line(char *line)
+void	ft_exclude_line(char *line, char *resto)
 {
-	char	*str;
 	int		i;
 	int		j;
 
 	i = 0;
-	if (!line)
-		return (NULL);
 	while (line[i] && line[i] != '\n')
 		i++;
-	if (!line[i])
+	if (line[i] == '\n')
 	{
-		free(line);
-		return (NULL);
+		i++;
+		j = 0;
+		while (line[i])
+			resto[j++] = line[i++];
+		resto[j] = '\0';
 	}
-	i++;
-	str = malloc((ft_strlen(line + i) + 1));
-	if (!str)
-		return (NULL);
-	j = 0;
-	while (line[i])
-		str[j++] = line[i++];
-	str[j] = '\0';
 	free(line);
-	return (str);
 }
 
 char	*get_next_line(int fd)
 {
-	char		*line_read;
-	static char	*line;
+	char	*line_read;
+	char	*line;
+	static char resto[BUFFER_SIZE + 1];
 
+	line = NULL;
 	if (BUFFER_SIZE <= 0 || fd < 0)
-	{
-		if (line)
-		{
-			free(line);
-			line = NULL;
-		}
 		return (NULL);
-	}
-	line = ft_read_file(fd, line);
+	line = ft_read_file(fd, line, resto);
 	if (!line)
 		return (NULL);
 	line_read = ft_extract_line(line);
-	line = ft_exclude_line(line);
-	if (!line_read)
-			line = NULL;
+	ft_exclude_line(line, resto);
 	return (line_read);
 }
 
-
 /* --------------------------------------- */
 /*
+
+void	validate_pointer_and_free(char *str)
+{
+	if (str)
+		free(str);
+}
+
+
 FUNCION DIVIDIDA EN 2  (ft_read_and_strjoin) y (ft_read_file)
 
 char *ft_read_and_strjoin(int fd, char *str, char *buffer)
