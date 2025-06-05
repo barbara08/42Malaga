@@ -6,59 +6,69 @@
 /*   By: bmartin- <bmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 13:05:28 by bmartin-          #+#    #+#             */
-/*   Updated: 2025/06/04 16:37:29 by bmartin-         ###   ########.fr       */
+/*   Updated: 2025/06/05 17:23:36 by bmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_read_file(int fd, char *str, char *resto)
+char	*ft_read_file(int fd, char *str, char *rest)
 {
 	char	*buffer;
-	char	*aux;
-	ssize_t	len;
 
 	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
 		return (NULL);
-	if (*resto)
+	if (*rest)
 	{
-		str = ft_strjoin(str, resto);
+		str = ft_strjoin(str, rest);
 		if (!str)
 		{
 			free(buffer);
 			return (NULL);
 		}
-		resto[0] = '\0';
+		rest[0] = '\0';
 	}
-	len = 1;
-	while (!(str && ft_strchr(str, '\n')) && len > 0)	
-	{
-		len = read(fd, buffer, BUFFER_SIZE);
-		if (len == -1)
-		{
-			free(buffer);
-			free(str);
-			return (NULL);
-		}
-		buffer[len] = '\0';
-		aux = ft_strjoin(str, buffer);
-		if (!aux)
-		{
-			free(buffer);
-			free(str);
-			return (NULL);
-		}
-		str = aux;
-	}
+	str = ft_read_and_join(fd, str, buffer);
 	free(buffer);
-	if (len == 0 && (str == NULL || *str == '\0'))
+	if (!str || *str == '\0')
 	{
 		free(str);
 		return (NULL);
 	}
 	return (str);
 }
+
+char	*ft_read_and_join(int fd, char *str, char *buffer)
+{
+	ssize_t	len;
+	char	*aux;
+
+	len = 1;
+	while (!(str && ft_strchr(str, '\n')) && len > 0)
+	{
+		len = read(fd, buffer, BUFFER_SIZE);
+		if (len == -1)
+		{
+			//free(buffer);
+			free(str);
+			return (NULL);
+		}
+			//return (free(str), NULL);
+		buffer[len] = '\0';
+		aux = ft_strjoin(str, buffer);
+		if (!aux)
+		{
+			//free(buffer);
+			free(str);
+			return (NULL);
+		}
+			//return (free(str), NULL);
+		str = aux;
+	}
+	return (str);
+}
+
 
 char	*ft_extract_line(char *line)
 {
@@ -87,7 +97,7 @@ char	*ft_extract_line(char *line)
 	return (new_line);
 }
 
-void	ft_exclude_line(char *line, char *resto)
+void	ft_exclude_line(char *line, char *rest)
 {
 	int		i;
 	int		j;
@@ -100,8 +110,8 @@ void	ft_exclude_line(char *line, char *resto)
 		i++;
 		j = 0;
 		while (line[i])
-			resto[j++] = line[i++];
-		resto[j] = '\0';
+			rest[j++] = line[i++];
+		rest[j] = '\0';
 	}
 	free(line);
 }
@@ -110,92 +120,24 @@ char	*get_next_line(int fd)
 {
 	char	*line_read;
 	char	*line;
-	static char resto[BUFFER_SIZE + 1];
+	static char rest[BUFFER_SIZE + 1];
 
 	line = NULL;
 	if (BUFFER_SIZE <= 0 || fd < 0)
 		return (NULL);
-	line = ft_read_file(fd, line, resto);
+	line = ft_read_file(fd, line, rest);
 	if (!line)
 		return (NULL);
 	line_read = ft_extract_line(line);
-	ft_exclude_line(line, resto);
+	ft_exclude_line(line, rest);
 	return (line_read);
 }
 
 /* --------------------------------------- */
-/*
 
-void	validate_pointer_and_free(char *str)
-{
-	if (str)
-		free(str);
-}
-
-
-FUNCION DIVIDIDA EN 2  (ft_read_and_strjoin) y (ft_read_file)
-
-char *ft_read_and_strjoin(int fd, char *str, char *buffer)
-{
-    ssize_t len;
-    char *aux;
-
-    len = read(fd, buffer, BUFFER_SIZE);
-	// controla error (-1) y EOF (0)
-    if (len <= 0)
-    {
-        free(buffer);		
-        if (str)
-            free(str);
-        return NULL;
-    }
-    buffer[len] = '\0';
-    aux = ft_strjoin(str, buffer);
-    if (!aux)
-    {
-        free(buffer);
-        if (str)
-            free(str);
-        return NULL;
-    }	
-    if (str)
-        free(str);
-    return (aux);
-}
-
-
-char	*ft_read_file(int fd, char *str)
-{
-	char	*buffer;
-	ssize_t	len;
-
-	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (!buffer)
-		return (NULL);
-	len = 1;
-	while (!(str && ft_strchr(str, '\n')) && len > 0)	
-	{
-		str = ft_read_and_strjoin(fd, str, buffer);
-		if (!str)
-    		return (NULL);
-	}
-	free(buffer);
-	if (len == 0 && (str == NULL || *str == '\0'))
-	{
-		if (str)
-			free(str);
-		return (NULL);
-	}
-	return (str);
-}
-*/
-
-
-/* --------------------------------------- */
-
-/* ORIGINAL SIN DIVIDIR
-
-char	*fSSSft_read_file(int fd, char *str)
+//ESTE ES EL CODIGO PERFECTO, SIN DIVIDIR
+/* 
+char	*ft_read_file(int fd, char *str, char *rest)
 {
 	char	*buffer;
 	char	*aux;
@@ -204,6 +146,16 @@ char	*fSSSft_read_file(int fd, char *str)
 	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
 		return (NULL);
+	if (*rest)
+	{
+		str = ft_strjoin(str, rest);
+		if (!str)
+		{
+			free(buffer);
+			return (NULL);
+		}
+		rest[0] = '\0';
+	}
 	len = 1;
 	while (!(str && ft_strchr(str, '\n')) && len > 0)	
 	{
@@ -211,8 +163,7 @@ char	*fSSSft_read_file(int fd, char *str)
 		if (len == -1)
 		{
 			free(buffer);
-			if (str)
-				free(str);
+			free(str);
 			return (NULL);
 		}
 		buffer[len] = '\0';
@@ -220,21 +171,18 @@ char	*fSSSft_read_file(int fd, char *str)
 		if (!aux)
 		{
 			free(buffer);
-			if (str)
-				free(str);
+			free(str);
 			return (NULL);
 		}
-		if (str)
-			free(str);
 		str = aux;
 	}
 	free(buffer);
 	if (len == 0 && (str == NULL || *str == '\0'))
 	{
-		if (str)
-			free(str);
+		free(str);
 		return (NULL);
 	}
 	return (str);
-}
-*/
+}*/
+/* --------------------------------------- */
+
