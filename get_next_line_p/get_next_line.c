@@ -120,3 +120,139 @@ char	*get_next_line(int fd)
 	ft_exclude_line(line, rest);
 	return (line_read);
 }
+
+//PARA LA FUNCION ft_read_file
+/* 
+int main(void)
+{
+	int		fd;
+	char	*line;
+	char	rest[BUFFER_SIZE + 1]; // Para guardar sobrantes entre llamadas
+	char	*str = NULL;
+
+	// Inicializamos rest vacío
+	rest[0] = '\0';
+
+	// Abrimos un archivo para leer
+	fd = open("file1.txt", O_RDONLY);
+	if (fd < 0)
+	{
+		perror("Error al abrir el archivo");
+		return (1);
+	}
+
+	// Leemos una "línea extendida" con ft_read_file
+	line = ft_read_file(fd, str, rest);
+	if (line)
+	{
+		printf("Contenido leído:\n%s\n", line);
+		free(line);
+	}
+	else
+	{
+		printf("No se pudo leer o EOF.\n");
+	}
+
+	close(fd);
+	return (0);
+}
+	*/
+
+//PARA LA FUNCION ft_read_and_join
+/* 
+int main(void)
+{
+	int     fd;
+	char    *line;
+	char    buffer[BUFFER_SIZE + 1]; // +1 para el null terminator
+	char    *str = NULL;
+	
+	// Abrimos el archivo a leer
+	fd = open("file1.txt", O_RDONLY);
+	if (fd < 0)
+	{
+		perror("Error al abrir archivo");
+		return (1);
+	}
+	// Llamamos a ft_read_and_join para leer hasta \n
+	line = ft_read_and_join(fd, str, buffer);
+	if (line)
+	{
+		printf("Resultado leído:\n%s\n", line);
+		free(line);
+	}
+	else
+		printf("Error o fin de archivo.\n");
+	close(fd);
+
+	return (0);
+}
+*/
+
+//PARA LA FUNCION ft_extract_line
+/* 
+int main(void)
+{
+	// Simulamos contenido leído del archivo
+	char *linea1 = "Primera línea\nSegunda línea\nTercera línea";
+	char *linea2 = "Una línea sin salto";
+	char *linea3 = "";
+
+	char *result;
+
+	// Caso 1: línea con \n
+	result = ft_extract_line(linea1);
+	if (result)
+	{
+		printf("Extraído (linea 1): \"%s\"\n", result);
+		free(result);
+	}
+	else
+		printf("No se extrajo nada (linea 1)\n");
+
+	// Caso 2: sin \n
+	result = ft_extract_line(linea2);
+	if (result)
+	{
+		printf("Extraído (linea 2): \"%s\"\n", result);
+		free(result);
+	}
+	else
+		printf("No se extrajo nada (linea 2)\n");
+
+	// Caso 3: cadena vacía
+	result = ft_extract_line(linea3);
+	if (result)
+	{
+		printf("Extraído (linea 3): \"%s\"\n", result);
+		free(result);
+	}
+	else
+		printf("No se extrajo nada (linea 3)\n");
+
+	return 0;
+}
+*/
+
+//PARA LA FUNCION ft_exclude_line
+/* 
+int main(void)
+{
+	char *line1 = strdup("Primera línea\nSegunda línea\nTercera línea");
+	char *line2 = strdup("Sin salto de línea");
+	char rest[1024];  // Tamaño grande por simplicidad
+
+	// Caso 1: línea con '\n'
+	printf("Original:\n%s\n", line1);
+	ft_exclude_line(line1, rest);
+	printf("Contenido en rest (caso 1):\n%s\n", rest);
+
+	// Caso 2: línea sin '\n'
+	printf("\nOriginal sin salto:\n%s\n", line2);
+	ft_exclude_line(line2, rest);
+	printf("Contenido en rest (caso 2):\n%s\n", rest);  // Esperamos cadena vacía
+
+	return (0);
+}
+
+*/

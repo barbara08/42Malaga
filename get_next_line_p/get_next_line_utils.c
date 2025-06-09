@@ -136,41 +136,53 @@ char	*ft_strchr(const char *s, int c)
 }
 */
 
-
-
-
-
-
 /* 
 int main(void)
 {
-    //char *linea = strdup("Hola\nMundo\nFinal");
-    char *str = "Hola\nMundo\nFinal";
-    char *linea = ft_strdup(str);
-    char *primera = ft_extract_line(linea);
-    printf("Primera: %s", primera);
+    char *str = "Hola\nsoy\nBarbara";
+	char dst[12];
+	char src[22] = "Periquito los palotes";
+	int size = 10;
+	//char const *s1 = "A ver que sale";
+	//char const *s2 = "no se porque";
 
-    linea = ft_exclude_line(linea);
-    char *segunda = ft_extract_line(linea);
-    printf("Segunda: %s", segunda);
-    
-    char *linea_completa = "Primera parte\nSegunda parte\nTercera parte";
-    char *lc = ft_strdup(linea_completa);
-    char *linea_extraida = ft_extract_line(lc);
-    char *linea_excluida = ft_exclude_line(lc);
-    if (linea_extraida || linea_excluida)
-    {
-        //printf("Línea extraída: \"%s\"\n", linea_extraida);
-        printf("Línea extraída: %s", linea_extraida);
-        printf("Línea excluida: %s", linea_excluida);
+	size_t str_len = ft_strlen(str);
+	size_t strl_cpy = ft_strlcpy(dst, src, size);
+	size_t strl_cat = ft_strlcat(dst, src, size);
+	//char *str_join = ft_strjoin(s1, s2);
+    char *str_chr = ft_strchr(str, '\n');
 
-        free(linea_extraida);
-        //free(linea_excluida);
+	printf("dst: %s", dst);
+	printf("\n");
+	printf("src %s", src);
+	printf("\n");
 
-    }
-    else
-        printf("No se pudo extraer ninguna línea.\n");
-    return (0);
+	printf("El resultado de ft_strlen es: %zu", str_len);
+	printf("\n");
+
+	printf("El resultado de ft_strlcpy es: %zu", strl_cpy);
+	printf("\n");
+	printf("Lo que vale dst después de llamar a la funcion: %s", dst);
+	printf("\n");
+	printf("Lo que vale src después de llamar a la funcion: %s", src);
+	printf("\n");
+
+	printf("El resultado de ft_strlcat es: %zu", strl_cat);
+	printf("\n");
+	printf("Lo que vale dst después de llamar a la funcion: %s", dst);
+	printf("\n");
+	printf("Lo que vale src después de llamar a la funcion: %s", src);
+	printf("\n");
+
+	//printf("El resultado de ft_strjoin es: %s", str_join);
+	//printf("\n");
+
+	printf("El resultado de ft_strchr es: %s", str_chr);
+	printf("\n");
+	
+
+	return(0);
+
 }
 
 */
