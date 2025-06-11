@@ -119,12 +119,29 @@ char	*ft_extract_line(char *line)
 	free(line);
 }
 
+/*
+//SE PUEDE PONER OPEN_MAX EN VEZ DE UN NUMERO FIJO al igual que BUFFER_SIZE
+static char rest[OPEN_MAX][BUFFER_SIZE + 1];
+significa que se declara una **variable estática** llamada `rest`, que es un **arreglo bidimensional** de caracteres.
+
+static: la variable conserva su valor entre llamadas a la función y solo existe en ese archivo.
+char rest[OPEN_MAX][BUFFER_SIZE + 1]`: es un array de `OPEN_MAX` filas, 
+y cada fila es un array de `BUFFER_SIZE + 1` caracteres.
+
+**¿Para qué sirve?**  
+Se usa para guardar, para cada posible descriptor de archivo (`fd`), 
+los caracteres "restantes" que no se han procesado aún (por ej, lo que queda después de un salto de línea). 
+Así, puedes leer de varios archivos a la vez y mantener el estado de cada uno por separado.
+
+**Problema:**  
+Si `OPEN_MAX` y `BUFFER_SIZE` son grandes, este array ocupa mucha memoria, 
+lo que puede causar errores como el que viste con Valgrind. 
+Por eso, es mejor usar memoria dinámica para cada `fd`.*/
+
 char	*get_next_line(int fd)
 {
 	char	*line_read;
 	char	*line; 
-
-	//SE PUEDE PONER OPEN_MAX EN VEZ DE UN NUMERO FIJO 
 	static char rest[OPEN_MAX][BUFFER_SIZE + 1];
 
 	line = NULL;
