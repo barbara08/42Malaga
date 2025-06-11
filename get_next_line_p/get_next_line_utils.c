@@ -88,6 +88,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (flag)
 		free((void *)s1);
 	return (reserve_join);
+
 }
 
 char	*ft_strchr(const char *s, int c)
@@ -184,5 +185,38 @@ int main(void)
 	return(0);
 
 }
+
+
+
+
+//strjoin
+
+size_t	s1_len;
+	size_t	s2_len;
+	char	*reserve_join;
+	int		flag;
+
+	flag = 1;
+	if (!s1)
+	{
+		s1 = "";
+		flag = 0;
+	}
+	if (!s2)
+		s2 = "";
+	//if (!s1 || !s2)
+	//	return (NULL);
+	s1_len = ft_strlen(s1);
+	s2_len = ft_strlen(s2);
+	reserve_join = malloc((s1_len + s2_len + 1) * sizeof(char));
+	if (!reserve_join)
+		return (NULL);
+	ft_strlcpy(reserve_join, s1, s1_len + s2_len + 1);
+	ft_strlcat(reserve_join, s2, s1_len + s2_len + 1);
+	if (flag)
+		free((void *)s1);
+	return (reserve_join);
+
+
 
 */
