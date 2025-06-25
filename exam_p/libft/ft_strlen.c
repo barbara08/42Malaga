@@ -20,6 +20,7 @@ size_t ft_strlen(const char *s)
     return(i);
 }
 
+/* 
 int main()
 {
     char *s = "chocolatero";
@@ -27,3 +28,4 @@ int main()
     printf("%zu", s_len);
     return(0);
 }
+*/
