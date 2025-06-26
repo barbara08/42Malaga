@@ -4,6 +4,9 @@
 //Esta función gestiona la lectura de un archivo en fragmentos, 
 //manejando casos donde hay datos "restantes" 
 //y asegurándose de liberar memoria correctamente en caso de errores.
+//str => puntero a una cadena donde se va acumulando lo leído del archivo
+//rest =>cadena donde puede haber datos sobrantes de una lectura anterior, 
+	//como por ejemplo si en una lectura se encontró un \n y quedaron caracteres por procesar después de ese salto
 char	*ft_read_file(int fd, char *str, char *rest)
 {
 	char	*buffer;
@@ -14,7 +17,8 @@ char	*ft_read_file(int fd, char *str, char *rest)
 		return (NULL);
 	//Si rest no está vacío une esa cadena con str usando ft_strjoin
 	//Esto es porque si hay datos "restantes" de una lectura anterior
-	//y queremops agregar.
+	//y queremos agregar, es decir, si rest tiene datos, lo añadimos a str
+	// lo une antes de seguir leyendo del archivo
 	if (*rest)
 	{
 		str = ft_strjoin(str, rest);
@@ -26,9 +30,9 @@ char	*ft_read_file(int fd, char *str, char *rest)
 		//Después de unir, pone el carácter nulo en rest[0], limpiándolo
 		rest[0] = '\0';
 	}
-	//Llamamos a la función ft_read_and_join, 
-	//que lee del archivo descriptor fd 
+	//Llamamos a la función ft_read_and_join, que lee del archivo descriptor fd 
 	//y va agregando los datos a str, usando el buffer.
+	//Aquí se realiza la lectura real del archivo, fragmento por fragmento, y se van agregando los datos a str.
 	str = ft_read_and_join(fd, str, buffer);
 	free(buffer);
 	//Si str es NULL o está vacío libera str y devuelve NULL
@@ -51,12 +55,14 @@ char	*ft_read_and_join(int fd, char *str, char *buffer)
 	char	*aux; //puntero auxiliar para gestionar la concatenación de cadenas
 
 	len = 1;
-	//El ciclo continúa mientras no se haya encontrado un salto de línea
-	//en str y mientras len sea mayor que 0 (es decir, mientras sigan llegando datos)
+	//El ciclo continúa mientras no se haya encontrado un salto de línea en str
+	//y mientras len sea mayor que 0 (es decir, mientras sigan llegando datos)
 	//significa: "si str no es NULL y no contiene un salto de línea,
 	//y todavía hay datos que leer"
 	while (!(str && ft_strchr(str, '\n')) && len > 0)
 	{
+		//Lee del archivo fd hasta BUFFER_SIZE bytes y guarda en buffer
+		//len almacena la cantidad de bytes leídos
 		len = read(fd, buffer, BUFFER_SIZE);
 		//Si hubo error (-1) sse libera str
 		if (len == -1)
