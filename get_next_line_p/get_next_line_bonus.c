@@ -142,6 +142,9 @@ char	*get_next_line(int fd)
 {
 	char	*line_read;
 	char	*line; 
+	//OPEN_MAX es una constante del sistema 
+	//que indica el número máximo de descriptores de archivos 
+	//que un proceso puede tener abiertos simultáneamente
 	static char rest[OPEN_MAX][BUFFER_SIZE + 1];
 
 	line = NULL;

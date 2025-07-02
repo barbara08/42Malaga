@@ -27,7 +27,10 @@ char	*ft_read_file(int fd, char *str, char *rest)
 			free(buffer);
 			return (NULL);
 		}
-		//Después de unir, pone el carácter nulo en rest[0], limpiándolo
+		//Si rest tiene contenido (por eso se verifica if (*rest) — que el primer carácter no sea '\0'),
+		//ese contenido se concatena a str para incluirlo en la cadena que se va a devolver.
+		//Luego, se "limpia" rest para que no quede contenido viejo y no se mezcle en la próxima lectura
+		// Es una forma rápida de "borrar" la cadena sin liberar memoria
 		rest[0] = '\0';
 	}
 	//Llamamos a la función ft_read_and_join, que lee del archivo descriptor fd 
