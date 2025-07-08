@@ -17,7 +17,8 @@ $>./inter | cat -e
 $
 */
 
-int ft_putchar(char c);
+
+int ft_putchar(char c)
 {
     return(write(1, &c, 1));
 }
@@ -26,11 +27,33 @@ int main(int argc, char **argv)
 {
     int i;
     int x;
-    int unused_character;
+    int unused_character[256] = {};
 
+	i = 0;
+	//unused_character[256] = {};
     if (argc == 3)
     {
-        while ()
-    }
-     
+        while (argv[1][i])
+		{
+			x = 0;
+			while (argv[2][x])
+			{
+				if ((argv[1][i] == argv[2][x]) && !unused_character[(int)argv[2][x]])
+				{
+					unused_character[(int)argv[2][x]] = 1;  // Marcar como impreso
+					ft_putchar(argv[2][x]);  // Imprimir el carácter común
+				}
+				x++;
+			}
+			i++;
+		}
+	}
+	ft_putchar('\n');
+	return(0);
 }
+/*
+Debe ser simplemente !unused_character[(int)argv[2][x]]. 
+El valor de argv[2][x] es un carácter, y al usarlo directamente como índice, 
+debemos convertirlo a un entero (usando el casting (int)) 
+para usarlo como índice en el arreglo unused_character.
+*/
