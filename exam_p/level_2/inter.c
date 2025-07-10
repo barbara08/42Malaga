@@ -1,6 +1,6 @@
 #include "libft2.h"
 
-/*
+/* display => mostrar
 Write a program that takes two strings and displays, without doubles, the
 characters that appear in both strings, in the order they appear in the first
 one.
@@ -27,10 +27,10 @@ int main(int argc, char **argv)
 {
     int i;
     int x;
-    int unused_character[256] = {};
+    int used_character[256] = {};
 
 	i = 0;
-	//unused_character[256] = {};
+	//used_character[256] = {};
     if (argc == 3)
     {
         while (argv[1][i])
@@ -38,9 +38,9 @@ int main(int argc, char **argv)
 			x = 0;
 			while (argv[2][x])
 			{
-				if ((argv[1][i] == argv[2][x]) && !unused_character[(int)argv[2][x]])
+				if ((argv[1][i] == argv[2][x]) && !used_character[(int)argv[2][x]])
 				{
-					unused_character[(int)argv[2][x]] = 1;  // Marcar como impreso
+					used_character[(int)argv[2][x]] = 1;  // Marcar como impreso
 					ft_putchar(argv[2][x]);  // Imprimir el carácter común
 				}
 				x++;
@@ -52,8 +52,8 @@ int main(int argc, char **argv)
 	return(0);
 }
 /*
-Debe ser simplemente !unused_character[(int)argv[2][x]]. 
+Debe ser simplemente !used_character[(int)argv[2][x]]. 
 El valor de argv[2][x] es un carácter, y al usarlo directamente como índice, 
 debemos convertirlo a un entero (usando el casting (int)) 
-para usarlo como índice en el arreglo unused_character.
+para usarlo como índice en el arreglo used_character.
 */
