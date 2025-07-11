@@ -16,10 +16,12 @@ void print_bits(unsigned char octet)
 {
     int i = 8; // Contador a 8, ya que son 8 bits
     unsigned char bit = 0; // Inicializar bit a 0, para almacenar el bit actual
+    printf("octect: %u\n", octet);
 
     while (i--) // Mientras i sea mayor que 0 (empezando con i = 8 y disminuyendo hasta 0)
     {
-        bit = (octet >> i & 1) + 48; 
+        bit = (octet >> i & 1) + 48;
+        printf("bit: %d %u\n", i,octet >> i );
         write (1, &bit, 1); 
     }
 }
@@ -57,11 +59,13 @@ void printt_bitss(unsigned char octet)
 }
 
 int main() {
-    unsigned char n = 10;
+    unsigned char n = 20;
     /* 
     2  => 00000010
     5  => 00000101
     10 => 00001010
+    20 => 00010100
+    23 => 00010111
     */
 
     print_bits(n);
@@ -70,3 +74,4 @@ int main() {
 
     return (0);
 }
+
