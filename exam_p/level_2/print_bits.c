@@ -5,73 +5,56 @@ AT THE END.
 Your function must be declared as follows:
 void	print_bits(unsigned char octet);
 Example, if you pass 2 to print_bits, it will print "00000010"
+Explciación del código en el file explicacion_print_bits.c
  */
-
- void ft_putchar(char c)
-{
-    write(1, &c, 1);
-}
 
 void print_bits(unsigned char octet)
 {
-    int i = 8; // Contador a 8, ya que son 8 bits
-    unsigned char bit = 0; // Inicializar bit a 0, para almacenar el bit actual
+    int i = 8; 
+    unsigned char bit = 0;
     printf("octect: %u\n", octet);
 
-    while (i--) // Mientras i sea mayor que 0 (empezando con i = 8 y disminuyendo hasta 0)
+    while (i--)
     {
-        bit = (octet >> i & 1) + 48;
-        printf("bit: %d %u\n", i,octet >> i );
-        write (1, &bit, 1); 
+        bit = (octet >> i & 1) + 48; 
+        //printf("bit: %d %u\n", i, octet >> i );
+        write (1, &bit, 1);
     }
 }
 
-/* EXPLICACION
-(octet >> i & 1)
-octet >> i desplaza los bits del byte octet hacia la derecha i posiciones.
-Luego, se hace un AND bit a bit con 1 para aislar el bit menos significativo en esa posición.
-Esto obtiene el valor del bit en la posición i (de izquierda a derecha).
-+ 48
-El valor del bit será 0 o 1.
-Se suma 48 porque en ASCII el carácter '0' tiene el valor decimal 48 y '1' tiene 49.
-Así convertimos el número 0 o 1 en su representación de carácter ASCII para imprimirlo.
-*/
-
-// OTRA FORMA
-void printt_bitss(unsigned char octet)
+// FUNCION IMPREME LA SALIDA CON SEPARACION EJ: 0000 1010 EN VEZ DE 00001010
+void print_bits_separate(unsigned char octet)
 {
-    //Creamos una máscara con un 1 en el bit más alto (el bit 7). Por ejemplo: 10000000
-    unsigned char mask = 1 << 7;  // Máscara para el bit más significativo (bit 7)
-    int i = 0;
+    int i = 8;
+    unsigned char bit;
 
-    while (i < 8) 
+    printf("octet: %u\n", octet);
+    while (i--)
     {
-        //Hacemos una operación AND para saber si el bit actual es 1 o 0
-        if ((octet & mask) != 0)  // Comprobamos si el bit actual es 1
-            ft_putchar('1');
-        else
-            ft_putchar('0');
-        //Corremos la máscara un bit hacia la derecha para verificar el siguiente bit
-        mask >>= 1;  // Movemos la máscara un bit a la derecha
-        i++;
-    }
-    // NO ponemos salto de línea (no hay '\n')
-}
+        bit = ((octet >> i) & 1) + '0';
+        write(1, &bit, 1);
 
-int main() {
-    unsigned char n = 20;
-    /* 
+        if (i == 4)
+            write(1, " ", 1);
+    }
+    //write(1, "\n", 1); // No lo pide, no se pone
+}
+/* 
+int main() 
+{
+    unsigned char n = 44;
+     
     2  => 00000010
     5  => 00000101
     10 => 00001010
     20 => 00010100
     23 => 00010111
-    */
+    
 
     print_bits(n);
-    ft_putchar('\n');
-    printt_bitss(n);
+    write(1, "\n", 1);
+    print_bits_separate(n);
 
     return (0);
 }
-
+*/

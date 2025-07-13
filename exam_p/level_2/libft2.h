@@ -7,4 +7,6 @@
 # include <stdarg.h>
 # include <string.h>
 
+void print_bits(unsigned char octet);
+
 #endif

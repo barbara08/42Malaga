@@ -20,8 +20,8 @@ char    *ft_strrev(char *str)
     
     // Intercambiamos caracteres desde ambos extremos hacia el centro
 		//usamos dos índices: 
-		//i (inicio) y j (final), 
-		//y mientras i < j, intercambiamos los caracteres en esas posiciones
+		//i (inicio) y x (final), 
+		//y mientras i < x, intercambiamos los caracteres en esas posiciones
     x = i - 1;
     i = 0;
     while(i < x)
