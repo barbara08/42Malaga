@@ -26,8 +26,8 @@ void ft_write_int(int n)
 {
     char c;
     if (n >= 10)
-        ft_write_int(n / 10);
-    c = n % 10 + '0';
+        ft_write_int(n / 10); // llamada recursiva: divide para sacar dígitos
+    c = n % 10 + '0';  // obtiene el último dígito y lo convierte a carácter
     write(1, &c, 1);
 }
 
