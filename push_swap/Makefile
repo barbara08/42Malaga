@@ -6,7 +6,11 @@ CFLAGS = -Wall -Wextra -Werror
 
 CC = cc
 
-SRC = 
+SRC = rules_swaps.c \
+rules_push.c \
+rules_reverse_rotate.c \
+rules_rotate.c \
+
 
 all: $(NAME)
 
