@@ -1,6 +1,7 @@
 #include "libft.h"
 
-void	ft_putnbr(int n)
+//Usando la función ft_putchar
+void	fft_pputnbr(int n)
 {
 	if (n < 0)
 	{
@@ -11,10 +12,23 @@ void	ft_putnbr(int n)
 		ft_putnbr(n / 10);
 	ft_putchar((n % 10) + '0');
 }
-/* 
+
+//Sin usar la función ft_putchar
+void ft_putnbr(int n)
+{
+    char c;
+    if (n >= 10)
+        ft_putnbr(n / 10);
+    c = (n % 10) + '0';
+    write(1, &c, 1);
+}
+
+
 int main()
 {
     ft_putnbr('A');
+	write(1, "\n", 1);
+    fft_pputnbr('A');
+
     return(0);
 }
-*/
