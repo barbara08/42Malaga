@@ -16,19 +16,27 @@ void	fft_pputnbr(int n)
 //Sin usar la función ft_putchar
 void ft_putnbr(int n)
 {
-    char c;
-    if (n >= 10)
-        ft_putnbr(n / 10);
-    c = (n % 10) + '0';
-    write(1, &c, 1);
+	//Manejar el negativo
+	if (n < 0)
+	{
+		write(1, "-", 1);
+		n = -n;
+	}
+	char c;
+	if (n >= 10)
+		ft_putnbr(n / 10);
+	c = (n % 10) + '0';
+	write(1, &c, 1);
 }
 
 
 int main()
 {
-    ft_putnbr('A');
+	ft_putnbr('A');
 	write(1, "\n", 1);
-    fft_pputnbr('A');
+	ft_putnbr(-5);
+	write(1, "\n", 1);
+	fft_pputnbr('A');
 
-    return(0);
+	return(0);
 }
