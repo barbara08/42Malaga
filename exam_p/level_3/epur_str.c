@@ -24,42 +24,42 @@ $>
 //Return 0 => si no lo es
 int is_space(char c)
 {
-    return(c == ' ' || c == '\t');
+	return(c == ' ' || c == '\t');
 }
 
 int main(int argc, char **argv)
 {
-    int i = 0;
-    int space = 0;
-    
-    if (argc == 2)
-    {
-        // Saltar espacios/tabs iniciales
-        while(argv[1][i] && is_space(argv[1][i]))
-            i++;
-        while (argv[1][i])
-        {
-            // Si encontramos una palabra
-            if (!is_space(argv[1][i]))
-            {
-                if (space)
-                    write(1, " ", 1); // Escribimos espacio entre palabras
-                // Escribir la palabra
-                while (argv[1][i] && !is_space(argv[1][i]))
-                {
-                    write(1, &argv[1][i], 1);
-                    i++;
-                }
-                space = 1; // Se necesita espacio antes de la próxima palabra
-            }
-            else
-            {
-                // Saltar espacios entre palabras
-                while (argv[1][i] && is_space(argv[1][i]))
-                    i++;
-            }
-        }
-    }
-    write(1, "\n", 1);
-    return(0);
+	int i = 0;
+	int space = 0;
+
+	if (argc == 2)
+		{
+		// Saltar espacios/tabs iniciales
+		while(argv[1][i] && is_space(argv[1][i]))
+			i++;
+		while (argv[1][i])
+		{
+			// Si encontramos una palabra
+			if (!is_space(argv[1][i]))
+			{
+				if (space)
+					write(1, " ", 1); // Escribimos espacio entre palabras
+				// Escribir la palabra
+				while (argv[1][i] && !is_space(argv[1][i]))
+				{
+					write(1, &argv[1][i], 1);
+					i++;
+				}
+				space = 1; // Se necesita espacio antes de la próxima palabra
+			}
+			else
+			{
+				// Saltar espacios entre palabras
+				while (argv[1][i] && is_space(argv[1][i]))
+					i++;
+			}
+		}
+	}
+	write(1, "\n", 1);
+	return(0);
 }

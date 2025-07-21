@@ -20,19 +20,35 @@ $>
 //return(1) => SI es primo
 int is_prime(int n)
 {
-    int divisor = 2;
-    if (n < 2)
-        return(0);
-    while (divisor * divisor <= n)
-    {
-        if(n % divisor == 0)
-            return(0);
-        divisor++;
-    }
-    return(1);
+	int divisor = 2;
+	if (n < 2)
+		return(0);
+	while (divisor * divisor <= n)
+	{
+		if(n % divisor == 0)
+			return(0);
+		divisor++;
+	}
+	return(1);
 }
 
+int isPrime(int num)
+{
+	if (num <= 1)
+		return (0); // No es primo ni 0 ni 1
+	int i = 2;
+	while (i < num)
+	{
+		if (num % i == 0)
+			return (0); // No es primo
+		i++;
+	}
+	return (1); // Es primo
+}
+
+
 //Para imprimir un número
+//No verifica el negativo (porque solo pide positivo)
 //Para poder imprimir sum
 void ft_putnbr(int n)
 {
@@ -83,7 +99,7 @@ int main(int argc, char **argv)
         i = 2;
         while (i <= n)
         {
-            if (is_prime(i))
+            if (isPrime(i))
                 sum += i;
             i++;
         }

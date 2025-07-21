@@ -16,56 +16,69 @@ int	ft_atoi_base(const char *str, int str_base);
 //Función para ignorar espacios, tabs, saltos de línea, etc. al comienzo
 int is_space(char c)
 {
-    return (c == ' ' || c == '\t' || c == '\n' ||
-            c == '\v' || c == '\f' || c == '\r');
+	return (c == ' ' || c == '\t' || c == '\n' ||
+			c == '\v' || c == '\f' || c == '\r');
 }
 //Funcion que convierte un carácter que representa un dígito en una base hasta 16
 int char_to_value(char c)
 {
-    if (c >= '0' && c <= '9')
-        return (c - '0');
-    if (c >= 'a' && c <= 'f')
-        return (c - 'a' + 10);
-    if (c >= 'A' && c <= 'F')
-        return (c - 'A' + 10);
-    return (-1); // Invalid character
+	if (c >= '0' && c <= '9')
+		return (c - '0');
+	if (c >= 'a' && c <= 'f')
+		return (c - 'a' + 10);
+	if (c >= 'A' && c <= 'F')
+		return (c - 'A' + 10);
+	return (-1); // Invalid character
 }
 
 int ft_atoi_base(const char *str, int str_base)
 {
-    int i = 0;
-    int result = 0;
-    int sign = 1;
-    int value;
+	int i = 0;
+	int result = 0;
+	int sign = 1;
+	int value;
 
-    if (str_base < 2 || str_base > 16)
-        return (0);
+	if (str_base < 2 || str_base > 16)
+		return (0);
 
-    // Saltar espacios iniciales
-    while (is_space(str[i]))
-        i++;
-    // Signo negativo
-    if (str[i] == '-')
-    {
-        sign = -1;
-        i++;
-    }
-    // Convertir cada carácter válido a su valor numérico
-    while (str[i])
-    {
-        value = char_to_value(str[i]);
-        if (value < 0 || value >= str_base)
-            break;
-        result = result * str_base + value;
-        i++;
-    }
-    return (result * sign);
+	// Saltar espacios iniciales
+	while (is_space(str[i]))
+		i++;
+	// Verificar si el primer caracter es '-'
+	// Signo negativo
+	if (str[i] == '-')
+	{
+		sign = -1;
+		i++;
+	}
+	// Recorrer la cadena mientras haya caracteres válidos
+	// Convertir cada carácter válido a su valor numérico
+	while (str[i])
+	{
+		value = char_to_value(str[i]);
+		if (value < 0 || value >= str_base)
+    		break; // Caracter no válido en la base indicada
+		result = result * str_base + value;
+		i++;
+	}
+	return (result * sign);
 }
 
 //Esta función para el main
 void ft_putnbr(int n)
 {
     char c;
+
+    if (n == -2147483648) // Caso mínimo de int
+    {
+        write(1, "-2147483648", 11);
+        return;
+    }
+    if (n < 0)
+    {
+        write(1, "-", 1);
+        n = -n;
+    }
     if (n >= 10)
         ft_putnbr(n / 10);
     c = (n % 10) + '0';
@@ -86,6 +99,11 @@ int main(int argc, char **argv)
     int i = 0;
     while (argv[2][i])
     {
+		if (argv[2][i] < '0' || argv[2][i] > '9')
+        {
+            write(1, "Base inválida\n", 13);
+            return (1);
+        }
         base = base * 10 + (argv[2][i] - '0');
         i++;
     }
@@ -94,8 +112,16 @@ int main(int argc, char **argv)
     write(1, "\n", 1);
     return (0);
 }
-
-
+/* 
+int main()
+{	//RESULTADOS
+    printf("%d\n", ft_atoi_base("1a", 16));  // 26
+    printf("%d\n", ft_atoi_base("-101", 2)); // -5
+    printf("%d\n", ft_atoi_base("123", 4));  // 27
+    printf("%d\n", ft_atoi_base("12FDB3", 16)); // 1244483
+    return 0;
+}
+*/
 
 
 /*EXPLICACION 

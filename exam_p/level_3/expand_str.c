@@ -22,14 +22,15 @@ $>
 
 int is_space(char c)
 {
-    if (c <= 32)
-        return 1;
-    return (0);
+	if (c <= 32)
+		return (1);
+	return (0);
 }
 
-int main(int ac, char **argv)
+int main(int argc, char **argv)
 {
-    if (ac == 2)
+    if (argc == 2)
+	
     {
         int i = 0; 
         int space = 0;
