@@ -16,12 +16,20 @@ void	fft_pputnbr(int n)
 //Sin usar la función ft_putchar
 void ft_putnbr(int n)
 {
+	//Manejar INT MIN
+	/* 
+	if (n == -2147483648) // límite de int
+    {
+        write(1, "-2147483648", 11);
+        return;
+    }*/
 	//Manejar el negativo
 	if (n < 0)
 	{
 		write(1, "-", 1);
 		n = -n;
 	}
+	//Manejar el positivo
 	char c;
 	if (n >= 10)
 		ft_putnbr(n / 10);
@@ -34,8 +42,16 @@ int main()
 {
 	ft_putnbr('A');
 	write(1, "\n", 1);
+
 	ft_putnbr(-5);
 	write(1, "\n", 1);
+
+	ft_putnbr(-2147483647);
+	write(1, "\n", 1);
+
+	ft_putnbr(2147483647);
+	write(1, "\n", 1);
+
 	fft_pputnbr('A');
 
 	return(0);
