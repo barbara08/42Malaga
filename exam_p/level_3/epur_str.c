@@ -18,7 +18,39 @@ $> ./epur_str "" | cat -e
 $
 $>
 */
+//En ASCII, los caracteres con valor ≤ 32 
+//son caracteres de control y espacios en blanco
+//(por ejemplo, espacio, tabulador, salto de línea)
 
+int main(int argc, char **argv)
+{
+	int i = 0;
+	if(argc == 2)
+	{
+		//Mientras que el carácter en argv[1][i] no sea nulo ('\0') 
+		//y sea un carácter de espacio o control (ASCII ≤ 32), el ciclo continúa.
+		while (argv[1][i] && argv[1][i] <= 32)
+			i++;
+		while (argv[1][i])
+		{
+			if(argv[1][i] > 32)
+				write(1, &argv[1][i], 1);
+			else if( argv[1][i + 1] && argv[1][i + 1] > 32)
+				write(1, " ", 1);
+			i++;
+		}
+	}
+	write(1, "\n", 1);
+	return(0);
+}
+
+
+
+
+
+
+
+/* FUNCIONA, PERO ES MUY LARGO
 //Verifica si un carácter es espacio o tabulación
 //Return 1 => si es alguno de los dos 
 //Return 0 => si no lo es
@@ -63,3 +95,4 @@ int main(int argc, char **argv)
 	write(1, "\n", 1);
 	return(0);
 }
+*/
