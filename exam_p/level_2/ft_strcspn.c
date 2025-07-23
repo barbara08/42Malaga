@@ -53,7 +53,7 @@ size_t	fft_sstrcspn(const char *s, const char *reject)
 int main()
 {
 	const char *s = "periquito los palotes";
-	const char *reject1 = "aiou";
+	const char *reject1 = "aeiou";
 	const char *reject2 = "t";
 	size_t ftstrcspn1 = ft_strcspn(s, reject1);
 	size_t ftstrcspn2 = ft_strcspn(s, reject2);

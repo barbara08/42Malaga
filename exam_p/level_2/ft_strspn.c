@@ -31,9 +31,11 @@ size_t	ft_strspn(const char *s, const char *accept)
 }
 int main()
 {
-	const char *s = "hello";
-	const char *accept1 = "jfkkhpoell";
-	const char *accept2 = "x";
+	const char *s = "ppperiquito los palotes";
+	const char *accept1 = "x";
+	const char *accept2 = "eriuito los palotes";
+	//const char *s = "hello";
+	//const char *accept2 = "jfkkpoell";
 	size_t ftstrspn1 = ft_strspn(s, accept1);
 	size_t ftstrspn2 = ft_strspn(s, accept2);
 
