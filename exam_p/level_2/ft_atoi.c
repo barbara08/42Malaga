@@ -9,24 +9,24 @@ int	ft_atoi(const char *str);
 
 int	ft_atoi(const char *str)
 {
-    int result = 0;
-    int negative = 1;
+	int result = 0;
+	int negative = 1;
 
-    while ((*str >= 9 && *str <= 13) || *str == 32)
-        str++;
-    if(*str == '-')
-    { 
-        negative = -1;
-        str++;
-    }
-    else if(*str == '+')
-        str++;
-    while(*str >= '0' && *str <= '9')
-    {
-        result = result * 10 + (*str - '0');
-        str++;
-    }
-    return(result * negative);
+	while ((*str >= 9 && *str <= 13) || *str == 32)
+		str++;
+	if(*str == '-')
+	{
+		negative = -1;
+		str++;
+	}
+	else if(*str == '+')
+		str++;
+	while(*str >= '0' && *str <= '9')
+	{
+		result = result * 10 + (*str - '0');
+		str++;
+	}
+	return(result * negative);
 }
 
 int main(void)
