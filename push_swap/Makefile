@@ -1,4 +1,4 @@
-NAME = pushswap.a
+NAME = push_swap
 
 OBJ = $(SRC:.c=.o)
 
@@ -10,13 +10,14 @@ SRC = rules_swaps.c \
 rules_push.c \
 rules_reverse_rotate.c \
 rules_rotate.c \
-
+utils.c \
+sorted.c \
+main.c
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	ar rc $(NAME) $(OBJ)
-	ranlib $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 
 %.o: %.c push_swap.h
 	$(CC) $(CFLAGS) -c $< -o $@

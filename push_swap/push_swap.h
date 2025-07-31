@@ -6,9 +6,30 @@
 # include <stdio.h>
 # include <stdarg.h>
 
+
+//Validations utils.c
+int ft_atoi_validate(const char *str, int *error);
+int ft_number_duplicate(int *stack, int size);
+int ft_is_sorted(int *stack, int size);
+void ft_putstr_fd(char *s, int fd); //en vez de utilizar write, pero no lo uso
+
+//Sorted sorted.c
+void ft_sort_three(int *stack_a, int size_a);
+void ft_sort_five(int *stack_a, int *size_a, int *stack_b, int *size_b);
+
+
+//Operations
 void	sa_swap(int a[], int len_a);
 void	sb_swap(int b[], int len_b);
 void	ss_swap(int a[], int len_a, int b[], int len_b);
+void	pa_push(int a[], int *len_a, int b[], int *len_b);
+void	pb_push(int a[], int *len_a, int b[], int *len_b);
+void	ra_rotate(int a[], int len_a);
+void	rb_rotate(int b[], int len_b);
+void	rr_rotate(int a[], int len_a, int b[], int len_b);
+void	rra_reverse_rotate(int a[], int len_a);
+void	rrb_reverse_rotate(int b[], int len_b);
+void	rrr_reverse_rotate(int a[], int len_a, int b[], int len_b);
 
 
 #endif

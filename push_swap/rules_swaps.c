@@ -18,6 +18,7 @@ void sa_swap(int a[], int len_a)
 		tmp = a[0];
 		a[0] = a[1];
 		a[1] = tmp;
+		write(1, "sa\n", 3); 
 		i = 1; // Para salir del while después de 1 iteración
 	}
 }
@@ -30,6 +31,7 @@ void sb_swap(int b[], int len_b)
 		tmp = b[0];
 		b[0] = b[1];
 		b[1]= tmp;
+		write(1, "sb\n", 3);
 		i = 1;
 	}
 }
@@ -38,8 +40,10 @@ void ss_swap(int a[], int len_a, int b[], int len_b)
 {
 	sa_swap(a, len_a);
 	sb_swap(b, len_b);
+	write(1, "ss\n", 3);
 }
-//Función para hacer imprimir 
+/* 
+//Función para hacer imprimir, para el main
 void print_testing(char name, int stack[], int len)
 {
 	int i = 0;
@@ -50,6 +54,7 @@ void print_testing(char name, int stack[], int len)
 	}
 	printf("\n");
 }
+
 int main()
 {
 	int a[] = {1, 2, 3};
@@ -75,4 +80,4 @@ int main()
 	print_testing('b', b, len_b);
 
 	return (0);
-}
+}*/

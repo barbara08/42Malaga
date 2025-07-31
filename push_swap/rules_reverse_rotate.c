@@ -49,8 +49,9 @@ void rrr_reverse_rotate(int a[], int len_a, int b[], int len_b)
 {
 	rra_reverse_rotate(a, len_a);
 	rrb_reverse_rotate(b, len_b);
+	write(1, "rrr\n", 4);
 }
-
+/* Funcion para el main
 void print_testing(char name, int stack[], int len)
 {
 	int i = 0;
@@ -61,6 +62,7 @@ void print_testing(char name, int stack[], int len)
 	}
 	printf("\n");
 }
+
 int main()
 {
 	int a[10] = {1, 2, 3, 4};
@@ -87,4 +89,5 @@ int main()
 
 	return (0);
 }
+*/
 

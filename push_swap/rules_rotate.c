@@ -23,6 +23,7 @@ void ra_rotate(int a[], int len_a)
 		i++;
 	}
 	a[len_a - 1] = first;
+	write(1, "ra\n", 3);
 }
 
 void rb_rotate(int b[], int len_b)
@@ -39,14 +40,16 @@ void rb_rotate(int b[], int len_b)
 		i++;
 	}
 	b[len_b - 1] = first;
+	write(1, "rb\n", 3);
 }
 void rr_rotate(int a[], int len_a, int b[], int len_b)
 {
 	ra_rotate(a, len_a);
 	rb_rotate(b, len_b);
+	write(1, "rr\n", 3);
 }
 
-
+/* Función para el main
 void print_testing(char name, int stack[], int len)
 {
 	int i = 0;
@@ -57,7 +60,6 @@ void print_testing(char name, int stack[], int len)
 	}
 	printf("\n");
 }
-
 int main()
 {
 	int a[10] = {1, 2, 3, 4};
@@ -85,4 +87,4 @@ int main()
 	print_testing('b', b, len_b);
 
 	return (0);
-}
+}*/

@@ -51,7 +51,8 @@ void pa_push(int a[], int *len_a, int b[], int *len_b)
 		}
 		(*len_a)++;
 		(*len_b)--;
-		i = 1;
+		write(1, "pa\n", 3);
+		i = 1; //no se si debe estar
 	}
 }
 
@@ -80,9 +81,11 @@ void pb_push(int a[], int *len_a, int b[], int *len_b)
 		}
 		(*len_b)++;
 		(*len_a)--;
-		i = 1;
+		write(1, "pb\n", 3);
+		i = 1; //no se si debe estar
 	}
 }
+/* Funcion para el main
 void print_testing(char name, int stack[], int len)
 {
 	int i = 0;
@@ -119,3 +122,4 @@ int main()
 
 	return (0);
 }
+*/
