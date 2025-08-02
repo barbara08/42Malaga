@@ -7,6 +7,8 @@
 # include <stdarg.h>
 # include <string.h>
 
-void print_bits(unsigned char octet);
+void    print_bits(unsigned char octet);
+int     ft_strlen(char *str);
+char    *ft_strdup(char *src);
 
 #endif

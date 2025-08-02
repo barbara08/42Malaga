@@ -1,6 +1,5 @@
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include "libft2.h"
+
 /*
 Reproduce the behavior of the function strdup (man strdup).
 Your function must be declared as follows:
@@ -32,7 +31,7 @@ char	*ft_strdup(char *src)
 	copy[i] = '\0';
 	return(copy);
 }
-
+/* 
 int main()
 {
 	char *src = "Una copia de src en copy";
@@ -40,4 +39,4 @@ int main()
 	printf("ft_strdup: %s\n", ftstrdup);
 	printf("src: %s", src);
 	return(0);
-}
+}*/
