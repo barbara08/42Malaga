@@ -60,7 +60,10 @@ void	print_list(t_list *lst)
 {
 	while (lst)
 	{
-		ft_putnbr(lst->data);
+		//Hay que castear, en la estructura está tipo void
+		//debe ser tipo int, ya que son numeros enteros
+		ft_putnbr((int)(intptr_t)lst->data);
+		//ft_putnbr(lst->data);  sin castear
 		if (lst->next)
 			write(1, " -> ", 4);
 		lst = lst->next;
@@ -80,7 +83,10 @@ t_list	*create_node(int data)
 	t_list *node = malloc(sizeof(t_list));
 	if (node)
 	{
-		node->data = data;
+		//castear, ya que en la estructura es tipo void
+		//hay que pasarlo a int, ya que son enteros
+		node->data = (void *)(intptr_t)data;
+		//node->data = data; //sin castear
 		node->next = NULL;
 	}
 	return (node);
@@ -100,12 +106,16 @@ t_list	*sort_list(t_list* lst, int (*cmp)(int, int))
 		tmp = lst;
 		while (tmp->next)
 		{
-			if (!cmp(tmp->data, tmp->next->data))
+			//hay que castear, en la estructura está tipo void
+			//hay que pasarlo a int, ya que son numeros enteros
+			if (!cmp((int)(intptr_t)tmp->data, (int)(intptr_t)tmp->next->data))
+			//if (!cmp(tmp->data, tmp->next->data)) //sin castear
 			{
 				// Intercambiar valores de los nodos
-				swap = tmp->data;
+				swap = (int)(intptr_t)tmp->data;
+				//swap = tmp->data;
 				tmp->data = tmp->next->data;
-				tmp->next->data = swap;
+				tmp->next->data = (void *)(intptr_t)swap;
 
 				sorted = 0;
 			}
