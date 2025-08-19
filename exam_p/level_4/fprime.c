@@ -27,12 +27,25 @@ $> ./fprime 42 21 | cat -e
 $
 */
 
+
+/* OTRA FORMA
 int	ft_atoi(char *str)
 {
 	int	n = 0;
 	while (*str)
 		n = n * 10 + (*str++ - '0');
 	return (n);
+}*/
+
+int ft_atoi(char *str)
+{
+    int result = 0;
+    while(*str >= '0' && *str <= '9')
+    {
+        result = result * 10 + (*str - '0');
+        str++;
+    }
+    return(result);
 }
 
 void	ft_putnbr(int n)
@@ -59,7 +72,8 @@ int main(int argc, char **argv)
             if(n % f == 0)
             {
                 ft_putnbr(f);
-                n /= f;
+                //Se actualiza el valor de n dividiéndolo por f
+                n /= f;    //    n = n / f
                 if(n > 1)
                     write(1, " * ", 3);
             }
@@ -70,3 +84,34 @@ int main(int argc, char **argv)
     write(1, "\n", 1);
 	return (0);
 }
+
+/* EXPLICACIÓN
+
+n = 30;
+f = 2;
+Primera iteración:
+30 % 2 == 0 → entra al if
+Imprime 2
+Ejecuta n /= f; → ahora n = 30 / 2 = 15
+Como n > 1, imprime " * "
+
+Segunda iteración:
+n = 15, f = 2
+15 % 2 != 0 → entra al else, incrementa f = 3
+
+Tercera iteración:
+15 % 3 == 0 → entra al if
+Imprime 3
+Ejecuta n /= f; → ahora n = 15 / 3 = 5
+Como n > 1, imprime " * "
+
+Cuarta iteración:
+n = 5, f = 3
+5 % 3 != 0 → f = 4
+5 % 4 != 0 → f = 5
+5 % 5 == 0 → entra al if
+Imprime 5
+Ejecuta n /= f; → ahora n = 5 / 5 = 1
+Como n == 1, ya no imprime más " * "
+
+*/
