@@ -24,25 +24,29 @@ $>./search_and_replace "wNcOre Un ExEmPle Pas Facilw a Ecrirw " "w" "e" | cat -e
 eNcOre Un ExEmPle Pas Facile a Ecrire $
 */
 
-int main(int argc, char **argv)
+void search_and_replace(char *str, char *s1, char *r2)
 {
-    if (argc == 4)
+    int i = 0;
+    if(s1[1] == '\0' && r2[1] == '\0')
     {
-        int i = 0;
-        //Verificar si argv[2] y argv[3] son solo un carácter
-        if(argv[2][1] == '\0' && argv[3][1] == '\0')
+        while(str[i])
         {
-            while (argv[1][i])
+            if(str[i] == *s1)
             {
-                if (argv[1][i] == argv[2][0])
-                    write(1, &argv[3][0], 1);
-                else
-                    write(1, &argv[1][i], 1);
-                i++;    
+                str[i] = *r2;
             }
+            write(1, &str[i], 1);
+            i++;
         }
     }
     write(1, "\n", 1);
-    return(0);
 }
 
+int main(int argc, char **argv)
+{
+    if(argc == 4)
+        search_and_replace(argv[1], argv[2], argv[3]);
+    else
+        printf("write the correct arguments");
+    return(0);
+}

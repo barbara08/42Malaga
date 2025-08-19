@@ -22,36 +22,21 @@ $
 $>
 */
 
-void rot_13(char *str)
-{
-    int i = 0;
-    while(str[i])
-    {
-        if(str[i] >= 'A' && str[i] <='M')
-        { 
-            str[i] = str[i] + 13;
-            write(1, "\n", 1);
-        }
-        else if (str[i] >= 'N' && str[i] <='Z')
-        { 
-            str[i] = str[i] - 13;
-            write(1, "\n", 1);
-        }
-        else if (str[i] >= 'a' && str[i] <='m')
-            str[i] = str[i] + 13;
-         else if (str[i] >= 'n' && str[i] <='z')
-            str[i] = str[i] - 13;
-        write(1, &str[i], 1);
-        i++;
-     }
-}
-
 int main(int argc, char **argv)
 {
-    if(argc == 2)
-        rot_13(argv[1]);
-    else
-        printf("Write a phrase");
+    if (argc == 2)
+    {
+        int i = 0;
+        while (argv[1][i])
+        {
+            if ((argv[1][i] >= 'a' && argv[1][i] <= 'm') || (argv[1][i] >= 'A' && argv[1][i] <= 'M'))
+                argv[1][i] = argv[1][i] + 13;
+            else if ((argv[1][i] >= 'n' && argv[1][i] <= 'z') || (argv[1][i] >= 'N' && argv[1][i] <= 'Z'))
+                argv[1][i] = argv[1][i] - 13;
+            write(1, &argv[1][i], 1);
+            i++;
+        }
+    }
     write(1, "\n", 1);
     return(0);
 }

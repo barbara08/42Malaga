@@ -23,75 +23,26 @@ $
 $>
 */
 
-/*
-Imprime el carácter c n veces
-ft_putchar('b', 3);
-Imprime: bbb
-*/
-void ft_putchar_n(char c, int n)
-{
-    while (n > 0)
-    {
-        write(1, &c, 1);
-        n--;
-    }
-}
-
-/*
-Parámetro:
-    char *str: cadena de caracteres terminada en \0.
-Bucle while (*str)
-    Mientras no se llegue al final de la cadena (*str != '\0'), se analiza cada carácter:
-Condición if(*str >= 'a' && *str <= 'z'):
-    Si el carácter está entre 'a' y 'z':
-        Se calcula cuántas veces debe repetirse: *str - 'a' + 1
-            Ejemplo: 'c' - 'a' + 1 = 2 + 1 = 3
-            En ascii 'c' es 99 y 'a' es 97;     99 - 97 = 2
-        Se llama a ft_putchar para imprimir ese carácter esa cantidad de veces.
-Si no es una minúscula o mayuscula (puede ser número, símbolo, etc.), lo imprime una sola vez.
-*/
-void repeat_alpha(char *str)
-{
-    while (*str)
-    {
-        if(*str >= 'a' && *str <= 'z')
-            ft_putchar_n(*str, *str - 'a' + 1);
-        else if (*str >= 'A' && *str <= 'Z')
-            ft_putchar_n(*str, *str - 'A' + 1);
-        else
-            write(1, str, 1);
-        str++;
-    }
-}
-
-void rrepeat_aalpha(char *str)
-{
-    int i = 0;
-    while (str[i] != '\0')
-    {
-        if(str[i] >= 'a' && str[i] <= 'z')
-            ft_putchar_n(str[i], str[i] - 'a' + 1);
-        else if (str[i] >= 'A' && str[i] <= 'Z')
-            ft_putchar_n(str[i], str[i] - 'A' + 1);
-        else
-            write(1, &str[i], 1);
-        i++;
-    }
-}
-
 int main(int argc, char **argv)
 {
-    if(argc == 2)
+    if (argc == 2)
     {
-        repeat_alpha(argv[1]);
-        write(1, "\n", 1);
-        rrepeat_aalpha(argv[1]);
+        int i = 0;
+        while(argv[1][i])
+        {
+            int n = 1;
+            if(argv[1][i] >= 'a' && argv[1][i] <= 'z')
+                n = argv[1][i] - 'a' + 1;
+            else if(argv[1][i] >= 'A' && argv[1][i] <= 'Z')
+                n = argv[1][i] - 'A' + 1;
+            while (n > 0)
+            {
+                write(1, &argv[1][i], 1);
+                n--;
+            }
+            i++;
+        }
     }
-    else
-        printf("Enter a Fhrase");
     write(1, "\n", 1);
     return(0);
 }
-
-
-
