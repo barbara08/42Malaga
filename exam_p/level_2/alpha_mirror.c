@@ -1,5 +1,4 @@
-#include <stdio.h>
-#include <unistd.h>
+#include "libft2.h"
 
 /*
 Write a program called alpha_mirror that takes a string and displays this string

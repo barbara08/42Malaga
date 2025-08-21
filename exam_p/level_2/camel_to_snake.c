@@ -1,5 +1,4 @@
-#include <stdio.h>
-#include <unistd.h>
+#include "libft2.h"
 
 /*
 Write a program that takes a single string in lowerCamelCase format

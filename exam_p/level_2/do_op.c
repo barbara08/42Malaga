@@ -1,6 +1,4 @@
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
+#include "libft2.h"
 
 /*
 Allowed functions: atoi, printf, write
