@@ -10,14 +10,13 @@ char	*ft_strpbrk(const char *s1, const char *s2);
 char	*ft_strpbrk(const char *s1, const char *s2)
 {
     int i = 0;
-    int x = 0;
     while(s1[i] != '\0')
     {
-        x = 0;
-        while(s2[x] != '0')
+        int x = 0;
+        while(s2[x] != '\0')
         {
             if(s1[i] == s2[x])
-                return((char *)s1);
+                return((char *)&s1[i]);
             x++;
         }
         i++;
@@ -27,11 +26,11 @@ char	*ft_strpbrk(const char *s1, const char *s2)
 
 int main() {
     const char *s1 = "Hola mundo";
-    //const char *s2 = "aeiou";
-    const char *s2 = "xyz";
+    const char *s2 = "aeiou";
+    //const char *s2 = "xyz";
 
 
-    char *result = strpbrk(s1, s2);
+    char *result = ft_strpbrk(s1, s2);
 
     if (result)
     {

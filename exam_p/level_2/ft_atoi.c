@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include "libft2.h"
 /*
 Write a function that converts the string argument str to an integer (type int)
 and returns it.

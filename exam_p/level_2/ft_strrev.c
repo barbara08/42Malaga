@@ -5,6 +5,10 @@ Write a function that reverses (in-place) a string.
 It must return its parameter.
 Your function must be declared as follows:
 char    *ft_strrev(char *str);
+-----
+Invertir en su lugar (in-palce)
+quiere decir que dentro del mismo arreglo de caracteres, 
+transformas "hola" en "aloh" sin crear otra cadena.
 */
 
 char    *ft_strrev(char *str)
@@ -40,8 +44,8 @@ int main()
     //char *str = "hola"; //Esto lo toma como una constante y no se puede modificar
     char str[] = "chocolate"; //Ahora es un array modificable y no se pone como puntero
 
-    char *ftstrrev = ft_strrev(str);
     printf("b: %s\n", str);
+    char *ftstrrev = ft_strrev(str);
     printf("ft_strrev: %s", ftstrrev);
     return(0);
 }

@@ -1,5 +1,4 @@
-#include <stdio.h>
-#include <unistd.h>
+#include "libft2.h"
 /*
 Reproduce the behavior of the function strcmp (man strcmp).
 Your function must be declared as follows:

@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include "libft2.h"
 /*
 Reproduce exactly the behavior of the function strcspn
 (man strcspn).
