@@ -21,38 +21,65 @@ $>
 
 int main(int argc, char **argv)
 {
-    if(argc == 2)
+    if (argc == 2)
     {
         int i = 0;
-        //1. Recorrer el str hasta el final
-        while(argv[1][i])
-        {
+        // Ir al final del string
+        while (argv[1][i])
             i++;
-            //printf("1. i vale: %d\n", i);
-        }
-        i--;
-        //printf("1. i vale: %d\n", i);
-        //2. Recorrer str hacia atrás hasta encontrar spaces/tabs
-        while(argv[1][i] > 32)
-        {
+        i--;   // apuntar al último carácter válido
+        // Saltar espacios o tabs al final
+        while (i >= 0 && (argv[1][i] == ' ' || argv[1][i] == '\t'))
             i--;
-            //printf("2. i vale: %d\n", i);
-        }
-        i++;
-        //printf("2. i vale: %d\n", i);
-        //3. Volver al final de str y write la última palabra
-        while(argv[1][i])
+        // Retroceder hasta el inicio de la última palabra
+        while (i >= 0 && argv[1][i] != ' ' && argv[1][i] != '\t')
+            i--;
+        i++; // posicionarse en el primer carácter de la última palabra
+        // Imprimir la última palabra
+        while (argv[1][i] && argv[1][i] != ' ' && argv[1][i] != '\t')
         {
             write(1, &argv[1][i], 1);
             i++;
-            //printf("3. i vale: %d\n", i);
-
         }
-        //printf("3. i vale: %d\n", i);
-
     }
     write(1, "\n", 1);
-    return(0);
+    return (0);
 }
 
 
+//OTRA FORMA DE HACERLO, OK
+/*
+int main(int argc, char **argv)
+{
+    if (argc == 2)
+    {
+        int i = 0;
+        // 1. Ir al final del string
+        while (argv[1][i])
+            i++;
+        // apuntar al último carácter válido
+        i--;
+
+        // 2. Saltar espacios/tabs al final
+        while (i >= 0 && (argv[1][i] == ' ' || argv[1][i] == '\t'))
+            i--;
+
+        // 3. Encontrar fin de la última palabra
+        int end = i;
+
+        // 4. Retroceder hasta el inicio de la palabra
+        while (i >= 0 && argv[1][i] != ' ' && argv[1][i] != '\t')
+            i--;
+        i++;  // posicionarse en el primer carácter de la última palabra
+
+        // 5. Imprimir la palabra
+        while (i <= end)
+        {
+            write(1, &argv[1][i], 1);
+            i++;
+        }
+    }
+    write(1, "\n", 1);
+    return (0);
+}
+*/
