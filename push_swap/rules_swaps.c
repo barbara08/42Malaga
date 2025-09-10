@@ -8,40 +8,39 @@ sb: Intercambia los dos primeros elementos del stack b.
 ss: Realiza sa y sb al mismo tiempo.
 */
 
+//Función auxiliar que haga el swap sin imprimir nada
+void swap(int stack[], int len)
+{
+	int tmp;
+
+	if (len < 2)
+		return;
+
+	tmp = stack[0];
+	stack[0] = stack[1];
+	stack[1] = tmp;
+}
 void sa_swap(int a[], int len_a)
 {
-	int i = 0;
-	int tmp;
-	// Solo ejecutar si hay al menos 2 elementos
-	while (len_a > 1 && i == 0)
-	{
-		tmp = a[0];
-		a[0] = a[1];
-		a[1] = tmp;
-		write(1, "sa\n", 3); 
-		i = 1; // Para salir del while después de 1 iteración
-	}
+	swap(a, len_a);
+	write(1, "sa\n", 3);
 }
+
 void sb_swap(int b[], int len_b)
 {
-	int i = 0;
-	int tmp;
-	while (len_b > 1 && i == 0)
-	{
-		tmp = b[0];
-		b[0] = b[1];
-		b[1]= tmp;
-		write(1, "sb\n", 3);
-		i = 1;
-	}
+	swap(b, len_b);
+	write(1, "sb\n", 3);
 }
 
 void ss_swap(int a[], int len_a, int b[], int len_b)
 {
-	sa_swap(a, len_a);
-	sb_swap(b, len_b);
+	swap(a, len_a);
+	swap(b, len_b);
 	write(1, "ss\n", 3);
 }
+
+
+
 /* 
 //Función para hacer imprimir, para el main
 void print_testing(char name, int stack[], int len)
@@ -81,3 +80,42 @@ int main()
 
 	return (0);
 }*/
+
+
+/* ANTIGUO CODIGO, NO SE SI ESTA BIEN
+void sa_swap(int a[], int len_a)
+{
+	int i = 0;
+	int tmp;
+	// Solo ejecutar si hay al menos 2 elementos
+	while (len_a > 1 && i == 0)
+	{
+		tmp = a[0];
+		a[0] = a[1];
+		a[1] = tmp;
+		write(1, "sa\n", 3); 
+		i = 1; // Para salir del while después de 1 iteración
+	}
+}
+void sb_swap(int b[], int len_b)
+{
+	int i = 0;
+	int tmp;
+	while (len_b > 1 && i == 0)
+	{
+		tmp = b[0];
+		b[0] = b[1];
+		b[1]= tmp;
+		write(1, "sb\n", 3);
+		i = 1;
+	}
+}
+
+void ss_swap(int a[], int len_a, int b[], int len_b)
+{
+	sa_swap(a, len_a);
+	sb_swap(b, len_b);
+	write(1, "ss\n", 3);
+}
+
+*/

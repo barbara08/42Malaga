@@ -4,6 +4,7 @@ int ft_atoi_validate(const char *str, int *error)
 {
 	long num = 0;
 	int sign = 1;
+	*error = 0;
 
 	while (*str == ' ' || (*str >= 9 && *str <= 13))
 		str++;

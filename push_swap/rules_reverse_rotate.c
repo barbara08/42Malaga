@@ -8,6 +8,85 @@ rrb reverse rotate b: Desplaza hacia abajo todos los elementos del stack b
 rrr rra y rrb al mismo tiempo.
 */
 
+// Función auxiliar que haga el reverse rotate sin imprimir
+void reverse_rotate(int stack[], int len)
+{
+	int i;
+	int last;
+
+	if (len < 2)
+		return;
+
+	last = stack[len - 1];
+	i = len - 1;
+	while (i > 0)
+	{
+		stack[i] = stack[i - 1];
+		i--;
+	}
+	stack[0] = last;
+}
+void rra_reverse_rotate(int a[], int len_a)
+{
+	reverse_rotate(a, len_a);
+	write(1, "rra\n", 4);
+}
+
+void rrb_reverse_rotate(int b[], int len_b)
+{
+	reverse_rotate(b, len_b);
+	write(1, "rrb\n", 4);
+}
+
+void rrr_reverse_rotate(int a[], int len_a, int b[], int len_b)
+{
+	reverse_rotate(a, len_a);
+	reverse_rotate(b, len_b);
+	write(1, "rrr\n", 4);
+}
+
+
+/* Funcion para el main
+void print_testing(char name, int stack[], int len)
+{
+	int i = 0;
+	printf("%c: ", name);
+	while (i < len) {
+		printf("%d ", stack[i]);
+		i++;
+	}
+	printf("\n");
+}
+
+int main()
+{
+	int a[10] = {1, 2, 3, 4};
+	int b[10] = {5, 6, 7};
+	int len_a = 4;
+	int len_b = 3;
+
+	printf("\nStacks rra y rrb reverse original:\n");
+	print_testing('a', a, len_a);
+	print_testing('b', b, len_b);
+
+	rra_reverse_rotate(a, len_a);
+	rrb_reverse_rotate(b, len_b);
+
+	printf("\nDespués de rra y rrb reverse:\n");
+	print_testing('a', a, len_a);
+	print_testing('b', b, len_b);
+
+	rrr_reverse_rotate(a, len_a, b, len_b);
+
+	printf("\nDespués de rrr:\n");
+	print_testing('a', a, len_a);
+	print_testing('b', b, len_b);
+
+	return (0);
+}
+*/
+
+/*ANTIGUO CODIGO, NO SE SI FUNCIONA 
 void rra_reverse_rotate(int a[], int len_a)
 {
 	int i;
@@ -51,43 +130,8 @@ void rrr_reverse_rotate(int a[], int len_a, int b[], int len_b)
 	rrb_reverse_rotate(b, len_b);
 	write(1, "rrr\n", 4);
 }
-/* Funcion para el main
-void print_testing(char name, int stack[], int len)
-{
-	int i = 0;
-	printf("%c: ", name);
-	while (i < len) {
-		printf("%d ", stack[i]);
-		i++;
-	}
-	printf("\n");
-}
 
-int main()
-{
-	int a[10] = {1, 2, 3, 4};
-	int b[10] = {5, 6, 7};
-	int len_a = 4;
-	int len_b = 3;
 
-	printf("\nStacks rra y rrb reverse original:\n");
-	print_testing('a', a, len_a);
-	print_testing('b', b, len_b);
 
-	rra_reverse_rotate(a, len_a);
-	rrb_reverse_rotate(b, len_b);
 
-	printf("\nDespués de rra y rrb reverse:\n");
-	print_testing('a', a, len_a);
-	print_testing('b', b, len_b);
-
-	rrr_reverse_rotate(a, len_a, b, len_b);
-
-	printf("\nDespués de rrr:\n");
-	print_testing('a', a, len_a);
-	print_testing('b', b, len_b);
-
-	return (0);
-}
 */
-

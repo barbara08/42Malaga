@@ -1,11 +1,5 @@
 NAME = push_swap
 
-OBJ = $(SRC:.c=.o)
-
-CFLAGS = -Wall -Wextra -Werror
-
-CC = cc
-
 SRC = rules_swaps.c \
 rules_push.c \
 rules_reverse_rotate.c \
@@ -13,6 +7,12 @@ rules_rotate.c \
 utils.c \
 sorted.c \
 main.c
+
+OBJ = $(SRC:.c=.o)
+
+CFLAGS = -Wall -Wextra -Werror
+
+CC = cc
 
 all: $(NAME)
 
