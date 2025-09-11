@@ -21,12 +21,11 @@ char    *ft_strrev(char *str)
     i = 0;
     while(str[i])
         i++;
-    
     // Intercambiamos caracteres desde ambos extremos hacia el centro
 		//usamos dos índices: 
 		//i (inicio) y x (final), 
 		//y mientras i < x, intercambiamos los caracteres en esas posiciones
-    x = i - 1;
+    x = i - 1;  //Para quitar el NULL 
     i = 0;
     while(i < x)
     {
@@ -39,6 +38,16 @@ char    *ft_strrev(char *str)
     return(str);
 }
 
+
+/*  Otra forma de hacer esta parte del código, ok
+	i = 0;
+    while(str[i])
+        i++;
+	i--;  //Para quitar el NULL
+
+	x = i;
+	i = 0;
+*/
 int main()
 {
     //char *str = "hola"; //Esto lo toma como una constante y no se puede modificar
