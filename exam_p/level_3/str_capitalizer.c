@@ -20,7 +20,7 @@ __second Test A Little Bit   Moar Complex$
      Okay, This Is The Last 1239809147801 But Not    The Least    T$
 $>
 */
-
+//CON VARIOS ARG COMO PIDE SUBJET
 int main(int argc, char **argv)
 {
     int i = 1;
@@ -47,6 +47,24 @@ int main(int argc, char **argv)
     return(0);
 }
 
+/* SOLO UN ARG
+int main(int argc, char **argv)
+{
+    int i = 0;
+    if(argc == 2)
+    {
+            while (argv[1][i])
+            {
+                if (argv[1][i] >= 'A' && argv[1][i] <= 'Z')
+                    argv[1][i] += 32;
+                if ((argv[1][i] >= 'a' && argv[1][i] <= 'z') && (argv[1][i + 1] == ' ' || argv[1][i + 1] == '\0'))
+                    argv[1][i] -= 32;
+                write(1, &argv[1][i], 1);
+                i++;
+            }
+    }
+    return(0);    
+}*/
 
 /* MAS LARGO Y FUNCIONES AUXILIARES
 int ft_isspace(char c)
