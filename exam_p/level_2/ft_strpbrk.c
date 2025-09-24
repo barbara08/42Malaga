@@ -31,10 +31,15 @@ int main() {
 
 
     char *result = ft_strpbrk(s1, s2);
+    char *result2 = strpbrk(s1, s2);
 
-    if (result)
+    printf("--%u--", result==result2);
+
+    if (result2)
     {
         printf("Primera coincidencia '%s' es '%c'\n", s1, *result);
+        printf("Primera coincidencia '%s' es '%c'\n", s1, *result2);
+
     }
     else
     {
