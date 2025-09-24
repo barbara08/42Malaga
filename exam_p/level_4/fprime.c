@@ -67,6 +67,11 @@ int main(int argc, char **argv)
     {
         n = ft_atoi(argv[1]);
         f = 2;
+        if(n == 1)
+        {
+            printf("1");
+            return(0);
+        }
         while(n > 1)
         {
             if(n % f == 0)

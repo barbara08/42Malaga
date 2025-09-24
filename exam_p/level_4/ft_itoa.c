@@ -10,62 +10,43 @@ Allowed functions: malloc
 
 char	*ft_itoa(int nbr)
 {
-    int		len = 0;                // longitud del número (cantidad de dígitos)
-	int		tmp = nbr;              // copia del número para contar dígitos
-	int		negative = nbr < 0;     // bandera para saber si es negativo
-	char	*str;                   // puntero al string que se va a devolver
-
-    // Caso especial: el número más pequeño representable en un int
-	// No se puede hacer nbr = -nbr porque se desborda
-    // Manejo del INT_MIN (-2147483648), ya que no se puede hacer -INT_MIN
-	if (nbr == -2147483648)
-		return ("-2147483648");
-    // Contar cuántos dígitos tiene el número
-    // Si el número es 0, su longitud es 1
-	if (nbr == 0)
-		len = 1;
-    // Contar la cantidad de dígitos (en valor absoluto)
-	while (tmp != 0)
+	char	*str;
+	int		len = 1;	//Todos números tiene al menos un dígito
+	long	n = nbr;	//convertimos nbr (int) a long para evitar errores con INT_MIN
+	long	tmp;		//copia de n usada para contar cuántos dígitos tiene
+	//1. Si el número es negativo pasar a positivo
+	if (n < 0)
 	{
-		tmp /= 10;
+		n = -n;
+		len++; // para el signo negativo
+	}
+	//2. Calculamos la cantidad de dígitos
+	tmp = n;
+	while (tmp >= 10)
+	{
+		tmp = tmp / 10;
 		len++;
 	}
-    // Reservar memoria para los caracteres:
-	// longitud + 1 si es negativo + 1 para el '\0'
-    // Reservar memoria para el string + signo si es negativo + terminador nulo
-	str = (char *)malloc(sizeof(char) * (len + negative + 1));
+	//3. Reservar memory
+	str = (char *)malloc(sizeof(char) * (len + 1));
 	if (!str)
 		return (NULL);
-    //Coloca el carácter nulo (\0) al final del string.
-    //len es la cantidad de dígitos del número.
-    //negative vale 1 si el número es negativo, 0 si no. Se suma porque el signo - ocupa un lugar extra.
-    str[len + negative] = '\0';
-    //Verificar si es 0
-    //Si el número es 0, coloca el carácter '0' en la primera posición del string.
-    //No entra al while si el número es 0, así que lo maneja aparte.
-    if (nbr == 0)
-		str[0] = '0';
-    //Verificar si es negativo
-    //Si el número es negativo:
-    //Escribe el signo - al inicio de la cadena.
-    //Convierte nbr a positivo para facilitar el siguiente bucle.
-    if (negative)
+	//4. Ponemos el carácter nulo (\0) al final de la cadena.
+	str[len] = '\0';
+	//5. Rellenamos el string con los dígitos
+	while (len--)
 	{
-		str[0] = '-';
-		nbr = -nbr;
+		str[len] = '0' + (n % 10);
+		n = n / 10;
+		//6. Colocamos el signo si es negativo en la posicion 0
+		if (len == 1 && nbr < 0)
+		{
+			str[0] = '-';
+			break;
+		}
 	}
-    // Construir el string de derecha a izquierda
-    //Construye el string numérico de derecha a izquierda.
-    //nbr % 10 obtiene el dígito menos significativo.
-    //Se convierte a carácter sumándole '0'.
-    //Se coloca en la posición correspondiente: len-- + neg - 1.
-    //+negative compensa si hay un signo - al inicio.
-	while (nbr != 0)
-	{
-		str[len-- + negative - 1] = (nbr % 10) + '0';
-		nbr /= 10;
-	}
-    return (str);
+	//7. Devolver str
+	return (str);
 }
 
 //MAIN PARA PROBAR
@@ -79,3 +60,29 @@ int main()
 	free(str);
 	return (0);
 }
+
+/*
+1.
+Si el número es negativo:
+Lo pasamos a positivo (-n) para poder extraer dígitos.
+Aumentamos len para reservar espacio para el signo '-'.
+Aquí usamos long para evitar desbordamiento con -2147483648.
+2.
+Usamos tmp para contar cuántas cifras tiene el número:
+Mientras tmp >= 10, dividimos por 10 y aumentamos len.
+Esto cuenta cuántas cifras necesitaremos.
+3. 
+Reservar memoria para str
+4. 
+Ponemos el carácter nulo (\0) al final de la cadena.
+5. 
+Este bucle llena el string desde el final hacia el principio.
+n % 10 obtiene el último dígito (ej: de 123 sale 3).
+'0' + número lo convierte en carácter ASCII.
+Después, dividimos n entre 10 para obtener el siguiente dígito.
+6.
+Si llegamos a la posición 1 (penúltima) y el número original (nbr) era negativo:
+Colocamos '-' en la posición 0.
+Hacemos break porque ya terminamos de llenar.
+7. Delvolver str
+*/
