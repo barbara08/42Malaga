@@ -14,7 +14,6 @@ $> ./rev_print | cat -e
 $
 */
 
-//FALTA PROBAR ESTE EJERCICIO ES NUEVO
 
 char	*ft_strrev(char *str)
 {
@@ -29,4 +28,10 @@ char	*ft_strrev(char *str)
 	}
 	write(1, "\n", 1);
 	return(str);
+}
+int main()
+{
+	char str[] = "dub0 a POIL";
+	ft_strrev(str);
+	return(0);
 }
