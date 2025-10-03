@@ -8,14 +8,14 @@ Your function must be declared as follows:
 char    **ft_split(char *str);
 */
 
-
+/* OK
 int search_space(char *str, int i)
 {
     while (str[i] && (str[i] != '\n' && str[i] != '\t' && str[i] != 32))
         i++;
     return(i);
 }  
-
+//OK
 int count_word(char *str)
 {
     int num_words = 0;
@@ -39,11 +39,40 @@ int count_word(char *str)
     if (start >= 0){
         num_words++;
     }
-
     return num_words;
+}*/
+
+
+int search_space(char *str, int i)
+{
+    while (str[i] && (str[i] != '\n' && str[i] != '\t' && str[i] != 32))
+        i++;
+    return(i);
+}  
+
+
+int count_word(char *str)
+{
+    int i = 0;
+    int count = 0;
+
+    while (str[i])
+    {
+        // Saltar delimitadores
+        while (str[i] && (str[i] == '\n' || str[i] == '\t' || str[i] == 32))
+        {
+            // Avanzar hasta el final de la palabra
+            count++;
+            //Mientras haya str y delimeter distinto de space
+            //Es decir, es una palabra
+            while(str[i] && !(str[i] == '\n' || str[i] == '\t' || str[i] == 32))
+                i++;
+        }
+        i++;
+    }
+    return(count);    
 }
-
-
+ 
 char    **ft_split(char *str)
 {
     int i;
@@ -55,17 +84,69 @@ char    **ft_split(char *str)
     printf("====%lu=====", strlen(str));
     printf("num word %d>>>", count_word(str));
     
-
     array_str = malloc(sizeof(char *) * (count_word(str) + 1));
     if (!array_str)
         return(NULL);
 
     i = 0;
-    /*
-    while (str[i] && ((str[i]) == '\n' || str[i] == '\t' || str[i] == 32))
-        i++;
-        //printf("-i %d---", i);
-      */  
+    while(str[i])
+    {
+        while (str[i] && ((str[i]) == '\n' || str[i] == '\t' || str[i] == 32))
+            i++;
+        if (!str[i])
+            break;
+        size_word = search_space(str, i) - i;
+        printf("size_word %d --- ", size_word);
+
+        word = malloc(sizeof(char *) * (size_word + 1));
+        if(!word)
+            return(NULL);
+        pos_word = 0;
+        while(pos_word < size_word)
+        {
+            word[pos_word] = str[i];
+            pos_word++;
+            i++;
+        }
+        array_str[pos_array_str] = word;
+        printf("- %d---%d -ª %s ###\n",i, pos_array_str, word);
+        pos_array_str++;
+        if (str[i])
+            i++;
+    }
+    printf(" pos final %d ---- \n", pos_array_str);
+    return(array_str);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
+char    **ft_split(char *str)
+{
+    int i;
+    char *word;
+    int size_word;
+    int pos_word;
+    char **array_str=NULL;
+    int pos_array_str=0;
+    printf("====%lu=====", strlen(str));
+    printf("num word %d>>>", count_word(str));
+    
+    array_str = malloc(sizeof(char *) * (count_word(str) + 1));
+    if (!array_str)
+        return(NULL);
+
+    i = 0;
     while(str[i])
     {
         while (str[i] && ((str[i]) == '\n' || str[i] == '\t' || str[i] == 32))
@@ -86,18 +167,16 @@ char    **ft_split(char *str)
             pos_word++;
             i++;
         }
-        
         array_str[pos_array_str] = word;
         printf("- %d---%d -ª %s ###\n",i, pos_array_str, word);
         pos_array_str++;
         if (str[i])
             i++;
-        
     }
     printf(" pos final %d ---- \n", pos_array_str);
     return(array_str);
 
-}
+}*/
 
 int main(void)
 {
@@ -111,7 +190,5 @@ int main(void)
         i++;
     }
     free(word);
-    
- 
     return (0);
 }

@@ -78,6 +78,8 @@ int	main(int argc, char **argv)
 	}
 
 	//6. If there was at least one word after the first, add a space before the first word
+	//Si hubo al menos una palabra después de la primera, 
+	//agregue un espacio antes de la primera palabra.
 	if (printed)
 		write(1, " ", 1);
 
