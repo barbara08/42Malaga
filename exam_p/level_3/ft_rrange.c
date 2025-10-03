@@ -96,8 +96,8 @@ void	ft_putnbr(int n)
 
 int main(void)
 {
-	int start = 5;
-	int end = -1;
+	int start = 3;
+	int end = -2;
 	int *arrayint;
 	int size = 0;
 	int i;

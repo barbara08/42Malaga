@@ -47,34 +47,6 @@ int main(int argc, char **argv)
             divisor--;
         }
         printf("he salido y el divisor maximo es el %d", divisor);
-/*
-
-
-
-        int div;
-
-        if(n1 > 0 && n1 > 0)
-        {
-            if(n1 > n2)
-            {
-                if(n1 / n2 == 0)
-                    div = n1;
-                else
-                    div = n2;
-           
-            } 
-            else
-
-            
-
-        }
-
-
-
-    }
-
-
-*/
     }
     return(0);
 }
