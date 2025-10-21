@@ -9,6 +9,8 @@ char    *ft_strrev(char *str);
 Invertir en su lugar (in-palce)
 quiere decir que dentro del mismo arreglo de caracteres, 
 transformas "hola" en "aloh" sin crear otra cadena.
+
+Si modifica la cadena
 */
 
 char    *ft_strrev(char *str)
