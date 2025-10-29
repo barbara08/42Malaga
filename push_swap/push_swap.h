@@ -13,10 +13,18 @@ int		ft_is_sorted(int *stack, int size);
 void	ft_putstr_fd(char *s, int fd); //en vez de utilizar write, pero no lo uso
 
 //Sorted sorted.c
+/*
 void	ft_sort_three(int *stack_a, int size_a);
 void	ft_sort_five(int *stack_a, int *size_a, int *stack_b, int *size_b);
 void	ft_index_stack(int *stack, int size);
 void	ft_sort_big(int *a, int *len_a, int *b, int *len_b);
+*/
+
+void	ft_sort_three(int *stack_a, int size_a);
+void	ft_sort_five(int *stack_a, int *size_a, int *stack_b, int *size_b);
+void sort_five(int *a, int size_a);
+void    ft_sort_big_num(int *a, int len_a, int *b, int len_b);
+void    print_stack(char *name, int stack[], int len);
 
 //Operations
 void	sa_swap(int a[], int len_a);

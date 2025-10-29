@@ -2,6 +2,78 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+int ft_atoi_validate(const char *str, int *error)
+{
+	long num = 0;
+	int sign = 1;
+	*error = 0;
+
+	while (*str == ' ' || (*str >= 9 && *str <= 13))
+		str++;
+	if (*str == '-' || *str == '+')
+	{
+		if (*str == '-')
+			sign = -1;
+		str++;
+	}
+	if (!(*str >= '0' && *str <= '9'))
+	{
+		*error = 1;
+		return (0);
+	}
+	while (*str >= '0' && *str <= '9')
+    {
+		num = num * 10 + (*str - '0');
+		if ((num * sign) > 2147483647 || (num * sign) < -2147483648)
+		{
+			*error = 1;
+			return (0);
+		}
+		str++;
+	}
+	if (*str != '\0')
+	{
+		*error = 1;
+		return (0);
+	}
+	return (int)(num * sign);
+}
+
+int ft_number_duplicate(int *stack, int size)
+{
+	int i = 0;
+	while (i < size)
+	{
+		int j = i + 1;
+		while (j < size)
+		{
+			if (stack[i] == stack[j])
+				return (1);  // ¡Duplicado encontrado!
+			j++;
+		}
+		i++;
+	}
+	return (0);  // No hay duplicados
+}
+
+int ft_is_sorted(int *stack, int size)
+{
+	int i = 0;
+	while (i < size - 1)
+	{
+		if (stack[i] > stack[i + 1])
+			return (0); // Encontró que no está ordenado
+		i++;
+	}
+	return (1); // Está ordenado
+}
+
+void print_error_and_free(int *a, int *b)
+{
+	write(2, "Error\n", 6);
+	free(a);
+	free(b);
+}
 // --- Operaciones básicas ---
 void ra(int *a, int size)
 {
@@ -14,8 +86,6 @@ void ra(int *a, int size)
         i++;
     }
     a[size - 1] = tmp;
-	write(1, "ra\n", 3);
-
 }
 
 void rra(int *a, int size)
@@ -29,22 +99,16 @@ void rra(int *a, int size)
         i--;
     }
     a[0] = tmp;
-	write(1, "rra\n", 4);
-
 }
 
 void rb(int *b, int size)
 {
     ra(b, size);
-	write(1, "ra\n", 3);
-
 }
 
 void rrb(int *b, int size)
 {
     rra(b, size);
-	write(1, "rra\n", 4);
-
 }
 
 void pb(int *a, int *size_a, int *b, int *size_b)
@@ -65,8 +129,6 @@ void pb(int *a, int *size_a, int *b, int *size_b)
     }
     (*size_a)--;
     (*size_b)++;
-	write(1, "pb\n", 3);
-
 }
 
 void pa(int *a, int *size_a, int *b, int *size_b)
@@ -87,8 +149,6 @@ void pa(int *a, int *size_a, int *b, int *size_b)
     }
     (*size_a)++;
     (*size_b)--;
-	write(1, "pa\n", 3);
-
 }
 
 // --- Normalizar ---
@@ -200,7 +260,8 @@ void chunk_sort(int *a, int *size_a, int *b, int *size_b, int n)
     }
 }
 
-void print_stack(char *name, int *stack, int size)
+// --- Mostrar pila ---
+void printstack(char *name, int *stack, int size)
 {
     printf("%s: ", name);
     int i = 0;
@@ -213,36 +274,88 @@ void print_stack(char *name, int *stack, int size)
 }
 
 // --- MAIN ---
-int main(void)
+int main(int argc, char **argv)
 {
-    int n = 100;
-    int *a = malloc(sizeof(int) * n);
-    int *b = calloc(n, sizeof(int));
+	/*
+    int n = 10;
+    int a[10] = {37, 2, 19, 8, 25, 4, 15, 99, 1, 42};
+    int b[10] = {0};
     int size_a = n;
     int size_b = 0;
+	*/
 
-    // Generar ejemplo aleatorio
-    for (int i = 0; i < n; i++)
-        a[i] = rand() % 1000 - 500;
+		////
 
-    int *norm = normalize(a, n);
-    int i = 0;
+	if (argc < 2)
+		return (0);
+
+	int size_a = argc - 1;
+	int size_b = 0;
+	int n = size_a;
+
+	int *a = (int *)malloc(sizeof(int) * size_a);
+	if (!a)
+		return (1);
+
+	int *b = (int *)malloc(sizeof(int) * size_a);
+	if (!b)
+	{
+		free(a);
+		return (1);
+	}
+
+	int error = 0;
+	int i = 0;
+	while (i < size_a)
+	{
+		a[i] = ft_atoi_validate(argv[i + 1], &error);
+		if (error)
+		{
+			print_error_and_free(a, b);
+			return (1);
+		}
+		i++;
+	}
+
+	i = 0;
+	while (i < size_a)
+	{
+		int j = i + 1;
+		while (j < size_a)
+		{
+			if (a[i] == a[j])
+			{
+				print_error_and_free(a, b);
+				return (1);
+			}
+			j++;
+		}
+		i++;
+	}
+
+		/////////
+
+    int *normalized = normalize(a, n);
+    i = 0;
     while (i < n)
     {
-        a[i] = norm[i];
+        a[i] = normalized[i];
         i++;
     }
-    free(norm);
+    free(normalized);
 
-    printf("Antes:\n");
-    print_stack("A", a, size_a);
 
-    chunk_sort(a, &size_a, b, &size_b, n);
+	
 
-    printf("\nDespués:\n");
-    print_stack("A", a, size_a);
+    printf("Antes de ordenar:\n");
+    printstack("A", a, size_a);
 
-    free(a);
-    free(b);
+	chunk_sort(a, &size_a, b, &size_b, n);
+    //radix_sort(a, &size_a, b, &size_b, n);
+
+    printf("\nDespués de ordenar:\n");
+    printstack("A", a, size_a);
+    printstack("B", b, size_b);
+
     return 0;
 }

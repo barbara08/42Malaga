@@ -23,6 +23,8 @@ pb:
 Lo mismo pero al revés.
 */
 
+
+
 void pa_push(int a[], int *len_a, int b[], int *len_b)
 {
 	if (*len_b > 0)
