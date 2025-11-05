@@ -28,7 +28,7 @@ int main(int argc, char **argv)
 		{
 			if(argv[1][i] >= 'A' && argv[1][i] <= 'Z')
 			{
-				if( i != 0) // No agregar '_' si la mayúscula es el primer carácter
+				if( i != 0) // Agregar '_' si NO es el primer carácter
 					write(1, "_", 1);
 				argv[1][i] = argv[1][i] + 32; // Convertir a minúscula
 			}
