@@ -14,7 +14,7 @@ Examples:
 
 int	*ft_rrange(int start, int end)
 {
-	int *range;
+	int *rrange;
 	int size;
 	int i;
 	//Calculamos el tamaño del array (end - start) + 1
@@ -23,21 +23,21 @@ int	*ft_rrange(int start, int end)
 		size = -size;
 	size += 1;
 	//Reservamos tamaño del array
-	range = (int *)malloc(sizeof(int) * size);
-	if(!range)
+	rrange = (int *)malloc(sizeof(int) * size);
+	if(!rrange)
 		return (NULL);
 	//while para llenar el array desde start hasta end, 
 	//o desde start hasta end decreciendo
 	i = 0;
 	while (i < size)
 	{
-		if (start > end)
-			range[i] = end + i;
+		if (start <= end)
+			rrange[i] = end - i;
 		else
-			range[i] = end - i;
+			rrange[i] = end + i;
 		i++;
 	}
-	return (range);
+	return (rrange);
 }
 
 
@@ -96,8 +96,8 @@ void	ft_putnbr(int n)
 
 int main(void)
 {
-	int start = 3;
-	int end = -2;
+	int start = -2;
+	int end = 3;
 	int *arrayint;
 	int size = 0;
 	int i;
