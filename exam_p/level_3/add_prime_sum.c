@@ -15,6 +15,7 @@ $>./add_prime_sum | cat -e
 0$
 $>
 */
+//*******AL FINAL DEL ARCHIVO MAIN SIN FUNCION AUX
 
 //return(0) => NO es primo
 //return(1) => SI es primo
@@ -147,8 +148,43 @@ i++ incrementa i para probar con el siguiente posible divisor.
 Si termina el while sin encontrar divisores, significa que n es primo, entonces retorna 1.
 */
 
+//PROGRAMA SIN FUNCIONES AUX∫
 
-
+int Xmain(int argc, char **argv)
+{
+    if (argc == 2)
+    {
+        int number = atoi(argv[1]);
+        if (number <= 1)
+        {
+            write(1, "0\n", 2);
+            return(0);
+        }
+        int i = 2;
+        int sum = 0;
+        while(i <= number)
+        {
+            int j = 2;
+            int is_prime = 1;
+            while (j < i)
+            {
+                if (i % j == 0)
+                {
+                    is_prime = 0;
+                    break;
+                }
+                j++;
+            }
+            if (is_prime)
+                sum += i;
+            i++;
+        }    
+        printf("%d", sum);
+        return(0);
+    }
+    write(1, "0\n", 2);
+    return(0);
+}
 
 
 
