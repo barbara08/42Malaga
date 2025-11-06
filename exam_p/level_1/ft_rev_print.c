@@ -17,7 +17,7 @@ Imprime la cadena, no la modifica
 */
 
 
-char	*ft_strrev(char *str)
+char	*ft_rev_print(char *str)
 {
 	int i = 0;
 	while (str[i])
@@ -34,6 +34,6 @@ char	*ft_strrev(char *str)
 int main()
 {
 	char str[] = "dub0 a POIL";
-	ft_strrev(str);
+	ft_rev_print(str);
 	return(0);
 }

@@ -41,7 +41,8 @@ int main(int argc, char **argv)
 				if ((argv[1][i] == argv[2][x]) && !used_character[(int)argv[2][x]])
 				{
 					used_character[(int)argv[2][x]] = 1;  // Marcar como impreso
-					ft_putchar(argv[2][x]);  // Imprimir el carácter común
+					//ft_putchar(argv[2][x]);  // Imprimir el carácter común
+					write(1, &argv[2][x], 1);
 				}
 				x++;
 			}

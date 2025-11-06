@@ -32,15 +32,15 @@ int		max(int* tab, unsigned int len)
 int main()
 {
 	//int int_tab1[] = {1, 3, 12, 10, 9};
-	//int int_tab2[] = {1, 3, 12, 10, 9};
+	int int_tab2[] = {1, 3, 12, 10, 9};
 	//int int_tab3[] = {1, 3, 12, 10, 9};
 	int int_tab4[] = {};
 
 
 	//printf("%d\n", max(int_tab1, 0));
-	//printf("%d\n", max(int_tab2, 5));
+	printf("tab2: %d\n", max(int_tab2, 5));
 	//printf("%d\n", max(int_tab3, 7)); //Resultado indefinido, ya que está fuera de rango
-	printf("%d\n", max(int_tab4, 1));
+	printf("tab4: %d\n", max(int_tab4, 1));
 
     return(0);
 }

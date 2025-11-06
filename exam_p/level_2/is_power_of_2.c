@@ -39,8 +39,19 @@ int is_power_of_2_bits_simple(unsigned int n)
     return (n > 0 && (n & (n - 1)) == 0);
 }
 
-int main() {
-    int n = 7;
+int main() 
+{
+	printf("1 -> %d\n", is_power_of_2(1));   // 1
+	printf("2 -> %d\n", is_power_of_2(2));   // 1
+	printf("3 -> %d\n", is_power_of_2(3));   // 0
+	printf("4 -> %d\n", is_power_of_2(4));   // 1
+	printf("5 -> %d\n", is_power_of_2(5));   // 0
+	printf("0 -> %d\n", is_power_of_2(0));   // 0
+
+	printf("\n");
+
+	//--------------------------------------------------
+    int n = 4;
     //Para los decimales
     if (is_power_of_2(n))
         printf("%d Si es potencia de 2\n", n);
