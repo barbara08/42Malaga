@@ -44,6 +44,7 @@ int main()
 	char *ftstrdup = ft_strdup(src);
 	printf("ft_strdup: %s\n", ftstrdup);
 	printf("src: %s", src);
+	free(ftstrdup);
 	return(0);
 }
 
