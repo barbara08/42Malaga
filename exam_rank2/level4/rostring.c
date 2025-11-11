@@ -55,9 +55,9 @@ int main(int argc, char **argv)
 			//Situarnos en la últina posicion de la primera palabra
 		end_first_word = i;
 
-			// Saltar espacios después de la primera palabra
-		while (argv[1][i] && (argv[1][i] == ' ' || argv[1][i] == '\t'))
-			i++;
+			// Saltar espacios después de la primera palabra NO HACA FALTA 
+		//while (argv[1][i] && (argv[1][i] == ' ' || argv[1][i] == '\t'))
+		//	i++;
 		
 			// Imprimir el resto de las palabras
 		while (argv[1][i])
