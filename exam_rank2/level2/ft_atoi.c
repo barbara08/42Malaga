@@ -27,6 +27,14 @@ int	ft_atoi(const char *str)
     }
     else if (*str == '+')
         str++;
+    /* Manejo de los signos se puede hacer así también
+    if (*str == '-' || *str == '+')
+    {
+        if (*str == '-')
+            negative = -1;
+        str++;
+    }
+   */
     while (*str >= '0' && *str <= '9')
     {
         result = result * 10 + (*str - '0');
@@ -40,12 +48,15 @@ int main()
     const char *str1 = "abv42abc";
     const char *str2 = "123v";
     const char *str3 = "   -42";
-    const char *str4 = "+17";
+    const char *str4 = "--42";
+    const char *str5 = "+17";
 
     printf("1: %d\n", ft_atoi(str1)); // 0
     printf("2: %d\n", ft_atoi(str2)); // 123
     printf("3: %d\n", ft_atoi(str3)); // -42
-    printf("4: %d\n", ft_atoi(str4)); // 17
+    printf("4: %d\n", ft_atoi(str4)); // 0
+    printf("5: %d\n", ft_atoi(str5)); // 17
+
 
     return(0);
 }

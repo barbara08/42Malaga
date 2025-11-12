@@ -1,27 +1,30 @@
 #include "../level.h"
 
-#include <unistd.h>
+"  is its    ironic " 
+"ironic its is" 
 
 int main(int argc, char **argv)
 {
-
+   
     if (argc == 2)
     {
-		int i;
-		int start;
-		int end;
-		int c;
+        int i;
 
-	
-		
-		
-		
-				
+        while (argv[1][i])
+            i++;
+        i--;
 
+        while(i > 0)
+        {
+            
+        }
 
-
-
-
+        
+        
+    
+        
+        
+        
 
     }
     else
@@ -29,4 +32,3 @@ int main(int argc, char **argv)
 
     return (0);
 }
-

@@ -40,6 +40,9 @@ int main(int argc, char **argv)
                 n = argv[1][i] - 'a' + 1;
             else if(argv[1][i] >= 'A' && argv[1][i] <= 'Z')
                 n = argv[1][i] - 'A' + 1;
+            else
+                write(1, &argv[1][i], 1);
+                //n = 1;
             while(n > 0)
             {
                 write(1, &argv[1][i], 1);
