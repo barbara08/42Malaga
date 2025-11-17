@@ -40,9 +40,9 @@ int ft_atoi_validate(const char *str, int *error)
 int ft_number_duplicate(int *stack, int size)
 {
 	int i;
-    int j;
-    
-    i = 0;
+	int j;
+
+	i = 0;
 	while (i < size)
 	{
 		j = i + 1;
