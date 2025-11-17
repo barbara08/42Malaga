@@ -31,64 +31,64 @@ void ft_sort_three(int *stack_a, int size_a)
 
 void ft_sort_five(int *a, int *size_a, int *b, int *size_b)
 {
-    int min_value; 
-    int i; // para recorrer el stack
-    int min_index; 
-    int j; // para ejecutar rotaciones
-    
-    while (*size_a > 3)
-    {
-        min_value = a[0];
-        min_index = 0;
+	int min_value; 
+	int i; // para recorrer el stack
+	int min_index; 
+	int j; // para ejecutar rotaciones
 
-        /* encontrar el mínimo */
+	while (*size_a > 3)
+	{
+		min_value = a[0];
+		min_index = 0;
+
+		/* encontrar el mínimo */
 		/*Recorremos todo el stack para localizar el valor mínimo y su posición. */
-        i = 1;
-        while (i < *size_a)
-        {
+		i = 1;
+		while (i < *size_a)
+		{
 			/*Si encontramos un número menor → actualizamos min_value y min_index. */
-            if (a[i] < min_value)
-            {
-                min_value = a[i];
-                min_index = i;
-            }
-            i++;
-        }
+			if (a[i] < min_value)
+			{
+				min_value = a[i];
+				min_index = i;
+			}
+			i++;
+		}
 
-        /* rotaciones hacia arriba */
+			/* rotaciones hacia arriba */
 			/*Si el mínimo está en la mitad superior del stack, conviene usar rotaciones normales (ra). */
 			/*Son más pocas rotaciones */
 		if (min_index <= *size_a / 2)
 		{
 			j = 0;
 			/*Ejecuta ra tantas veces como sea necesario para llevar el mínimo a la posición 0 */
-            while (j < min_index)
-            {
-                ra(a, *size_a);
-                j++;
-            }
-        }
-        /* rotaciones hacia abajo */
+			while (j < min_index)
+			{
+				ra(a, *size_a);
+				j++;
+			}
+		}
+			/* rotaciones hacia abajo */
 			/*Si el mínimo está en la mitad inferior */
-        else
-        {
+		else
+		{
 			/*j empieza en min_index y va hasta el final, lo que hace que corra size_a - min_index veces. */
-            j = min_index;
-            while (j < *size_a)
-            {
-                rra(a, *size_a);
-                j++;
-            }
-        }
+			j = min_index;
+			while (j < *size_a)
+			{
+				rra(a, *size_a);
+				j++;
+			}
+		}
 		/*Una vez que el mínimo está arriba del stack A, lo enviamos al stack B */
 		/*Repetimos el ciclo hasta que A tenga solo 3 números */
-        pb(a, size_a, b, size_b);
-    }
+		pb(a, size_a, b, size_b);
+	}
 	/*Cuando size_a == 3, usamos la función ordenar 3 números */
-    ft_sort_three(a, *size_a);
+	ft_sort_three(a, *size_a);
 	/* Sacamos todos los elementos de B y los devolvemos a A*/
-    while (*size_b > 0)
-        pa(a, size_a, b, size_b);
+	while (*size_b > 0)
+		pa(a, size_a, b, size_b);
 }
 
 //auxiliary functions for sorting numbers greater than 6

@@ -20,9 +20,9 @@ int ft_atoi_validate(const char *str, int *error)
 		return (0);
 	}
 	while (*str >= '0' && *str <= '9')
-    {
+	{
 		num = num * 10 + (*str - '0');
-		if ((num * sign) > 2147483647 || (num * sign) < -2147483648)
+		if ((num * sign) >= 2147483647 || (num * sign) <= -2147483648)
 		{
 			*error = 1;
 			return (0);
