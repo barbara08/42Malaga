@@ -76,8 +76,7 @@ void ft_sort_five(int *a, int *size_a, int *b, int *size_b)
     		while (moves-- > 0)
         		rra(a, *size_a);  
 		}
-		/*ORIF¡GINAL ELSE
-		-----------
+		/* ORIGINAL NO FUNCIONA
 		else
 		{
 			//j empieza en min_index y va hasta el final, lo que hace que corra size_a - min_index veces.
@@ -87,9 +86,7 @@ void ft_sort_five(int *a, int *size_a, int *b, int *size_b)
 				rra(a, *size_a);
 				j++;
 			}
-		}
-		-----------
-		*/
+		}*/
 		/*Una vez que el mínimo está arriba del stack A, lo enviamos al stack B */
 		/*Repetimos el ciclo hasta que A tenga solo 3 números */
 		pb(a, size_a, b, size_b);
