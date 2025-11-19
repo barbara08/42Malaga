@@ -79,12 +79,20 @@ void ft_print_stack(char *name, int stack[], int len)
 
 void ft_print_error_and_free(int *a, int *b)
 {
-	write(2, "Error\n", 6);
-	free(a);
-	free(b);
+    write(2, "Error\n", 6);
+    if (a) free(a);
+    if (b) free(b);
 }
 
 
+//Mi funcion original
+/* 
+void ft_print_error_and_free(int *a, int *b)
+{
+	write(2, "Error\n", 6);
+	free(a);
+	free(b);
+}*/
 //Función para usarlo en el main.c con fd
 //No hace falta, lo usé solo con write
 void ft_putstr_fd(char *s, int fd)

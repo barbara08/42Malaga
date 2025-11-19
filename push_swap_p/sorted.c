@@ -53,8 +53,11 @@ void ft_sort_five(int *a, int *size_a, int *b, int *size_b)
         }
         else
         {
-            for (j = min_index; j < *size_a; j++)
+			for (j = 0; j < (*size_a - min_index); j++)
                 rra_reverse_rotate(a, *size_a);
+			/*Antiguo
+            for (j = min_index; j < *size_a; j++)
+                rra_reverse_rotate(a, *size_a);*/
         }
         pb_push(a, size_a, b, size_b);
     }
@@ -78,6 +81,9 @@ int get_chunk_size(int total)
 
 int find_max_index(int b[], int len_b)
 {
+	if (len_b <= 0)
+        return -1;
+	
     int max = b[0];
     int idx = 0;
     for (int i = 1; i < len_b; i++)
@@ -187,3 +193,20 @@ void sort_large(int *a, int *len_a, int *b, int *len_b, int total)
     free(sorted);
 }
 
+
+
+/* OTRA OPCION, NO PROBADA
+
+int get_chunk_size(int total)
+{
+    if (total <= 100)
+        return 18;            // óptimo para ~600-700 movimientos
+    else if (total <= 500)
+        return 30;            // mantiene 4500-5500 movimientos
+    else
+        return 50;            // escalado coherente
+}
+
+
+
+*/

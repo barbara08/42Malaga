@@ -27,7 +27,11 @@ int main(int argc, char **argv)
     int *a = (int *)malloc(sizeof(int) * total);
     int *b = (int *)malloc(sizeof(int) * total);
     if (!a || !b)
-        return 1;
+	{
+    	free(a);
+    	free(b);
+    	return 1;
+	}
 
     int i = 0;
     int error = 0;
