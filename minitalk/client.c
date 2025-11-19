@@ -14,6 +14,42 @@ t_mini	*client_start(void)
     return (talk);
 }
 
+void client_send(t_mini *talk, char *message)
+{
+    int i, bit_position;
+    int signal;
+
+    i = 0;
+    while (i <= ft_strlen(message)) // incluimos '\0' al final
+    {
+        bit_position = 0;
+        while (bit_position < 8) // 8 bits por carácter
+        {
+            if ((message[i] >> bit_position) & 1)
+                signal = SIGUSR2;
+            else
+                signal = SIGUSR1;
+
+            if (kill(talk->pid_server, signal) == -1)
+            {
+                ft_putstr("ERROR SENDING SIGNAL\n");
+                exit(EXIT_FAILURE);
+            }
+
+            usleep(500); // suficiente para que la señal sea procesada
+            bit_position++;
+        }
+        i++;
+    }
+}
+
+
+
+
+
+
+
+/* ORIGINAL, PARECE QUE NO FUNCIONA 
 void	client_send(t_mini *talk, char *message)
 {
 	int	i;
@@ -40,7 +76,7 @@ void	client_send(t_mini *talk, char *message)
         //i++;
 	}
 	return;
-}
+}*/
 
 int	main(int argc, char **argv)
 {

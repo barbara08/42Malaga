@@ -14,13 +14,37 @@ t_mini  *server_start(void)
     return (talk);
 }
 
+void server_received(int sig)
+{
+    static int bit_position = 0;
+    static char character = 0;
+    int bit;
+
+    bit = (sig == SIGUSR2) ? 1 : 0;
+    character |= (bit << bit_position);
+    bit_position++;
+
+    if (bit_position == 8)
+    {
+        write(1, &character, 1);
+        if (character == '\0')
+            write(1, "\n", 1);
+        bit_position = 0;
+        character = 0;
+    }
+}
+
+
+
+
+/* ORIGINAL PARECE QUE NO FUNCIONA
 void    server_received(int boolean)
 {
 	static int	bit_position = 0;
 	static char	character = 0;
 	
 	character += ((boolean & 1) << bit_position++);
-	if (bit_position == 7)
+	if (bit_position == 8)
 	{
 		write(1, &character, 1);
 		if (!character)
@@ -29,7 +53,7 @@ void    server_received(int boolean)
 		character = 0;
 	}
 	return;
-}
+}*/
 
 void	server_run(t_mini *talk)
 {
