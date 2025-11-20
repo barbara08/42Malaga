@@ -11,20 +11,14 @@ typedef struct s_mini
 	int	pid_client;
 }	t_mini;
 
-// utils.c
+t_mini	*client_start(void);
+t_mini	*server_start(void);
+void	client_send(t_mini *talk, char *message);
+void	server_received(int boolean);
+void	server_loop(t_mini *talk);
 int		ft_strlen(char *str);
 int		ft_atoi(const char *str);
 void	ft_putstr(char *str);
 void	ft_putnbr(int num);
 
-//server.c
-t_mini  *server_start(void);
-void    server_received(int boolean);
-void	server_run(t_mini *talk);
-
-//client.c
-t_mini	*client_start(void);
-void	client_send(t_mini *talk, char *message);
-
 #endif
-
