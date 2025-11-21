@@ -8,7 +8,7 @@
 typedef struct s_mini
 {
 	int	pid_server;
-	int	pid_client;
+	//int	pid_client;
 }	t_mini;
 
 t_mini	*client_start(void);

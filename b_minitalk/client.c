@@ -11,29 +11,34 @@ t_mini	*client_start(void)
 		exit(EXIT_FAILURE);
 	}
 	talk->pid_server = 0;
-	talk->pid_client = 0;
+	//talk->pid_client = 0;
 	return (talk);
 }
 
 void	client_send(t_mini *talk, char *message)
 {
-	int	bit_displacement;
-	int	i;
-	int	signal;
+	int	i; //Índice para recorrer cada carácter del mensaje
+	int	pos_bit; //Posición del bit actual (0-7)
+	int	signal_type; //Tipo de señal a enviar (SIGUSR1 o SIGUSR2)
 
 	i = -1;
 	while (++i < ft_strlen(message))
 	{
-		bit_displacement = -1;
-		signal = 0;
-		while (++bit_displacement < 8)
+		pos_bit = -1; //Reinicia a -1 la posición del bit para el nuevo carácter
+		signal_type = 0;
+		//pre-incrementa pos_bit (empieza en 0) y envía cada bit del carácter
+		while (++pos_bit < 8)
 		{
-			if ((message[i] >> bit_displacement) & 1)
-				signal = SIGUSR2;
+			//message[i] >> pos_bit → desplaza el carácter para aislarlo en el bit actual
+			//& 1 → extrae solo ese bit (0 o 1)
+			if ((message[i] >> pos_bit) & 1) //
+				signal_type = SIGUSR2;
 			else
-				signal = SIGUSR1;
-			kill(talk->pid_server, signal);
-			usleep(200);
+				signal_type = SIGUSR1;
+			//Envía la señal al servidor usando su PID
+			////kill() es la función de Unix para enviar señales entre procesos
+			kill(talk->pid_server, signal_type);
+			usleep(200); //Espera 200 microsegundos entre cada bit, para asegurar que el servidor procese la señal antes de enviar la siguiente
 		}
 	}
 	return ;
