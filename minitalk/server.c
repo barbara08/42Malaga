@@ -45,13 +45,13 @@ void server_loop(t_mini *talk)
         pause();   // espera señales sin consumir CPU
 }
 
-int	main(int nword, char *arguments[])
+int	main(int argc, char *argv[])
 {
 	t_mini	*talk;
 	
-	(void)arguments;
+	(void)argv;
 	talk = NULL;
-	if (nword != 1)
+	if (argc != 1)
 	{
 		ft_putstr("ERROR!, 1 argument\n");
 		exit(EXIT_FAILURE);

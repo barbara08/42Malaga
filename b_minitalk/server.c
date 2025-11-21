@@ -45,33 +45,13 @@ void server_loop(t_mini *talk)
         pause();   // espera señales sin consumir CPU
 }
 
-
-
-/* ORIGINAL
-void	server_loop(t_mini *talk)
-{
-	while (1)
-	{
-		if ((signal(SIGUSR1, server_recieve) == SIG_ERR)
-			|| (signal(SIGUSR2, server_recieve) == SIG_ERR))
-		{
-			ft_putstr("ERROR!\n");
-			free(talk);
-			exit(EXIT_FAILURE);
-		}
-		sleep(2);
-	}
-	return ;
-}
-	*/
-
-int	main(int nword, char *arguments[])
+int	main(int argc, char *argv[])
 {
 	t_mini	*talk;
 	
-	(void)arguments;
+	(void)argv;
 	talk = NULL;
-	if (nword != 1)
+	if (argc != 1)
 	{
 		ft_putstr("ERROR!, 1 argument\n");
 		exit(EXIT_FAILURE);
