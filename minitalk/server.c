@@ -11,23 +11,22 @@ t_mini	*server_start(void)
 		exit(EXIT_FAILURE);
 	}
 	talk->pid_server = 0;
-	talk->pid_client = 0;
 	return (talk);
 }
 
 void	server_received(int signal_num)
 {
-	static int	bit_displacement = 0;
-	static char	letter = 0;
+	static int	pos_bit = 0;
+	static char	character_bit = 0;
 	
-	letter += ((signal_num == SIGUSR2) << bit_displacement++);
-	if (bit_displacement == 8)
+	character_bit += ((signal_num == SIGUSR2) << pos_bit++);
+	if (pos_bit == 8)
 	{
-		write(1, &letter, 1);
-		if (!letter)
+		write(1, &character_bit, 1);
+		if (!character_bit)
 			write(1, "\n", 1);
-		bit_displacement = 0;
-		letter = 0;
+		pos_bit = 0;
+		character_bit = 0;
 	}
 	return ;
 }
@@ -42,7 +41,7 @@ void server_loop(t_mini *talk)
     }
 
     while (1)
-        pause();   // espera señales sin consumir CPU
+        pause();
 }
 
 int	main(int argc, char *argv[])
@@ -60,7 +59,7 @@ int	main(int argc, char *argv[])
 	{
 		talk = server_start();
 		talk->pid_server = getpid();
-		ft_putstr("SUCCESS!, PID: ");
+		ft_putstr("SUCCESS! PID NUMBER: ");
 		ft_putnbr(talk->pid_server);
 		write(1, "\n", 1);
 		server_loop(talk);

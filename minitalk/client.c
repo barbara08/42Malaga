@@ -11,28 +11,27 @@ t_mini	*client_start(void)
 		exit(EXIT_FAILURE);
 	}
 	talk->pid_server = 0;
-	talk->pid_client = 0;
 	return (talk);
 }
 
 void	client_send(t_mini *talk, char *message)
 {
-	int	bit_displacement;
 	int	i;
-	int	signal;
+	int	pos_bit;
+	int	signal_type;
 
 	i = -1;
 	while (++i < ft_strlen(message))
 	{
-		bit_displacement = -1;
-		signal = 0;
-		while (++bit_displacement < 8)
+		pos_bit = -1;
+		signal_type = 0;
+		while (++pos_bit < 8)
 		{
-			if ((message[i] >> bit_displacement) & 1)
-				signal = SIGUSR2;
+			if ((message[i] >> pos_bit) & 1)
+				signal_type = SIGUSR2;
 			else
-				signal = SIGUSR1;
-			kill(talk->pid_server, signal);
+				signal_type = SIGUSR1;
+			kill(talk->pid_server, signal_type);
 			usleep(200);
 		}
 	}
