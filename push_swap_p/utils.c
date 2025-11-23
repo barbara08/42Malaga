@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-int ft_atoi_validate(const char *str, int *error)
+int ft_atoi(const char *str, int *error)
 {
 	long num = 0;
 	int sign = 1;
@@ -66,6 +66,97 @@ int ft_is_sorted(int *stack, int size)
 	return (1); // Está ordenado
 }
 
+void ft_print_error_and_free(int *a, int *b)
+{
+    write(2, "Error\n", 6);
+    if (a) free(a);
+    if (b) free(b);
+}
+
+// Contar números en una cadena separados por espacios
+int count_numbers_in_string(const char *str)
+{
+	int count = 0;
+	int in_number = 0;
+	int i = 0;
+
+	while (str[i])
+	{
+		if (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+		{
+			in_number = 0;
+		}
+		else
+		{
+			if (!in_number)
+			{
+				count++;
+				in_number = 1;
+			}
+		}
+		i++;
+	}
+	return (count);
+}
+
+// Parsear números de una cadena separados por espacios
+int parse_numbers_from_string(const char *str, int *arr, int *error)
+{
+	int count = 0;
+	int i = 0;
+	char num_str[50];
+	int j = 0;
+
+	while (str[i])
+	{
+		// Saltar espacios en blanco
+		while (str[i] && (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13)))
+			i++;
+
+		if (!str[i])
+			break;
+
+		// Extraer número (con signo opcional)
+		j = 0;
+		if (str[i] == '-' || str[i] == '+')
+		{
+			num_str[j++] = str[i];
+			i++;
+		}
+
+		// Extraer dígitos
+		while (str[i] && str[i] >= '0' && str[i] <= '9')
+		{
+			num_str[j++] = str[i];
+			i++;
+		}
+
+		// Si no hay dígitos después del signo, error
+		if (j == 0 || (j == 1 && (num_str[0] == '-' || num_str[0] == '+')))
+		{
+			*error = 1;
+			return (count);
+		}
+
+		num_str[j] = '\0';
+		arr[count] = ft_atoi(num_str, error);
+		if (*error)
+			return (count);
+		count++;
+
+		// Si hay caracteres que no son espacios ni dígitos, error
+		if (str[i] && str[i] != ' ' && !(str[i] >= 9 && str[i] <= 13))
+		{
+			*error = 1;
+			return (count);
+		}
+	}
+	return (count);
+}
+
+
+
+/* COMENTADO, OJO además de que no lo piden tiene un printf \n y sale en la terminal 
 void ft_print_stack(char *name, int stack[], int len)
 {
 	int i = 0;
@@ -76,23 +167,9 @@ void ft_print_stack(char *name, int stack[], int len)
 	}
 	printf("\n");
 }
-
-void ft_print_error_and_free(int *a, int *b)
-{
-    write(2, "Error\n", 6);
-    if (a) free(a);
-    if (b) free(b);
-}
+*/
 
 
-//Mi funcion original
-/* 
-void ft_print_error_and_free(int *a, int *b)
-{
-	write(2, "Error\n", 6);
-	free(a);
-	free(b);
-}*/
 //Función para usarlo en el main.c con fd
 //No hace falta, lo usé solo con write
 void ft_putstr_fd(char *s, int fd)
@@ -101,12 +178,7 @@ void ft_putstr_fd(char *s, int fd)
 		write(fd, s++, 1);
 }
 
-
-
-
-
-
-/* ft_atoi_validate
+/* ft_atoi
 El programa debe detectar errores y manejarlos mostrando "Error\n" 
 y saliendo con error cuando:
 El argumento no sea un número válido (por ejemplo "123abc").analizadortiene duplicados

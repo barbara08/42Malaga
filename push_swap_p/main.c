@@ -1,82 +1,101 @@
 #include "push_swap.h"
 
-
-
-//100 numeros
-//1 201 2 202 3 203 4 204 5 205 6 206 7 207 8 208 9 209 10 210 11 211 12 212 13 213 14 214 15 215 16 216 17 217 18 218 19 219 20 220 21 221 22 222 23 223 24 224 25 225 26 226 27 227 28 228 29 229 30 230 31 231 32 232 33 233 34 234 35 235 36 236 37 237 38 238 39 239 40 240 41 241 42 242 43 243 44 244 45 245 46 246 47 247 48 248 49 249 50 250 | wc -l
-
-//500 numeros
-/* 
-742 518 983 615 362 457 291 824 167 934 56 809 273 491 628 884 39 704 981 145 312 759 864 27 699 540 122 1000 463 587 70 398 927 344 860 214 679 129 556 471 955 602 346 775 205 891 310 673 48 218 734 135 999 428 384 820 913 262 176 595
-821 111 730 507 321 468 947 232 929 688 365 789 14 492 658 379 520 907 245 600 331 827 124 710 266 941 171 348 452 965 780 35 867 297 518 184 743 559 606 821 52 903 156 921 614 473 820 51 716 935 123 665 179 870 41 742 267 560 699 315
-783 249 965 504 883 47 900 146 362 587 204 777 258 491 806 949 237 993 426 676 992 203 318 847 58 627 787 414 853 990 222 970 365 113 798 411 284 169 744 530 962 377 580 841 294 753 933 607 556 172 928 642 398 787 689 439 594 260 873 318
-140 719 225 969 394 803 172 517 866 760 861 431 672 240 544 198 606 905 345 147 464 725 217 639 487 376 593 864 128 456 233 497 764 903 523 389 655 946 701 290 928 573 837 102 517 355 745 668 207 581 411 324 874 760 335 691 140 983 301 492
-514 957 866 440 273 326 144 599 185 770 271 783 953 87 341 670 409 558 950 326 347 423 136 912 459 679 510 405 356 811 292 718 605 364 720 238 909 743 516 689 326 974 820 582 213 455 180 967 459 358 91 364 750 643 256 938 565 153 794 289
-712 497 122 739 810 594 935 629 471 841 233 650 27 983 742 100 913 457 682 579 802 511 332 701 360 487 837 542 196 299 447 689 274 811 530 703 999 286 203 770 702 374 823 116 544 665 154 597 488 400 852 691 175 610 256 879 736 348 587 139
-991 458 640 873 759 423 531 283 317 110 947 579 637 915 364 224 807 687 231 754 694 553 71 870 901 472 628 203 449 163 389 632 542 175 822 647 735 199 504 924 19 878 436 741 561 809 380 728 962 278 803 866 497 213 661 974 146 552 716 391 207 633 803 511 258 745 821 619 473 587 403 192 571 645 812 933 671 266 749 985
-95 310 842 620 392 746 957 283 771 544 418 830 152 500 99 845 697 351 923 277 855 132 834 176 727 561 484 359 713 168 228 774 389 523 342 594 801 710 667 934 
-*/
-
-
 int main(int argc, char **argv)
 {
-    if (argc < 2)
-        return 0;
+	int total;
+	int *a;
+	int *b;
+	int i;
+	int error;
+	int len_a;
+	int len_b;
 
-    int total = argc - 1;
-    int *a = (int *)malloc(sizeof(int) * total);
-    int *b = (int *)malloc(sizeof(int) * total);
-    if (!a || !b)
+	if (argc == 1)
 	{
-    	free(a);
-    	free(b);
-    	return 1;
+		return(0);
 	}
 
-    int i = 0;
-    int error = 0;
-    while (i < total)
-    {
-        a[i] = ft_atoi_validate(argv[i + 1], &error);
-        if (error)
-        {
-            ft_print_error_and_free(a, b);
-            return 1;
-        }
-        i++;
-    }
+	// Si hay un argumento único con espacios, parsearlo; si no, usar argumentos separados
+	if (argc == 2)
+	{
+		total = count_numbers_in_string(argv[1]);
+		if (total == 0)
+			return(0);
+	}
+	else
+	{
+		total = argc - 1;
+	}
 
-    if (ft_number_duplicate(a, total))
-    {
-        ft_print_error_and_free(a, b);
-        return 1;
-    }
+	a = (int *)malloc(sizeof(int) * total);
+	b = (int *)malloc(sizeof(int) * total);
+	if (!a || !b)
+	{
+		free(a);
+		free(b);
+		return(1);
+	}
 
-    int len_a = total;
-    int len_b = 0;
+	// Inicializar b para evitar basura
+	i = 0;
+	while (i < total)
+	{
+		b[i] = 0;
+		i++;
+	}
 
-    if (!ft_is_sorted(a, len_a))
-    {
-        if (len_a == 2)
-        {
-            if (a[0] > a[1])
-                sa_swap(a, len_a);
-        }
-        else if (len_a == 3)
-        {
-            ft_sort_three(a, len_a);
-        }
-        else if (len_a <= 5)
-        {
-            ft_sort_five(a, &len_a, b, &len_b);
-        }
-        else
-        {
-            sort_large(a, &len_a, b, &len_b, total);
-        }
-    }
+	error = 0;
+	if (argc == 2)
+	{
+		// Parsear desde una cadena única
+		int parsed_count = parse_numbers_from_string(argv[1], a, &error);
+		if (error || parsed_count != total)
+		{
+			ft_print_error_and_free(a, b);
+			return(1);
+		}
+	}
+	else
+	{
+		// Parsear desde argumentos separados
+		i = 0;
+		while (i < total)
+		{
+			a[i] = ft_atoi(argv[i + 1], &error);
+			if (error)
+			{
+				ft_print_error_and_free(a, b);
+				return(1);
+			}
+			i++;
+		}
+	}
 
-    free(a);
-    free(b);
-    return 0;
+	if (ft_number_duplicate(a, total))
+	{
+		ft_print_error_and_free(a, b);
+		return(1);
+	}
+
+	len_a = total;
+	len_b = 0;
+
+	if (!ft_is_sorted(a, len_a))
+	{
+		if (len_a == 2)
+		{
+			if (a[0] > a[1])
+				sa(a, len_a);
+		}
+		else if (len_a == 3)
+			ft_sort_three(a, len_a);
+		else if (len_a <= 5)
+			ft_sort_five(a, &len_a, b, &len_b);
+		else
+			ft_sort_big_number(a, &len_a, b, &len_b, total);
+	}
+
+	free(a);
+	free(b);
+	return(0);
 }

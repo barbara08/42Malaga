@@ -1,6 +1,5 @@
 #include "push_swap.h"
 
-
 void ft_sort_three(int *stack_a, int size_a)
 {
 	if (size_a != 3)
@@ -13,184 +12,227 @@ void ft_sort_three(int *stack_a, int size_a)
 	int c = stack_a[2];
 
 	if (a > b && b < c && a < c)
-		sa_swap(stack_a, size_a);
+		sa(stack_a, size_a);
 	else if (a > b && b > c)
 	{
-		sa_swap(stack_a, size_a);
-		rra_reverse_rotate(stack_a, size_a);
+		sa(stack_a, size_a);
+		rra(stack_a, size_a);
 	}
 	else if (a > b && b < c && a > c)
-		ra_rotate(stack_a, size_a);
+		ra(stack_a, size_a);
 	else if (a < b && b > c && a < c)
 	{
-		sa_swap(stack_a, size_a);
-		ra_rotate(stack_a, size_a);
+		sa(stack_a, size_a);
+		ra(stack_a, size_a);
 	}
 	else if (a < b && b > c && a > c)
-		rra_reverse_rotate(stack_a, size_a);
+		rra(stack_a, size_a);
 }
-
 
 void ft_sort_five(int *a, int *size_a, int *b, int *size_b)
 {
-    int min, i, min_index, j;
-    while (*size_a > 3)
-    {
-        min = a[0];
-        min_index = 0;
-        for (i = 1; i < *size_a; i++)
-        {
-            if (a[i] < min)
-            {
-                min = a[i];
-                min_index = i;
-            }
-        }
-        if (min_index <= *size_a / 2)
-        {
-            for (j = 0; j < min_index; j++)
-                ra_rotate(a, *size_a);
-        }
-        else
-        {
-			for (j = 0; j < (*size_a - min_index); j++)
-                rra_reverse_rotate(a, *size_a);
-			/*Antiguo
-            for (j = min_index; j < *size_a; j++)
-                rra_reverse_rotate(a, *size_a);*/
-        }
-        pb_push(a, size_a, b, size_b);
-    }
-    ft_sort_three(a, *size_a);
-    while (*size_b > 0)
-        pa_push(a, size_a, b, size_b);
+	int min_value; 
+	int min_index; 
+	int i; // para recorrer el stack
+	int j; // para ejecutar rotaciones
 
+	while (*size_a > 3)
+	{
+		min_value = a[0];
+		min_index = 0;
+
+		/* encontrar el mínimo */
+		/*Recorremos todo el stack para localizar el valor mínimo y su posición. */
+		i = 1;
+		while (i < *size_a)
+		{
+			/*Si encontramos un número menor → actualizamos min_value y min_index. */
+			if (a[i] < min_value)
+			{
+				min_value = a[i];
+				min_index = i;
+			}
+			i++;
+		}
+
+			/* rotaciones hacia arriba */
+			/*Si el mínimo está en la mitad superior del stack, conviene usar rotaciones normales (ra). */
+			/*Son más pocas rotaciones */
+		if (min_index <= *size_a / 2)
+		{
+			j = 0;
+			/*Ejecuta ra tantas veces como sea necesario para llevar el mínimo a la posición 0 */
+			while (j < min_index)
+			{
+				ra(a, *size_a);
+				j++;
+			}
+		}
+			/* rotaciones hacia abajo */
+			/*Si el mínimo está en la mitad inferior */
+		else
+		{
+    		int moves = *size_a - min_index;
+    		while (moves-- > 0)
+        		rra(a, *size_a);  
+		}
+		/*Una vez que el mínimo está arriba del stack A, lo enviamos al stack B */
+		/*Repetimos el ciclo hasta que A tenga solo 3 números */
+		pb(a, size_a, b, size_b);
+	}
+	/*Cuando size_a == 3, usamos la función ordenar 3 números */
+	ft_sort_three(a, *size_a);
+	/* Sacamos todos los elementos de B y los devolvemos a A*/
+	while (*size_b > 0)
+		pa(a, size_a, b, size_b);
 }
 
+//auxiliary functions for sorting numbers greater than 6
 
-
-int get_chunk_size(int total)
+int ft_get_chunk_size(int total_number_a)
 {
-    if (total <= 100)
-        return 20;       // para ~700-900 movimientos
-    else if (total <= 500)
-        return 45;       // para ~5500 movimientos
-    else
-        return 100;      // ajustable para stacks más grandes
+	if (total_number_a <= 100)
+		return(20);			// para 700-900 movimientos
+	else if (total_number_a <= 500)
+		return(45);			// para 5500 movimientos
+	else
+		return(100);		// para stacks más grandes
 }
 
-int find_max_index(int b[], int len_b)
+int ft_find_max_index(int b[], int len_b)
 {
-	if (len_b <= 0)
-        return -1;
-	
-    int max = b[0];
-    int idx = 0;
-    for (int i = 1; i < len_b; i++)
-    {
-        if (b[i] > max)
-        {
-            max = b[i];
-            idx = i;
-        }
-    }
-    return idx;
+	int max_value = b[0];
+	int pos_max_index = 0;
+	int i = 1;
+
+	while (i < len_b)
+	{
+		if (b[i] > max_value)
+		{
+			max_value = b[i];
+			pos_max_index = i;
+		}
+		i++;
+	}
+	return(pos_max_index);
 }
 
-
-void push_back_to_a(int a[], int *len_a, int b[], int *len_b)
+void ft_push_chunk_to_b(int a[], int *len_a, int b[], int *len_b, int sorted[], int chunk_size, int total)
 {
-    while (*len_b > 0)
-    {
-        int max_idx = find_max_index(b, *len_b);
+	int chunk;
+	int min_chunk;
+	int max_chunk;
+	int i;
+	int moves;
 
-        if (max_idx <= *len_b / 2)
-            while (max_idx-- > 0)
-                rb_rotate(b, *len_b);
-        else
-        {
-            int moves = *len_b - max_idx;
-            while (moves-- > 0)
-                rrb_reverse_rotate(b, *len_b);
-        }
+	chunk = 0;
+	while (chunk * chunk_size < total)
+	{
+		min_chunk = chunk * chunk_size;
+		max_chunk = (chunk + 1) * chunk_size - 1;
+		if (max_chunk >= total)
+			max_chunk = total - 1;
 
-        pa_push(a, len_a, b, len_b);
-    }
+		i = 0;
+		while (i < *len_a)
+		{
+			if (a[i] >= sorted[min_chunk] && a[i] <= sorted[max_chunk])
+			{
+				// Rotación mínima en a
+				if (i <= *len_a / 2)
+				{
+					while (i-- > 0)
+						ra(a, *len_a);
+				}
+				else
+				{
+					moves = *len_a - i;
+					while (moves-- > 0)
+						rra(a, *len_a);
+				}
+
+				pb(a, len_a, b, len_b);
+
+				// Rotación estratégica en b: colocar los más pequeños abajo
+				if (*len_b > 1 && b[0] < sorted[min_chunk + chunk_size / 2])
+					rb(b, *len_b);
+
+				i = 0;
+			}
+			else
+				i++;
+		}
+		chunk++;
+	}
 }
 
-void push_chunk_to_b(int a[], int *len_a, int b[], int *len_b, int sorted[], int chunk_size, int total)
+void ft_push_back_to_a(int a[], int *len_a, int b[], int *len_b)
 {
-    int min_chunk, max_chunk;
+	int max_index;
+	int moves;
 
-    for (int c = 0; c * chunk_size < total; c++)
-    {
-        min_chunk = c * chunk_size;
-        max_chunk = (c + 1) * chunk_size - 1;
-        if (max_chunk >= total)
-            max_chunk = total - 1;
+	while (*len_b > 0)
+	{
+		max_index = ft_find_max_index(b, *len_b);
 
-        int i = 0;
-        while (i < *len_a)
-        {
-            if (a[i] >= sorted[min_chunk] && a[i] <= sorted[max_chunk])
-            {
-                // Rotación mínima en a
-                if (i <= *len_a / 2)
-                    while (i-- > 0)
-                        ra_rotate(a, *len_a);
-                else
-                {
-                    int moves = *len_a - i;
-                    while (moves-- > 0)
-                        rra_reverse_rotate(a, *len_a);
-                }
+		if (max_index <= *len_b / 2)
+			while (max_index-- > 0)
+				rb(b, *len_b);
+		else
+		{
+			moves = *len_b - max_index;
+			while (moves-- > 0)
+				rrb(b, *len_b);
+		}
 
-                pb_push(a, len_a, b, len_b);
-
-                // Rotación estratégica en b: colocar los más pequeños abajo
-                if (*len_b > 1 && b[0] < sorted[min_chunk + chunk_size / 2])
-                    rb_rotate(b, *len_b);
-
-                i = 0;
-            }
-            else
-                i++;
-        }
-    }
+		pa(a, len_a, b, len_b);
+	}
 }
 
-void sort_large(int *a, int *len_a, int *b, int *len_b, int total)
+void ft_sort_big_number(int *a, int *len_a, int *b, int *len_b, int total)
 {
-    int *sorted = (int *)malloc(sizeof(int) * total);
-    if (!sorted)
-        return;
+	int *sorted;
+	int i;
+	int swapped;
+	int tmp;
+	int chunk_size;
 
-    for (int i = 0; i < total; i++)
-        sorted[i] = a[i];
+	sorted = (int *)malloc(sizeof(int) * total);
+	if (!sorted)
+		return;
 
-    // Ordenación simple para crear chunks
-    int swapped = 1;
-    while (swapped)
-    {
-        swapped = 0;
-        for (int i = 0; i < total - 1; i++)
-        {
-            if (sorted[i] > sorted[i + 1])
-            {
-                int tmp = sorted[i];
-                sorted[i] = sorted[i + 1];
-                sorted[i + 1] = tmp;
-                swapped = 1;
-            }
-        }
-    }
+	i = 0;
+	while (i < total)
+	{
+		sorted[i] = a[i];
+		i++;
+	}
 
-    int chunk_size = get_chunk_size(total);
+	// Ordenación simple para crear chunks (bubble sort)
+	swapped = 1;
+	while (swapped)
+	{
+		swapped = 0;
+		i = 0;
+		while (i < total - 1)
+		{
+			if (sorted[i] > sorted[i + 1])
+			{
+				tmp = sorted[i];
+				sorted[i] = sorted[i + 1];
+				sorted[i + 1] = tmp;
+				swapped = 1;
+			}
+		i++;
+		}
+	}
 
-    push_chunk_to_b(a, len_a, b, len_b, sorted, chunk_size, total);
-    push_back_to_a(a, len_a, b, len_b);
+	chunk_size = ft_get_chunk_size(total);
 
-    free(sorted);
+	ft_push_chunk_to_b(a, len_a, b, len_b, sorted, chunk_size, total);
+	ft_push_back_to_a(a, len_a, b, len_b);
+
+	free(sorted);
 }
 
 
@@ -206,7 +248,5 @@ int get_chunk_size(int total)
     else
         return 50;            // escalado coherente
 }
-
-
 
 */

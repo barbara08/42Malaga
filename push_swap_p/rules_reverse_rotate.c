@@ -8,56 +8,51 @@ rrb reverse rotate b: Desplaza hacia abajo todos los elementos del stack b
 rrr rra y rrb al mismo tiempo.
 */
 
-// Función auxiliar que haga el reverse rotate sin imprimir
 void reverse_rotate(int stack[], int len)
 {
 	int i;
-	int last;
+	int last; // guardará el último elemento del stack
 
-	if (len < 2)
-		return;
-
+	if (len < 2) //Comprueba si el stack tiene menos de 2 elementos
+		return; //Si hay 0 o 1 elemento, no hay nada que rotar, así que sale inmediatamente de la función
+	
+	//Guarda en last el último elemento del array (stack[len-1]), porque ese valor se va a mover a la primera posición
 	last = stack[len - 1];
-	i = len - 1;
+
+	i = len - 1; // i comienza en la última posición del array
+	//con while desplaza todos los elementos una posición hacia abajo
 	while (i > 0)
 	{
+		//Copia el elemento anterior (stack[i-1]) a la posición actual stack[i]
+		//Esto desplaza cada elemento una posición hacia abajo (hacia índices mayores)
 		stack[i] = stack[i - 1];
 		i--;
 	}
+	//Coloca el valor guardado en last en la primera posición del array
+	//Con esto se completa la "reverse rotate": el último elemento pasa a ser el primero
 	stack[0] = last;
 }
-void rra_reverse_rotate(int a[], int len_a)
+
+void rra(int a[], int len_a)
 {
 	reverse_rotate(a, len_a);
 	write(1, "rra\n", 4);
 }
 
-void rrb_reverse_rotate(int b[], int len_b)
+void rrb(int b[], int len_b)
 {
 	reverse_rotate(b, len_b);
 	write(1, "rrb\n", 4);
 }
 
-void rrr_reverse_rotate(int a[], int len_a, int b[], int len_b)
+void rrr(int a[], int len_a, int b[], int len_b)
 {
 	reverse_rotate(a, len_a);
 	reverse_rotate(b, len_b);
 	write(1, "rrr\n", 4);
 }
 
-
-/* Funcion para el main
-void print_testing(char name, int stack[], int len)
-{
-	int i = 0;
-	printf("%c: ", name);
-	while (i < len) {
-		printf("%d ", stack[i]);
-		i++;
-	}
-	printf("\n");
-}
-
+/*
 int main()
 {
 	int a[10] = {1, 2, 3, 4};
@@ -66,72 +61,22 @@ int main()
 	int len_b = 3;
 
 	printf("\nStacks rra y rrb reverse original:\n");
-	print_testing('a', a, len_a);
-	print_testing('b', b, len_b);
+	ft_print_stack('a', a, len_a);
+	ft_print_stack('b', b, len_b);
 
-	rra_reverse_rotate(a, len_a);
-	rrb_reverse_rotate(b, len_b);
+	rra(a, len_a);
+	rrb(b, len_b);
 
 	printf("\nDespués de rra y rrb reverse:\n");
-	print_testing('a', a, len_a);
-	print_testing('b', b, len_b);
+	ft_print_stack('a', a, len_a);
+	ft_print_stack('b', b, len_b);
 
-	rrr_reverse_rotate(a, len_a, b, len_b);
+	rrr(a, len_a, b, len_b);
 
 	printf("\nDespués de rrr:\n");
-	print_testing('a', a, len_a);
-	print_testing('b', b, len_b);
+	ft_print_stack('a', a, len_a);
+	ft_print_stack('b', b, len_b);
 
 	return (0);
 }
-*/
-
-/*ANTIGUO CODIGO, NO SE SI FUNCIONA 
-void rra_reverse_rotate(int a[], int len_a)
-{
-	int i;
-	int last;
-
-	if(len_a < 2)
-		return;
-	// Guardamos el último elemento
-	last = a[len_a - 1];
-	// Mover todos los elementos una posición hacia atrás (de derecha a izquierda)
-	i = len_a - 1;
-	while(i > 0)
-	{
-		a[i] = a[i - 1];
-		i--;
-	}
-	// Colocamos el último elemento al principio
-	a[0] = last;
-}
-
-void rrb_reverse_rotate(int b[], int len_b)
-{
-	int i;
-	int last;
-
-	if(len_b < 2)
-		return;
-	last = b[len_b - 1];
-	i = len_b - 1;
-	while(i > 0)
-	{
-		b[i] = b[i - 1];
-		i--;
-	}
-	b[0] = last;
-}
-
-void rrr_reverse_rotate(int a[], int len_a, int b[], int len_b)
-{
-	rra_reverse_rotate(a, len_a);
-	rrb_reverse_rotate(b, len_b);
-	write(1, "rrr\n", 4);
-}
-
-
-
-
 */

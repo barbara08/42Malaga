@@ -4,38 +4,42 @@
 # include <stdlib.h>
 # include <limits.h>
 # include <stdio.h>
+# include <string.h>
 
+//aux functions =>	utils.c
+int		ft_atoi(const char *str, int *error);
+int		ft_number_duplicate(int *stack, int size);
+int		ft_is_sorted(int *stack, int size);
+void	ft_print_error_and_free(int *a, int *b);
+int		count_numbers_in_string(const char *str);
+int		parse_numbers_from_string(const char *str, int *arr, int *error);
+//void	ft_print_stack(char *name, int stack[], int len); //No lo piden
 
+//operations =>		rules_*.c
+void	sa(int a[], int len_a);
+void	sb(int b[], int len_b);
+void	ss(int a[], int len_a, int b[], int len_b);
 
-int ft_atoi_validate(const char *str, int *error);
-int ft_number_duplicate(int *stack, int size);
-int ft_is_sorted(int *stack, int size);
-void ft_print_error_and_free(int *a, int *b);
+void	pa(int a[], int *len_a, int b[], int *len_b);
+void	pb(int a[], int *len_a, int b[], int *len_b);
 
-void sa_swap(int a[], int len_a);
-void sb_swap(int b[], int len_b);
-void ss_swap(int a[], int len_a, int b[], int len_b);
+void	ra(int a[], int len_a);
+void	rb(int b[], int len_b);
+void	rr(int a[], int len_a, int b[], int len_b);
 
-void pa_push(int a[], int *len_a, int b[], int *len_b);
-void pb_push(int a[], int *len_a, int b[], int *len_b);
+void	rra(int a[], int len_a);
+void	rrb(int b[], int len_b);
+void	rrr(int a[], int len_a, int b[], int len_b);
 
-void ra_rotate(int a[], int len_a);
-void rb_rotate(int b[], int len_b);
-void rr_rotate(int a[], int len_a, int b[], int len_b);
+//sorted	=>		sorted.c
+void	ft_sort_three(int *stack_a, int size_a);
+void	ft_sort_five(int *a, int *size_a, int *b, int *size_b);
 
-void rra_reverse_rotate(int a[], int len_a);
-void rrb_reverse_rotate(int b[], int len_b);
-void rrr_reverse_rotate(int a[], int len_a, int b[], int len_b);
-
-void ft_sort_three(int *stack_a, int size_a);
-void ft_sort_five(int *a, int *size_a, int *b, int *size_b);
-
-//int find_chunk_index(int value, int sorted[], int chunk_size, int total);
-void push_chunk_to_b(int a[], int *len_a, int b[], int *len_b, int sorted[], int chunk_size, int total);
-int find_max_index(int b[], int len_b);
-void push_back_to_a(int a[], int *len_a, int b[], int *len_b);
-int get_chunk_size(int total);
-
-void sort_large(int *a, int *len_a, int *b, int *len_b, int total);
+int     ft_get_chunk_size(int total_number_a);
+int		ft_find_max_index(int b[], int len_b);
+void	ft_push_chunk_to_b(int a[], int *len_a, int b[], int *len_b, int sorted[], int chunk_size, int total);
+void	ft_push_back_to_a(int a[], int *len_a, int b[], int *len_b);
+void	ft_sort_big_number(int *a, int *len_a, int *b, int *len_b, int total);
 
 #endif
+

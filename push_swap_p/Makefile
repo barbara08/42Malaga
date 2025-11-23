@@ -1,11 +1,11 @@
 NAME = push_swap
 
-SRC = rules_swaps.c \
-rules_push.c \
+SRC = rules_push.c \
 rules_reverse_rotate.c \
 rules_rotate.c \
-utils.c \
+rules_swap.c \
 sorted.c \
+utils.c \
 main.c \
 
 OBJ = $(SRC:.c=.o)
