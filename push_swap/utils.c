@@ -63,23 +63,20 @@ int ft_is_sorted(int *stack, int size)
 	while (i < size - 1)
 	{
 		if (stack[i] > stack[i + 1])
-			return (0); // Encontró que no está ordenado
+			return (0);
 		i++;
 	}
-	return (1); // Está ordenado
+	return (1);
 }
 
 void ft_print_error_and_free(int *a, int *b)
 {
-	write(2, "Error\n", 6);
-	free(a);
-	free(b);
+    write(2, "Error\n", 6);
+    if (a) free(a);
+    if (b) free(b);
 }
 
 
-//No piden esta función, la tengo para ver si los stacks están ordenados
-//Falta cambiar printf por ft_printf
-//Y anotarlo en el .h
 void ft_print_stack(char *name, int stack[], int len)
 {
 	int i = 0;

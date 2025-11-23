@@ -1,30 +1,17 @@
 #include "push_swap.h"
 
-/*
-pa push a: Toma el primer elemento del stack b y lo pone el primero en el stack a.
-	No hace nada si b está vacío.
-pb push b: Toma el primer elemento del stack a y lo pone el primero en el stack b.
-	No hace nada si a está vacío.
-*/
-
-
 void pa(int a[], int *len_a, int b[], int *len_b)
 {
     if (*len_b > 0)
     {
         int i = *len_a;
 
-        // Mover A hacia abajo (desde len_a hasta 1)
         while (i > 0)
         {
             a[i] = a[i - 1];
             i--;
         }
-
-        // Copiar el primer elemento de B a A
         a[0] = b[0];
-
-        // Mover B hacia arriba (desde 0 hasta len_b-2)
         i = 0;
         while (i < *len_b - 1)
         {
@@ -44,7 +31,6 @@ void pb(int a[], int *len_a, int b[], int *len_b)
     {
         int i = *len_b;
 
-        // Mover B hacia abajo (desde len_b hasta 1)
         while (i > 0)
         {
             b[i] = b[i - 1];
@@ -69,82 +55,6 @@ void pb(int a[], int *len_a, int b[], int *len_b)
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* ANTIGUO CODIGO
-
-void pa(int a[], int *len_a, int b[], int *len_b)
-{
-	if (*len_b > 0)
-	{
-		int j = *len_a;
-		// Mover elementos de a hacia atrás
-		while (j > 0)
-		{
-			a[j] = a[j - 1];
-			j--;
-		}
-
-		a[0] = b[0];
-
-		int k = 0;
-		// Mover elementos de b hacia adelante
-		while (k < *len_b - 1)
-		{
-			b[k] = b[k + 1];
-			k++;
-		}
-
-		(*len_a)++;
-		(*len_b)--;
-
-		write(1, "pa\n", 3);
-	}
-}
-
-void pb(int a[], int *len_a, int b[], int *len_b)
-{
-	if (*len_a > 0)
-	{
-		int j = *len_b;
-		// Mover elementos de b hacia atrás
-		while (j > 0)
-		{
-			b[j] = b[j - 1];
-			j--;
-		}
-
-		b[0] = a[0];
-
-		int k = 0;
-		// Mover elementos de a hacia adelante
-		while (k < *len_a - 1)
-		{
-			a[k] = a[k + 1];
-			k++;
-		}
-
-		(*len_b)++;
-		(*len_a)--;
-
-		write(1, "pb\n", 3);
-	}
-}
-*/
 
 /*
 
