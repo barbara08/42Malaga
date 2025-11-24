@@ -38,9 +38,16 @@ void	client_send(t_mini *talk, char *message)
 			//Envía la señal al servidor usando su PID
 			////kill() es la función de Unix para enviar señales entre procesos
 			kill(talk->pid_server, signal_type);
-			usleep(200); //Espera 200 microsegundos entre cada bit, para asegurar que el servidor procese la señal antes de enviar la siguiente
+			usleep(1000); //Espera 200 microsegundos entre cada bit, para asegurar que el servidor procese la señal antes de enviar la siguiente
 		}
 	}
+	// Envía carácter nulo de terminación
+    pos_bit = -1;
+    while (++pos_bit < 8)
+    {
+        kill(talk->pid_server, SIGUSR1);
+        usleep(1000);
+    }
 	return ;
 }
 
