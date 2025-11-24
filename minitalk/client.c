@@ -32,7 +32,7 @@ void	client_send(t_mini *talk, char *message)
 			else
 				signal_type = SIGUSR1;
 			kill(talk->pid_server, signal_type);
-			usleep(200);
+			usleep(450);
 		}
 	}
 	return ;
