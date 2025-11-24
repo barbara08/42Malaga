@@ -73,19 +73,21 @@ void ft_print_error_and_free(int *a, int *b)
     if (b) free(b);
 }
 
-// Contar números en una cadena separados por espacios
+// Contar números en una cadena separados por espacios (por parámetro)
 int count_numbers_in_string(const char *str)
 {
-	int count = 0;
-	int in_number = 0;
-	int i = 0;
+	int count;
+	int in_number;
+	int i;
+
+	i = 0;
+	in_number = 0;
+	count = 0;
 
 	while (str[i])
 	{
 		if (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
-		{
 			in_number = 0;
-		}
 		else
 		{
 			if (!in_number)
@@ -102,11 +104,14 @@ int count_numbers_in_string(const char *str)
 // Parsear números de una cadena separados por espacios
 int parse_numbers_from_string(const char *str, int *arr, int *error)
 {
-	int count = 0;
-	int i = 0;
+	int i;
+	int j;
 	char num_str[50];
-	int j = 0;
+	int count;
 
+	i = 0;
+	j = 0;
+	count = 0;
 	while (str[i])
 	{
 		// Saltar espacios en blanco
