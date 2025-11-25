@@ -219,6 +219,7 @@ void	ft_sort_array(int *arr, int total)
 		}
 	}
 }
+
 void	ft_sort_big_number(int *a, int *len_a, int *b, int *len_b, 
 	int total)
 {
