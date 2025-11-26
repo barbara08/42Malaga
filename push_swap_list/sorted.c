@@ -20,29 +20,6 @@ void	ft_sort_three(int *stack_a, int size_a)
 }
 
 
-
-// --- Auxiliares para sort_five ---
-static int	get_min_idx(int *a, int size)
-{
-	int	min;
-	int	idx;
-	int	i;
-
-	min = a[0];
-	idx = 0;
-	i = 1;
-	while (i < size)
-	{
-		if (a[i] < min)
-		{
-			min = a[i];
-			idx = i;
-		}
-		i++;
-	}
-	return (idx);
-}
-
 void	ft_sort_five(t_data *data)
 {
 	int	min_idx;
