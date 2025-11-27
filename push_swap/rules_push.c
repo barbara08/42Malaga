@@ -1,11 +1,13 @@
 #include "push_swap.h"
 
-void pa(int a[], int *len_a, int b[], int *len_b)
+//Comprobar lineas en el campus
+void pa(int *a, int *len_a, int *b, int *len_b)
 {
+    int i;
+
     if (*len_b > 0)
     {
-        int i = *len_a;
-
+        i = *len_a;
         while (i > 0)
         {
             a[i] = a[i - 1];
@@ -25,32 +27,30 @@ void pa(int a[], int *len_a, int b[], int *len_b)
         write(1, "pa\n", 3);
     }
 }
-void pb(int a[], int *len_a, int b[], int *len_b)
+
+//Comprobar lineas en el campus
+void pb(int *a, int *len_a, int *b, int *len_b)
 {
+    int i;
+
     if (*len_a > 0)
     {
-        int i = *len_b;
-
+        i = *len_b;
         while (i > 0)
         {
             b[i] = b[i - 1];
             i--;
         }
-
-        // Copiar el primer elemento de A en B
         b[0] = a[0];
 
-        // Mover A hacia arriba (desde 0 hasta len_a-2)
         i = 0;
         while (i < *len_a - 1)
         {
             a[i] = a[i + 1];
             i++;
         }
-
         (*len_b)++;
         (*len_a)--;
-
         write(1, "pb\n", 3);
     }
 }

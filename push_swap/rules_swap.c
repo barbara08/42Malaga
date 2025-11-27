@@ -1,14 +1,6 @@
 #include "push_swap.h"
 
-/*
-Swaps
-sa: Intercambia los dos primeros elementos del stack a.
-sb: Intercambia los dos primeros elementos del stack b.
-	*No hace nada si hay uno o menos elementos.
-ss: Realiza sa y sb al mismo tiempo.
-*/
-
-void swap(int stack[], int len)
+void swap(int *stack, int len)
 {
 	int tmp;
 
@@ -20,24 +12,27 @@ void swap(int stack[], int len)
 	stack[1] = tmp;
 }
 
-void sa(int a[], int len_a)
+void sa(int *a, int len_a)
 {
 	swap(a, len_a);
 	write(1, "sa\n", 3);
 }
 
-void sb(int b[], int len_b)
+void sb(int *b, int len_b)
 {
 	swap(b, len_b);
 	write(1, "sb\n", 3);
 }
 
-void ss(int a[], int len_a, int b[], int len_b)
+void ss(int *a, int len_a, int *b, int len_b)
 {
 	swap(a, len_a);
 	swap(b, len_b);
 	write(1, "ss\n", 3);
 }
+
+
+
 
 /*
 int main()

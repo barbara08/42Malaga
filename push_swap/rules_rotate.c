@@ -1,13 +1,6 @@
 #include "push_swap.h"
-/*
-ra rotate a: Desplaza hacia arriba todos los elementos del stack a una posición,
-	de forma que el primer elemento se convierte en el último.
-rb rotate b: Desplaza hacia arriba todos los elementos del stack b una posición,
-	de forma que el primer elemento se convierte en el último.
-rr ra y rb al mismo tiempo.
-*/
 
-void rotate(int stack[], int len)
+void rotate(int *stack, int len)
 {
 	int i;
 	int first;
@@ -25,24 +18,28 @@ void rotate(int stack[], int len)
 	stack[len - 1] = first;
 }
 
-void ra(int a[], int len_a)
+void ra(int *a, int len_a)
 {
 	rotate(a, len_a);
 	write(1, "ra\n", 3);
 }
 
-void rb(int b[], int len_b)
+void rb(int *b, int len_b)
 {
 	rotate(b, len_b);
 	write(1, "rb\n", 3);
 }
 
-void rr(int a[], int len_a, int b[], int len_b)
+void rr(int *a, int len_a, int *b, int len_b)
 {
 	rotate(a, len_a);
 	rotate(b, len_b);
 	write(1, "rr\n", 3);
 }
+
+
+
+
 
 /*
 int main()
