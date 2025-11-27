@@ -52,5 +52,8 @@ void	move_to_b(t_data *data, int i, int max_val);
 void	push_chunks_to_b(t_data *data, int *sorted, int chunk_sz);
 int	get_max_idx(int *stack, int size);
 void	ft_push_back_to_a(t_data *data);
+int	get_min_idx(int *a, int size);
+
+
 
 #endif

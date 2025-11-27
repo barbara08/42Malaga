@@ -4,10 +4,12 @@ SRC = rules_push.c \
 rules_reverse_rotate.c \
 rules_rotate.c \
 rules_swap.c \
-small_sort.c \
-big_sort.c \
+aux_sort.c \
+aux_big_sort.c \
+libft.c \
 parsing.c \
 utils.c \
+sorted.c \
 main.c \
 
 OBJ = $(SRC:.c=.o)
