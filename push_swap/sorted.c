@@ -51,15 +51,11 @@ void	ft_sort_big_number(t_data *data)
 	sorted = ft_get_sorted_copy(data);
 	if (!sorted)
 		ft_print_error_and_free(data, 1);
-	
 	if (data->total <= 100)
 		chunk_size = 20;
 	else
 		chunk_size = 45;
-	
 	ft_push_chunks_to_b(data, sorted, chunk_size);
-	
 	free(sorted);
-	
 	ft_push_back_to_a(data);
 }

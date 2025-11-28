@@ -26,7 +26,6 @@ int	ft_count_numbers_in_string(const char *str)
 	return (count_numbers);
 }
 
-//OJO Lineas justas, verificar en el campus
 int	ft_fill_stack_from_str(const char *str, t_data *data)
 {
 	int		i;
@@ -38,21 +37,20 @@ int	ft_fill_stack_from_str(const char *str, t_data *data)
 	ptr = (char *)str;
 	while (i < data->total)
 	{
-		num = ft_atoi(ptr, &temp_ptr); 
+		num = ft_atoi(ptr, &temp_ptr);
 		if (num > INT_MAX || num < INT_MIN || num == 2147483648L)
 			return (1);
 		data->a[i] = (int)num;
-        ptr = temp_ptr;
+		ptr = temp_ptr;
 		while (*ptr == ' ' || (*ptr >= 9 && *ptr <= 13))
 			ptr++;
 		i++;
 	}
-    if (*ptr != '\0')
+	if (*ptr != '\0')
 		return (1);
 	return (0);
 }
 
-//OJO Lineas justas, verificar en el campus (lo tengo comprobado en el file verificar_lineas.c)
 int	ft_parse_args(int argc, char **argv, t_data *data)
 {
 	int		i;
@@ -69,11 +67,12 @@ int	ft_parse_args(int argc, char **argv, t_data *data)
 		i = 0;
 		while (i < data->total)
 		{
-			tmp_value = ft_atoi(argv[i + 1], &endptr); 
-			if (tmp_value > INT_MAX || tmp_value < INT_MIN || tmp_value == 2147483648L)
+			tmp_value = ft_atoi(argv[i + 1], &endptr);
+			if (tmp_value > INT_MAX
+				|| tmp_value < INT_MIN || tmp_value == 2147483648L)
 				return (1);
-            if (*endptr != '\0')
-                return (1);
+			if (*endptr != '\0')
+				return (1);
 			data->a[i] = (int)tmp_value;
 			i++;
 		}

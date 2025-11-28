@@ -1,50 +1,44 @@
 #include "push_swap.h"
 
-long ft_converted_digit(const char *str, const char **endptr)
+long	ft_converted_digit(const char *str, const char **endptr)
 {
-    long num;
-    const char *start;
+	long		num;
+	const char	*start;
 
-    num = 0;
-    start = str;
-    while (*str >= '0' && *str <= '9')
-    {
-        num = num * 10 + (*str - '0');
-        if (num > (long)INT_MAX + 1L)
-            return 2147483648L;
-        str++;
-    }
-
-    if (str == start)
-        return 2147483648L;
-
-    if (endptr)
-        *endptr = str;
-
-    return (num);
+	num = 0;
+	start = str;
+	while (*str >= '0' && *str <= '9')
+	{
+		num = num * 10 + (*str - '0');
+		if (num > (long)INT_MAX + 1L)
+			return (2147483648L);
+		str++;
+	}
+	if (str == start)
+		return (2147483648L);
+	if (endptr)
+		*endptr = str;
+	return (num);
 }
 
-long ft_atoi(const char *str, char **endptr)
+long	ft_atoi(const char *str, char **endptr)
 {
-    long num;
-    int sign;
+	long	num;
+	int		sign;
 
-    sign = 1;
-    if (endptr)
-        *endptr = (char *)str;
-
-    while (*str == ' ' || (*str >= 9 && *str <= 13))
-        str++;
-
-    if (*str == '-' || *str == '+')
-    {
-        if (*str == '-')
-            sign = -1;
-        str++;
-    }
-
-    num = ft_converted_digit(str, (const char **)endptr);
-    return (num * sign);
+	sign = 1;
+	if (endptr)
+		*endptr = (char *)str;
+	while (*str == ' ' || (*str >= 9 && *str <= 13))
+		str++;
+	if (*str == '-' || *str == '+')
+	{
+		if (*str == '-')
+			sign = -1;
+		str++;
+	}
+	num = ft_converted_digit(str, (const char **)endptr);
+	return (num * sign);
 }
 
 int	ft_number_duplicate(int *stack, int size)

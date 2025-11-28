@@ -15,7 +15,6 @@ typedef struct s_data
 	int	total;
 }	t_data;
 
-
 // utils.c
 void	ft_free_data(t_data *data);
 void	ft_print_error_and_free(t_data *data, int error_only);
@@ -50,12 +49,10 @@ int		*ft_get_sorted_copy(t_data *data);
 void	ft_move_to_b(t_data *data, int i, int max_value);
 void	ft_push_chunks_to_b(t_data *data, int *sorted, int chunk_size);
 
-
 // aux_sort.c
 int		ft_get_min_index(int *a, int size);
 int		ft_get_max_index(int *stack, int size);
 void	ft_push_back_to_a(t_data *data);
-
 
 // sorted.c
 void	ft_sort_three(int *stack_a, int size_a);

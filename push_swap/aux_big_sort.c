@@ -30,11 +30,9 @@ int	*ft_get_sorted_copy(t_data *data)
 	array = malloc(sizeof(int) * data->total);
 	if (!array)
 		return (NULL);
-	
 	i = -1;
 	while (++i < data->total)
 		array[i] = data->a[i];
-	
 	ft_bubble_sort(array, data->total);
 	return (array);
 }
@@ -47,9 +45,7 @@ void	ft_move_to_b(t_data *data, int i, int max_value)
 	else
 		while (i++ < data->len_a)
 			rra(data->a, data->len_a);
-			
 	pb(data->a, &data->len_a, data->b, &data->len_b);
-	
 	if (data->len_b > 1 && data->b[0] < max_value)
 		rb(data->b, data->len_b);
 }
@@ -69,9 +65,11 @@ void	ft_push_chunks_to_b(t_data *data, int *sorted, int chunk_size)
 		i = 0;
 		while (i < data->len_a)
 		{
-			if (data->a[i] >= sorted[chunk * chunk_size] && data->a[i] <= sorted[limit])
+			if (data->a[i] >= sorted[chunk * chunk_size]
+				&& data->a[i] <= sorted[limit])
 			{
-				ft_move_to_b(data, i, sorted[chunk * chunk_size + chunk_size / 2]);
+				ft_move_to_b(data, i,
+					sorted[chunk * chunk_size + chunk_size / 2]);
 				i = -1;
 			}
 			i++;
