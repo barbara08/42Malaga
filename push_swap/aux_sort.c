@@ -21,6 +21,7 @@ int	ft_get_min_index(int *a, int size)
 	return (min_index);
 }
 
+
 int	ft_get_max_index(int *stack, int size)
 {
 	int	max;
@@ -42,25 +43,4 @@ int	ft_get_max_index(int *stack, int size)
 	return (max_index);
 }
 
-void	ft_push_back_to_a(t_data *data)
-{
-	int	max_index;
-	int	moves;
 
-	while (data->len_b > 0)
-	{
-		max_index = ft_get_max_index(data->b, data->len_b);
-		if (max_index <= data->len_b / 2)
-		{
-			while (max_index-- > 0)
-				rb(data->b, data->len_b);
-		}
-		else
-		{
-			moves = data->len_b - max_index;
-			while (moves-- > 0)
-				rrb(data->b, data->len_b);
-		}
-		pa(data->a, &data->len_a, data->b, &data->len_b);
-	}
-}

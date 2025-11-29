@@ -43,19 +43,18 @@ void	ft_sort_five(t_data *data)
 		pa(data->a, &data->len_a, data->b, &data->len_b);
 }
 
+
 void	ft_sort_big_number(t_data *data)
 {
 	int	*sorted;
-	int	chunk_size;
 
 	sorted = ft_get_sorted_copy(data);
 	if (!sorted)
 		ft_print_error_and_free(data, 1);
-	if (data->total <= 100)
-		chunk_size = 20;
-	else
-		chunk_size = 45;
-	ft_push_chunks_to_b(data, sorted, chunk_size);
+	ft_index_array(data->a, sorted, data->total);
 	free(sorted);
-	ft_push_back_to_a(data);
+
+	ft_radix_sort(data);
 }
+
+

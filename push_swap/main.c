@@ -6,8 +6,13 @@ static void	ft_init_data(t_data *data, int argc, char **argv)
 		data->total = ft_count_numbers_in_string(argv[1]);
 	else
 		data->total = argc - 1;
+	data->a = NULL;
+    data->b = NULL;
 	if (data->total == 0)
-		exit(0);
+	{
+        write(2, "Error\n", 6);
+        exit(1);
+    }
 	data->len_a = data->total;
 	data->len_b = 0;
 	data->a = malloc(sizeof(int) * data->total);
@@ -47,3 +52,4 @@ int	main(int argc, char **argv)
 	ft_free_data(&data);
 	return (0);
 }
+
