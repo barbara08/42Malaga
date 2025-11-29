@@ -22,7 +22,6 @@ int	ft_get_min_index(int *a, int size)
 	return (min_index);
 }
 
-
 // --- Auxiliares para big_sort ---
 
 // --- get_max_idx (Ya estaba correcto, 2 parámetros) ---
@@ -46,6 +45,9 @@ int	ft_get_max_index(int *stack, int size)
 	}
 	return (max_index);
 }
+
+
+/* 
 
 // --- ft_push_back_to_a (Ya estaba correcta, 1 parámetro) ---
 void	ft_push_back_to_a(t_data *data)
@@ -71,7 +73,7 @@ void	ft_push_back_to_a(t_data *data)
 	}
 }
 
-
+*/
 
 
 /*

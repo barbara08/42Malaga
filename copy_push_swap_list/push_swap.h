@@ -47,14 +47,16 @@ void	rrr(int *a, int len_a, int *b, int len_b);
 // aux_big_sort.c
 void	ft_bubble_sort(int *array, int size);
 int		*ft_get_sorted_copy(t_data *data);
-void	ft_move_to_b(t_data *data, int i, int max_value);
-void	ft_push_chunks_to_b(t_data *data, int *sorted, int chunk_size);
-
+//void	ft_move_to_b(t_data *data, int i, int max_value);
+//void	ft_move_to_b(t_data *data, int pos, int pivot);
+//void	ft_push_chunks_to_b(t_data *data, int *sorted, int chunk_size);
+void	ft_index_array(int *a, int *sorted, int size);
+void	ft_radix_sort(t_data *data);
 
 // aux_sort.c
 int		ft_get_min_index(int *a, int size);
 int		ft_get_max_index(int *stack, int size);
-void	ft_push_back_to_a(t_data *data);
+//void	ft_push_back_to_a(t_data *data);
 
 
 // sorted.c
