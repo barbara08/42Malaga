@@ -196,7 +196,7 @@ void ft_sort_big_number(int *a, int *len_a, int *b, int *len_b, int total)
 	int swapped;
 	int tmp;
 	int chunk_size;
-
+	
 	sorted = (int *)malloc(sizeof(int) * total);
 	if (!sorted)
 		return;
