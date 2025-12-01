@@ -44,27 +44,6 @@ void	ft_sort_five(t_data *data)
 		pa(data->a, &data->len_a, data->b, &data->len_b);
 }
 
-
-void	ft_sort_big_number(t_data *data)
-{
-	int	*sorted;
-
-	sorted = ft_get_sorted_copy(data);
-	if (!sorted)
-		ft_print_error_and_free(data, 1);
-	ft_index_array(data->a, sorted, data->total);
-	free(sorted);
-
-	ft_radix_sort(data);
-}
-
-
-
-
-
-
-/* 
-
 // --- Función Principal Big Sort (1 parámetro, <= 25 líneas) ---
 void	ft_sort_big_number(t_data *data)
 {
@@ -74,11 +53,12 @@ void	ft_sort_big_number(t_data *data)
 	sorted = ft_get_sorted_copy(data);
 	if (!sorted)
 		ft_print_error_and_free(data, 1);
-	
 	if (data->total <= 100)
 		chunk_size = 20;
+	else if (data->total <= 500)
+		chunk_size = 55;
 	else
-		chunk_size = 45;
+		chunk_size = 100;
 	
 	// Fase 1: Enviar a B por chunks
 	ft_push_chunks_to_b(data, sorted, chunk_size);
@@ -88,4 +68,3 @@ void	ft_sort_big_number(t_data *data)
 	// Fase 2: Devolver de B a A (la función ya estaba correcta)
 	ft_push_back_to_a(data);
 }
-*/

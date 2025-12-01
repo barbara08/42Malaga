@@ -46,8 +46,31 @@ int	ft_get_max_index(int *stack, int size)
 	return (max_index);
 }
 
+ void ft_push_back_to_a(t_data *data)
+{
+    int idx;
+    int moves;
 
-/* 
+    while (data->len_b > 0)
+    {
+        idx = ft_get_max_index(data->b, data->len_b);
+
+        if (idx <= data->len_b / 2)
+            while (idx-- > 0)
+                rb(data->b, data->len_b);
+        else
+        {
+            moves = data->len_b - idx;
+            while (moves-- > 0)
+                rrb(data->b, data->len_b);
+        }
+        pa(data->a, &data->len_a, data->b, &data->len_b);
+    }
+}
+
+
+
+/*
 
 // --- ft_push_back_to_a (Ya estaba correcta, 1 parámetro) ---
 void	ft_push_back_to_a(t_data *data)
@@ -72,9 +95,7 @@ void	ft_push_back_to_a(t_data *data)
 		pa(data->a, &data->len_a, data->b, &data->len_b);
 	}
 }
-
 */
-
 
 /*
 ORIGINAL, OK, se pasa de lineas
