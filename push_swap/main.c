@@ -52,4 +52,3 @@ int	main(int argc, char **argv)
 	ft_free_data(&data);
 	return (0);
 }
-

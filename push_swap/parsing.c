@@ -1,6 +1,5 @@
 #include "push_swap.h"
 
-
 int	ft_count_numbers_in_string(const char *str)
 {
 	int	i;
@@ -29,15 +28,16 @@ int	ft_count_numbers_in_string(const char *str)
 
 int ft_fill_stack_from_str(const char *str, t_data *data)
 {
-    int     i = 0;
+    int     i;
     char    *ptr = (char *)str;
     char    *endptr;
     long    num;
 
+    i = 0;
     while (*ptr == ' ' || (*ptr >= 9 && *ptr <= 13))
         ptr++;
     if (*ptr == '\0')
-        return (1); // string vacía o solo espacios
+        return (1);
     while (i < data->total)
     {
         num = ft_atoi(ptr, &endptr);
@@ -51,7 +51,6 @@ int ft_fill_stack_from_str(const char *str, t_data *data)
     return (0);
 }
 
-
 int	ft_parse_args(int argc, char **argv, t_data *data)
 {
     int     i;
@@ -63,7 +62,6 @@ int	ft_parse_args(int argc, char **argv, t_data *data)
         data->total = ft_count_numbers_in_string(argv[1]);
         if (data->total == 0)
             return (1);
-
         return (ft_fill_stack_from_str(argv[1], data));
     }
     i = 0;
@@ -79,5 +77,3 @@ int	ft_parse_args(int argc, char **argv, t_data *data)
     }
     return (0);
 }
-
-

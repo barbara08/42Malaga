@@ -37,54 +37,41 @@ int	*ft_get_sorted_copy(t_data *data)
 	return (array);
 }
 
-void	ft_index_array(int *a, int *sorted, int size)
+void	ft_move_to_b(t_data *data, int i, int max_value)
 {
-	int	i;
-	int	j;
+	if (i <= data->len_a / 2)
+		while (i-- > 0)
+			ra(data->a, data->len_a);
+	else
+		while (i++ < data->len_a)
+			rra(data->a, data->len_a);
+	pb(data->a, &data->len_a, data->b, &data->len_b);
+	if (data->len_b > 1 && data->b[0] < max_value)
+		rb(data->b, data->len_b);
+}
 
-	i = 0;
-	while (i < size)
+void	ft_push_chunks_to_b(t_data *data, int *sorted, int chunk_size)
+{
+	int	chunk;
+	int	limit;
+	int	i;
+
+	chunk = 0;
+	while (chunk * chunk_size < data->total)
 	{
-		j = 0;
-		while (j < size)
+		limit = (chunk + 1) * chunk_size - 1;
+		if (limit >= data->total)
+			limit = data->total - 1;
+		i = 0;
+		while (i < data->len_a)
 		{
-			if (a[i] == sorted[j])
+			if (data->a[i] >= sorted[chunk * chunk_size] && data->a[i] <= sorted[limit])
 			{
-				a[i] = j;
-				break;
+				ft_move_to_b(data, i, sorted[chunk * chunk_size + chunk_size / 2]);
+				i = -1;
 			}
-			j++;
+			i++;
 		}
-		i++;
+		chunk++;
 	}
 }
-
-void	ft_radix_sort(t_data *data)
-{
-	int	i;
-	int	j;
-	int	max_bits;
-	int	size;
-
-	size = data->len_a;
-	max_bits = 0;
-	while ((size - 1) >> max_bits)
-		max_bits++;
-	i = 0;
-	while (i < max_bits)
-	{
-		j = 0;
-		while (j < data->len_a)
-		{
-			if (((data->a[0] >> i) & 1) == 0)
-				pb(data->a, &data->len_a, data->b, &data->len_b);
-			else
-				ra(data->a, data->len_a);
-			j++;
-		}
-		while (data->len_b > 0)
-			pa(data->a, &data->len_a, data->b, &data->len_b);
-		i++;
-	}
-}
-
