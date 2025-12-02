@@ -96,3 +96,60 @@ void	ft_push_chunks_to_b(t_data *data, int *sorted, int chunk_size)
 	}
 }
 
+
+/*
+No me funciona con números de 100
+
+void	ft_index_array(int *a, int *sorted, int size)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < size)
+	{
+		j = 0;
+		while (j < size)
+		{
+			if (a[i] == sorted[j])
+			{
+				a[i] = j;
+				break;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+void	ft_radix_sort(t_data *data)
+{
+	int	i;
+	int	j;
+	int	max_bits;
+	int	size;
+
+	size = data->len_a;
+	max_bits = 0;
+	while ((size - 1) >> max_bits)
+		max_bits++;
+	i = 0;
+	while (i < max_bits)
+	{
+		j = 0;
+		while (j < data->len_a)
+		{
+			if (((data->a[0] >> i) & 1) == 0)
+				pb(data->a, &data->len_a, data->b, &data->len_b);
+			else
+				ra(data->a, data->len_a);
+			j++;
+		}
+		while (data->len_b > 0)
+			pa(data->a, &data->len_a, data->b, &data->len_b);
+		i++;
+	}
+}
+
+
+*/

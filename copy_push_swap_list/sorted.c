@@ -68,3 +68,22 @@ void	ft_sort_big_number(t_data *data)
 	// Fase 2: Devolver de B a A (la función ya estaba correcta)
 	ft_push_back_to_a(data);
 }
+
+
+/*
+
+
+void	ft_sort_big_number(t_data *data)
+{
+	int	*sorted;
+
+	sorted = ft_get_sorted_copy(data);
+	if (!sorted)
+		ft_print_error_and_free(data, 1);
+	ft_index_array(data->a, sorted, data->total);
+	free(sorted);
+
+	ft_radix_sort(data);
+}
+
+*/
