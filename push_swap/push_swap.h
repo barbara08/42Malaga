@@ -46,7 +46,7 @@ void	rrr(int *a, int len_a, int *b, int len_b);
 // aux_big_sort.c
 void	ft_bubble_sort(int *array, int size);
 int		*ft_get_sorted_copy(t_data *data);
-void	ft_move_to_b(t_data *data, int i, int max_value);
+void	ft_move_to_b(t_data *data, int i, int mid);
 void	ft_push_chunks_to_b(t_data *data, int *sorted, int chunk_size);
 
 // aux_sort.c

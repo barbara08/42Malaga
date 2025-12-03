@@ -20,7 +20,7 @@ int	ft_get_min_index(int *a, int size)
 	}
 	return (min_index);
 }
-
+ 
 int	ft_get_max_index(int *stack, int size)
 {
 	int	max;
@@ -63,5 +63,4 @@ int	ft_get_max_index(int *stack, int size)
         pa(data->a, &data->len_a, data->b, &data->len_b);
     }
 }
-
 
