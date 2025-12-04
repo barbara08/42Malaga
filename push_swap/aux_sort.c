@@ -64,3 +64,4 @@ int	ft_get_max_index(int *stack, int size)
     }
 }
 
+
