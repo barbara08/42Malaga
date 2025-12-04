@@ -54,7 +54,7 @@ void	ft_sort_big_number(t_data *data)
 	if (data->total <= 100)
 		chunk_size = 20;
 	else if (data->total <= 500)
-		chunk_size = 55;
+		chunk_size = 70;
 	else
 		chunk_size = 100;
 	
