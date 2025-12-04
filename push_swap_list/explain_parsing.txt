@@ -1,0 +1,100 @@
+Las 3 funciones 
+
+ft_count_numbers_in_string
+
+ft_fill_stack_from_str
+
+ft_parse_args
+
+1️⃣ ft_count_numbers_in_string
+Qué hace
+
+Cuenta cuántos números hay en una cadena de texto.
+
+Ignora espacios y otros caracteres de whitespace (tab, newline, etc.)
+
+Detecta correctamente los inicios de nuevos números
+
+Por qué sirve
+
+Antes de rellenar tu stack, necesitas saber cuántos números vas a leer.
+
+Esto te permite inicializar estructuras de datos (t_data->total) y reservar espacio correctamente.
+
+Garantiza que tu parsing sea seguro y no lea más o menos números de los esperados.
+
+Ejemplo:
+
+"3  4   -1 9"
+
+
+Devuelve 4 → sabes que t_data->total = 4.
+
+2️⃣ ft_fill_stack_from_str
+Qué hace
+
+Toma una cadena que contiene números separados por espacios.
+
+Convierte cada número con ft_atoi.
+
+Valida si el número es válido (INT_MIN <= num <= INT_MAX).
+
+Llena el stack a dentro de tu estructura t_data.
+
+Devuelve 0 si todo va bien, 1 si hay error (overflow o formato incorrecto).
+
+Por qué sirve
+
+Permite que tu programa soporte un solo argumento con todos los números juntos, como:
+
+./push_swap "3 4 -1 9"
+
+
+Hace validación de seguridad antes de poner los números en el stack.
+
+Evita errores que podrían romper tu programa (overflow, caracteres inválidos).
+
+3️⃣ ft_parse_args
+Qué hace
+
+Es la función principal para leer argumentos desde la línea de comandos (argv).
+
+Decide qué método usar según argc:
+
+argc == 2 → todos los números vienen en una sola cadena → usa ft_fill_stack_from_str
+
+argc > 2 → cada número es un argumento separado → parsea cada argv[i] con ft_atoi
+
+Valida los números (INT_MIN/INT_MAX y formato correcto)
+
+Rellena el stack a de t_data
+
+Devuelve 0 si todo va bien, 1 si hay error
+
+Por qué sirve
+
+Centraliza todo el parsing de entrada.
+
+Permite que tu programa acepte ambas formas de entrada:
+
+Un argumento "3 4 -1"
+
+Varios argumentos separados 3 4 -1
+
+Garantiza que los datos que entran en el stack sean válidos y seguros para push_swap.
+
+
+Cómo trabajan juntas
+
+ft_count_numbers_in_string → te dice cuántos números hay si están en una sola cadena
+
+ft_fill_stack_from_str → rellena el stack desde una cadena, usando ese conteo
+
+ft_parse_args → decide qué estrategia de parsing usar según los argumentos, valida todo, y llama a las otras funciones según corresponda
+
+En conjunto: estas funciones permiten que tu push_swap acepte cualquier entrada válida, detecte errores, y construya correctamente el stack inicial para luego poder aplicar todas las operaciones (sa, pb, ra, etc.) de manera segura.
+
+
+
+
+
