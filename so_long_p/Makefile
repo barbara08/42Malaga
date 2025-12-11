@@ -9,7 +9,7 @@ OBJ = $(SRC:.c=.o)
 CC = cc
 
 
-#Para MacOS
+# Para MacOS
 #CFLAGS = -Wall -Wextra -Werror -Iminilibx_opengl_20191021
 #LDFLAGS = -Lminilibx_opengl_20191021 -lmlx -framework OpenGL -framework AppKit
 
