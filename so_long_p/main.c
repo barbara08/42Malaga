@@ -1,18 +1,95 @@
-//Para Mac
-//#include "minilibx_opengl_20191021/mlx.h"
-
-//Para Linux
-#include "minilibx-linux/mlx.h"
+#include "so_long.h"
 
 
-int main()
+//void ft_destroy_game(t_game *game); // Prototipo para limpieza
+
+int main(int argc, char **argv)
+{
+    t_game game;
+    t_info_map info_map;
+    
+    if(argc != 2)
+    {
+        printf("Falta el file\n");
+        return(0);
+    }
+    
+    // Inicializar estructuras
+    ft_init_map(&info_map);
+    game.map_info = &info_map;
+    game.textures = NULL; // Se cargará después
+
+    // 1. Validar y cargar mapa
+    int map_ok = ft_load_map(argv[1], &info_map); // Pasa la estructura info_map
+
+    if (!map_ok)
+    {
+        printf("Mapa no válido.\n");
+        // Aquí debería limpiar la memoria del mapa antes de salir.
+        // ft_free_map(&info_map); 
+        return (0);
+    }
+
+    // 2. Inicializar MLX
+    game.mlx = mlx_init();
+    if (!game.mlx) return (1); // Error de inicialización
+    // 2b. Inicializar la posición del jugador
+    ft_find_initial_player_pos(&game);
+
+    // 3. Cargar Texturas
+    ft_load_textures(&game);
+
+    // 4. Crear ventana
+    // Calcula el tamaño de la ventana basado en las dimensiones del mapa y el tamaño de la imagen (ej: 32)
+    int width = game.map_info->num_columns * 32;
+    int height = game.map_info->num_rows * 32;
+    
+    game.window = mlx_new_window(game.mlx, width, height, "So Long");
+    if (!game.window) { 
+        // Limpiar mlx y salir
+        //ft_destroy_game(&game);
+        return (1); 
+    }
+
+    // 5. Manejo de la ventana (hooks)
+    ft_manage_window(&game); 
+
+    // 6. Dibujar el mapa
+    ft_draw_map(&game);
+
+    // 7. Bucle principal
+    mlx_loop(game.mlx);
+
+    // 8. Limpieza al salir
+    //ft_destroy_game(&game);
+    return 0;
+}
+
+
+
+
+/* ORIGINAL OK
+int main(int argc, char **argv)
 {
     void *mlx;
     void *window;
 
+   if(argc != 2)
+   {
+    printf("Falta el file");
+    return(0);
+   }
+
     mlx = mlx_init();
     window = mlx_new_window(mlx, 800, 600, "So Long");
+    manage_window(window, mlx);
+    
+    int map = load_map(argv[1]);
+    printf("map %d", map);
+
+    ft_draw_map();
 
     mlx_loop(mlx);
     return 0;
 }
+    */

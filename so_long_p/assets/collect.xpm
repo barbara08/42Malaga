@@ -1,0 +1,41 @@
+/* XPM */
+static char *collect_xpm[] = {
+"32 32 4 1",
+" 	c #444444", /* Fondo gris oscuro */
+".	c #FFFF00", /* Amarillo brillante */
+"X	c #FFAA00", /* Naranja (sombra) */
+"o	c #000000", /* Borde */
+/* pixels */
+"                                ",
+"                                ",
+"                                ",
+"                                ",
+"                                ",
+"                                ",
+"                                ",
+"         oooooo                 ",
+"       oo......oo               ",
+"      o..XXXXXX..o              ",
+"     o.XXXXXXXXXX.o             ",
+"    o.XXXXXXXXXXXX.o            ",
+"    o.XXXX..XXXXXX.o            ",
+"   o.XXXX....XXXXXX.o           ",
+"  o.XXXX......XXXXXX.o          ",
+" o.XXXX........XXXXXX.o         ",
+" o.XXXX........XXXXXX.o         ",
+" o.XXXX......XXXXXX.o           ",
+" o.XXXX....XXXXXX.o             ",
+" o.XXXX..XXXXXX.o               ",
+" o.XXXXXX.o                     ",
+"  o.XXXX.o                      ",
+"   o.X.o                        ",
+"    o.o                         ",
+"     o                          ",
+"                                ",
+"                                ",
+"                                ",
+"                                ",
+"                                ",
+"                                ",
+"                                "
+};
