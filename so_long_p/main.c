@@ -40,9 +40,11 @@ int main(int argc, char **argv)
     ft_load_textures(&game);
 
     // 4. Crear ventana
-    // Calcula el tamaño de la ventana basado en las dimensiones del mapa y el tamaño de la imagen (ej: 32)
+    // Calcula el tamaño de la ventana basado en las dimensiones del mapa y el tamaño de la imagen (ej: 64)
     int width = game.map_info->num_columns * 32;
     int height = game.map_info->num_rows * 32;
+    printf("resolution width %d x height %d\n", width, height);
+    
     
     game.window = mlx_new_window(game.mlx, width, height, "So Long");
     if (!game.window) { 

@@ -1,11 +1,13 @@
 #include "so_long.h"
 
-// Los Keycodes de Linux para las flechas y WASD
+// Los Keycodes de Linux para las flechas y WASD ZQSD
 #define KEY_ESC     65307
 #define KEY_W       119
 #define KEY_A       97
 #define KEY_S       115
 #define KEY_D       100
+#define KEY_Z       122
+#define KEY_Q       113
 #define KEY_UP      65362
 #define KEY_LEFT    65361
 #define KEY_DOWN    65364
@@ -110,7 +112,7 @@ int ft_handle_keypress(int keycode, t_game *game)
     {
         mlx_loop_end(game->mlx); // Lógica de salida que ya tienes
     }
-    else if (keycode == KEY_W || keycode == KEY_UP)
+    else if (keycode == KEY_W || keycode == KEY_Z || keycode == KEY_UP)
     {
         ft_move_player(game, 0, -1); // Mover Arriba (dy = -1)
     }
@@ -118,7 +120,7 @@ int ft_handle_keypress(int keycode, t_game *game)
     {
         ft_move_player(game, 0, 1);  // Mover Abajo (dy = 1)
     }
-    else if (keycode == KEY_A || keycode == KEY_LEFT)
+    else if (keycode == KEY_A || keycode == KEY_Q || keycode == KEY_LEFT)
     {
         ft_move_player(game, -1, 0); // Mover Izquierda (dx = -1)
     }

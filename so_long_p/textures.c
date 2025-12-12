@@ -9,11 +9,14 @@ static void *ft_load_img(t_game *game, char *path)
     img_ptr = mlx_xpm_file_to_image(game->mlx, path, &w, &h);
     if (!img_ptr)
     {
+        //salida del archivo que no es correcto
+        fprintf(stderr, "Error: No se pudo cargar el archivo XPM: %s\n", path);
         perror("Error cargando imagen XPM");
+        exit(1);
         // Deberías añadir lógica para limpiar y salir
     }
     // Falta, asegurarnos de que todas las imágenes tengan el mismo tamaño.
-    // if (w != h || w != 32) { ... }
+    // if (w != h || w != 64) { ... }
     return (img_ptr);
 }
 

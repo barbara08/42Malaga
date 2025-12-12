@@ -26,15 +26,19 @@ int ft_validate_file(char *file_path)
     return(1);
 }
 
-int ft_validate_line(char *line, t_info_map *info_map){
+int ft_validate_line(char *line, t_info_map *info_map)
+{
     /*
     line = 111111
     line = 101011
     line = 1EC001
     line = 111111
 
-    - resto de filas, 1º y ultima columna tiene que ser 1
-    - ver que no hay caracters no permitidos
+    - Primera y última fila tiene que ser 1
+    - Resto de filas:
+        1º y ultima columna tiene que ser 1
+        1º y última pos de fila tiene que ser 1
+    - Ver que no hay caracters no permitidos
     */
     int pos;
     pos=0;
@@ -98,13 +102,34 @@ int ft_validate_line(char *line, t_info_map *info_map){
     return(1);
 
 }
-void ft_print_map(t_info_map *info_map){
-    int i=0;
-    while (i<info_map->num_rows){
+void ft_print_map(t_info_map *info_map)
+{
+    int i;
+    i = 0;
+    while (i < info_map->num_rows)
+    {
         printf("%d -> %s!\n", i, info_map->map[i]);
         i++;
     }
     printf("FIN PRINT\n");
+}
+
+// En tu archivo map.c
+int ft_is_only_one(char *line)
+{
+    int i;
+    i = 0;
+    while(line[i])
+    {
+        // Si el carácter es '\n' y es el último de la línea (antes de '\0')
+        if (line[i] == '\n' && line[i + 1] == '\0')
+            break; // Es el final esperado, salimos del bucle
+        
+        if(line[i] != '1')
+            return (0); // Cualquier otro carácter que no sea '1' es un fallo
+        i++;
+    }
+    return (1); // Si llegamos aquí, pasó la prueba.
 }
 
 int ft_readd_file(char *file_path, t_info_map *info_map)
@@ -133,7 +158,17 @@ int ft_readd_file(char *file_path, t_info_map *info_map)
         // printf("tmp_num_columns %d --- %s\n", tmp_num_columns, line);
         //    - mismo número de columnas
         if (info_map->num_rows == 0)
+        {
             info_map->num_columns = tmp_num_columns;
+            // Para la última linea se Verifica después de leer el file
+            // Verificando si toda la 1º linea es 1
+            ok = ft_is_only_one(line); 
+            if (!ok)
+            {
+                free(line);
+                return (0);
+            }
+        }
         else if (info_map->num_columns != tmp_num_columns)
         {
             printf("no coincide el número de columna en la fila %d\n", info_map->num_rows+1);
@@ -179,8 +214,13 @@ int ft_readd_file(char *file_path, t_info_map *info_map)
 
         line = NULL;
 	}
-    // la 1º y la ultima fila todo 1??
     close(fd);
+    // la 1º y la ultima fila todo 1??
+    //Verificando la última fila 
+    //(tiene que ser después de la lectura del file que es cuando sabemos cuantas rows hay)
+    ok = ft_is_only_one(info_map->map[info_map->num_rows - 1]);
+    if (!ok)
+        return (0);
     printf("===============\n");
     ft_print_map(info_map);
 
@@ -204,6 +244,7 @@ void ft_init_map(t_info_map *info_map)
     info_map->collections = 0;
     info_map->map = NULL;
 }
+
 
 int ft_load_map(char *file_path, t_info_map *info_map)
 {

@@ -33,7 +33,7 @@ typedef struct s_images {
     void *collect;   // Collections 'C'
     void *player;    // Player 'P'
     void *exit;      // Exit 'E'
-    int img_size;    // Imagen Size (ej: 32)
+    int img_size;    // Imagen Size (ej: 64)
 } t_images;
 
 typedef struct s_game {
@@ -55,6 +55,7 @@ void ft_manage_window(t_game *game);
 int ft_validate_file(char *file_path);
 int ft_validate_line(char *line, t_info_map *info_map);
 int ft_readd_file(char *file_path, t_info_map *info_map);
+int ft_is_only_one(char *line);
 void ft_init_map(t_info_map *info_map);
 int ft_load_map(char *file_path, t_info_map *info_map);
 
