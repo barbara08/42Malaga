@@ -1,10 +1,9 @@
 /* XPM */
 static char *collect_xpm[] = {
-"32 32 4 1",
-" 	c #444444", /* Fondo gris oscuro */
-".	c #FFFF00", /* Amarillo brillante */
-"X	c #FFAA00", /* Naranja (sombra) */
-"o	c #000000", /* Borde */
+"32 32 3 1",
+" 	c #0000FF", // Fondo: Azul del Floor
+".	c #000000", // Borde: Negro
+"X	c #FFA500", // Pez: Naranja
 /* pixels */
 "                                ",
 "                                ",
@@ -13,29 +12,29 @@ static char *collect_xpm[] = {
 "                                ",
 "                                ",
 "                                ",
-"         oooooo                 ",
-"       oo......oo               ",
-"      o..XXXXXX..o              ",
-"     o.XXXXXXXXXX.o             ",
-"    o.XXXXXXXXXXXX.o            ",
-"    o.XXXX..XXXXXX.o            ",
-"   o.XXXX....XXXXXX.o           ",
-"  o.XXXX......XXXXXX.o          ",
-" o.XXXX........XXXXXX.o         ",
-" o.XXXX........XXXXXX.o         ",
-" o.XXXX......XXXXXX.o           ",
-" o.XXXX....XXXXXX.o             ",
-" o.XXXX..XXXXXX.o               ",
-" o.XXXXXX.o                     ",
-"  o.XXXX.o                      ",
-"   o.X.o                        ",
-"    o.o                         ",
-"     o                          ",
-"                                ",
-"                                ",
-"                                ",
-"                                ",
-"                                ",
+"              ....              ",
+"             .XXXX.             ",
+"            .XXXXXX.            ",
+"           .XXXXXXXX.           ",
+"          .XXXXXXXXXX.          ",
+"         .XXXXXXXXXXXX.         ",
+"        .XXXXXXXXXXXXXX.        ",
+"        .XXXXXXX.XXXXXX.        ",
+"       .XXXXXXXXXXXXXXXX.       ",
+"       .XXXXXXXXXXXXXXXX.       ",
+"      .XXXXXXXXXXXXXXXXXX.      ",
+"      .XXXXXXXXX.XXXXXXXX.      ",
+"     .XXXXXXXXXX.XXXXXXXXXX.    ",
+"     .XXXXXXXXXXX.XXXXXXXXXX.   ",
+"    .XXXXXXXXXXXXXXXXXXXXXXX.   ",
+"    .XXXXXXXXXXXX.XXXXXXXXXX.   ",
+"    .XXXXXX.XXXXXX.XXXXXX.XX.   ",
+"   .XXXX.XXXXXXXXXXXX.XXXX.     ",
+"   .X.X.XXXXXXXXXXXXX.XX.       ",
+"   ..XXXXXXXXXXXXXXXXXX.        ",
+"   .XXXXXXXXXXXXXXXXXXX.        ",
+"   .X.XXXXXXXXXXXXXXXX.         ",
+"   ..X.X.X.X.X.X.X.X.X.         ",
 "                                ",
 "                                "
 };

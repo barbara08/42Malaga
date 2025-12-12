@@ -114,7 +114,31 @@ void ft_print_map(t_info_map *info_map)
     printf("FIN PRINT\n");
 }
 
-// En tu archivo map.c
+// Función Auxiliar para cortar el '\n'
+static void ft_cut_newline(char *line)
+{
+    int len;
+
+    if (!line)
+        return;
+    
+    // Calcula la longitud física de la CADENA, incluyendo el \n.
+    // Aquí usa ft_strlen normal para saber la longitud LOGICA 
+    // //y usarla para cortar la cadena.
+    
+    // Usamos una lógica simple: si la última posición de la cadena es '\n', la cortamos.
+    len = 0;
+    while (line[len])
+        len++;
+
+    // Si la última posición no-nula es '\n', la reemplazamos con '\0'.
+    if (len > 0 && line[len - 1] == '\n')
+    {
+        line[len - 1] = '\0';
+    }
+}
+
+
 int ft_is_only_one(char *line)
 {
     int i;
@@ -122,8 +146,8 @@ int ft_is_only_one(char *line)
     while(line[i])
     {
         // Si el carácter es '\n' y es el último de la línea (antes de '\0')
-        if (line[i] == '\n' && line[i + 1] == '\0')
-            break; // Es el final esperado, salimos del bucle
+        //if (line[i] == '\n' && line[i + 1] == '\0')
+          //  break; // Es el final esperado, salimos del bucle
         
         if(line[i] != '1')
             return (0); // Cualquier otro carácter que no sea '1' es un fallo
@@ -151,12 +175,19 @@ int ft_readd_file(char *file_path, t_info_map *info_map)
     info_map->num_rows = 0;
     while ((line = get_next_line(fd)))
     {
-		printf("%s", line); //  11111111 o 10001E001
+		printf("%s con \n", line); //  11111111 o 10001E001
+        // 1. CORTAR EL '\n' INMEDIATAMENTE.
+        ft_cut_newline(line);
+		printf("%s sin \n", line); //  11111111 o 10001E001
+
+        // 2. Calcular la longitud LÓGICA
         tmp_num_columns =ft_strlenn(line);
         printf("tmp_num_columns %d --- %s\n", tmp_num_columns, line);
         // tmp_num_columns =ft_strlenn(line);
         // printf("tmp_num_columns %d --- %s\n", tmp_num_columns, line);
         //    - mismo número de columnas
+
+        // 3. Establecer/Validar la longitud del mapa
         if (info_map->num_rows == 0)
         {
             info_map->num_columns = tmp_num_columns;

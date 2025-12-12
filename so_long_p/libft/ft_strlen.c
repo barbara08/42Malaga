@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-
+/* 
 size_t	ft_strlenn(const char *s)
 {
 	size_t	i;
@@ -25,10 +25,10 @@ size_t	ft_strlenn(const char *s)
 		i++;
 	}
 	return (j);
-}
+}*/
 
 //Original
-/* 
+
 size_t	ft_strlenn(const char *s)
 {
 	size_t	i;
@@ -40,4 +40,3 @@ size_t	ft_strlenn(const char *s)
 	}
 	return (i);
 }
-*/
