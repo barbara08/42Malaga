@@ -10,21 +10,22 @@ int main(int argc, char **argv)
     
     if(argc != 2)
     {
-        printf("Falta el file\n");
+        write(1, "Error you need a File\n", 22); //Solo poner Error\n
         return(0);
     }
     
     // Inicializar estructuras
     ft_init_map(&info_map);
     game.map_info = &info_map;
-    game.textures = NULL; // Se cargará después
+    game.textures = NULL;
 
     // 1. Validar y cargar mapa
-    int map_ok = ft_load_map(argv[1], &info_map); // Pasa la estructura info_map
-
+    int map_ok;
+    
+    map_ok = ft_load_map(argv[1], &info_map); // Pasa la estructura info_map
     if (!map_ok)
     {
-        printf("Mapa no válido.\n");
+        write(1, "Error map no valid\n", 19);
         // Aquí debería limpiar la memoria del mapa antes de salir.
         // ft_free_map(&info_map); 
         return (0);
@@ -32,8 +33,10 @@ int main(int argc, char **argv)
 
     // 2. Inicializar MLX
     game.mlx = mlx_init();
-    if (!game.mlx) return (1); // Error de inicialización
-    // 2b. Inicializar la posición del jugador
+    if (!game.mlx) 
+        return (1); // Error de inicialización
+    
+        // 2b. Inicializar la posición del jugador
     ft_find_initial_player_pos(&game);
 
     // 3. Cargar Texturas
@@ -41,13 +44,16 @@ int main(int argc, char **argv)
 
     // 4. Crear ventana
     // Calcula el tamaño de la ventana basado en las dimensiones del mapa y el tamaño de la imagen (ej: 64)
-    int width = game.map_info->num_columns * 32;
-    int height = game.map_info->num_rows * 32;
+    int width;
+    int height;
+
+    width = game.map_info->num_columns * 32;
+    height = game.map_info->num_rows * 32;
     printf("resolution width %d x height %d\n", width, height);
     
-    
     game.window = mlx_new_window(game.mlx, width, height, "So Long");
-    if (!game.window) { 
+    if (!game.window) 
+    { 
         // Limpiar mlx y salir
         //ft_destroy_game(&game);
         return (1); 
@@ -64,7 +70,7 @@ int main(int argc, char **argv)
 
     // 8. Limpieza al salir
     //ft_destroy_game(&game);
-    return 0;
+    return (0);
 }
 
 

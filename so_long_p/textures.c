@@ -1,7 +1,7 @@
 #include "so_long.h"
 
 // Función auxiliar para cargar una imagen
-static void *ft_load_img(t_game *game, char *path)
+void *ft_load_img(t_game *game, char *path)
 {
     void *img_ptr;
     int w, h;
@@ -11,9 +11,9 @@ static void *ft_load_img(t_game *game, char *path)
     {
         //salida del archivo que no es correcto
         fprintf(stderr, "Error: No se pudo cargar el archivo XPM: %s\n", path);
-        perror("Error cargando imagen XPM");
+        perror("Error loading img XPM");
         exit(1);
-        // Deberías añadir lógica para limpiar y salir
+        // Añadir lógica para limpiar y salir
     }
     // Falta, asegurarnos de que todas las imágenes tengan el mismo tamaño.
     // if (w != h || w != 64) { ... }
@@ -27,12 +27,10 @@ void ft_load_textures(t_game *game)
     if (!game->textures)
         perror("Error de malloc para texturas");
     
-    // Asume que tienes archivos XPM llamados wall.xpm, floor.xpm, etc.
     game->textures->wall = ft_load_img(game, "assets/wall.xpm");
     game->textures->floor = ft_load_img(game, "assets/floor.xpm");
     game->textures->collect = ft_load_img(game, "assets/collect.xpm");
     game->textures->player = ft_load_img(game, "assets/player.xpm");
     game->textures->exit = ft_load_img(game, "assets/exit.xpm");
     game->textures->img_size = 32; // Establece el tamaño de tu tile
-    
 }

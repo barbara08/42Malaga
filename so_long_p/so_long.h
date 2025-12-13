@@ -54,20 +54,19 @@ void ft_manage_window(t_game *game);
 //map.c
 int ft_validate_file(char *file_path);
 int ft_validate_line(char *line, t_info_map *info_map);
+void ft_cut_newline(char *line);
 int ft_readd_file(char *file_path, t_info_map *info_map);
 int ft_is_only_one(char *line);
 void ft_init_map(t_info_map *info_map);
 int ft_load_map(char *file_path, t_info_map *info_map);
 
 //draw_map.c
+void ft_draw_tile(t_game *game, int row, int col);
 void ft_draw_map();
 
 //textures.c
+void *ft_load_img(t_game *game, char *path);
 void ft_load_textures(t_game *game);
-
-//libft
-//size_t	ft_strlenn(const char *s);
-//char	*ft_strdup(const char *s);
 
 //movements.c
 void ft_find_initial_player_pos(t_game *game);

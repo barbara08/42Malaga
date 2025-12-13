@@ -1,7 +1,7 @@
 #include "so_long.h"
 
 // Función auxiliar para seleccionar y dibujar el tile
-static void ft_draw_tile(t_game *game, int row, int col)
+void ft_draw_tile(t_game *game, int row, int col)
 {
     char tile;
     void *img_ptr;
@@ -12,14 +12,13 @@ static void ft_draw_tile(t_game *game, int row, int col)
     x = col * game->textures->img_size;
     y = row * game->textures->img_size;
 
-    // --- 1. DIBUJAR EL FONDO (FLOOR) SIEMPRE ---
+    // 1. DIBUJAR EL FONDO (FLOOR) SIEMPRE
     // Esto asegura que el suelo azul esté dibujado en cada celda,
     // y que el movimiento "borre" la posición anterior del jugador,
     // garantizando que el agua sea el fondo visible.
     mlx_put_image_to_window(game->mlx, game->window, game->textures->floor, x, y);
 
-
-    // --- 2. SELECCIONAR Y DIBUJAR EL ELEMENTO ESPECÍFICO ENCIMA ---
+    // 2. SELECCIONAR Y DIBUJAR EL ELEMENTO ESPECÍFICO ENCIMA
     if (tile == '1')
         img_ptr = game->textures->wall;
     else if (tile == 'C')
@@ -29,12 +28,12 @@ static void ft_draw_tile(t_game *game, int row, int col)
     else if (tile == 'E')
         img_ptr = game->textures->exit;
     else if (tile == '0')
-        return; // El suelo ya fue dibujado arriba, no se necesita nada más.
+        return ; // El suelo ya fue dibujado arriba, no hay que anotarlo aquí
     else
-        return; // Caracter no reconocido (debería ser validado antes)
+        return ; // Caracter no reconocido (debería ser validado antes)
 
     // Dibujar la imagen (solo para 1, C, P, E)
-    // El XPM debe usar 'c None' para que el suelo azul se vea a través.
+    // El XPM debe usar 'c None' para que el suelo azul se vea a través
     mlx_put_image_to_window(game->mlx, game->window, img_ptr, x, y);
 }
 
@@ -56,10 +55,6 @@ void ft_draw_map(t_game *game)
         row++;
     }
 }
-
-
-
-
 
 
 

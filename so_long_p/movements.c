@@ -34,7 +34,7 @@ void ft_find_initial_player_pos(t_game *game)
                 game->player_y = y;
                 game->player_x = x;
                 game->moves = 0;
-                return; // Jugador encontrado, salimos.
+                return ; // Jugador encontrado, salimos.
             }
             x++;
         }
@@ -55,17 +55,13 @@ void ft_move_player(t_game *game, int dx, int dy)
     // 1. Verificar límites del mapa (aunque el borde es '1', es una buena práctica)
     if (new_x < 0 || new_x >= game->map_info->num_columns ||
         new_y < 0 || new_y >= game->map_info->num_rows)
-    {
-        return; 
-    }
+        return ;
 
     target_tile = game->map_info->map[new_y][new_x];
 
     // 2. Comprobar si es un muro
     if (target_tile == '1')
-    {
-        return; // No se puede mover a un muro
-    }
+        return ; // No se puede mover a un muro
     
     // 3. Comprobar si es la salida
     if (target_tile == 'E')
@@ -73,10 +69,20 @@ void ft_move_player(t_game *game, int dx, int dy)
         if (game->map_info->collections == 0)
         {
             // ¡Ganaste!
-            printf("¡Felicidades! Has ganado en %d movimientos.\n", game->moves + 1);
+            // 1. Escribir la primera parte del mensaje
+            write(1, "¡Congratulations! You have won in", 34);
+            write(1, " ", 1);
+        
+            // 2. Escribir el número de movimientos (game->moves + 1)
+            ft_putnbr_fd(game->moves + 1, 1); 
+        
+            // 3. Escribir la parte final del mensaje (incluyendo el salto de línea '\n')
+            write(1, " movements.\n", 12);
+
+            //printf("¡Felicidades! Has ganado en %d movimientos.\n", game->moves + 1);
             mlx_loop_end(game->mlx); // Terminar el juego
         }
-        return; // No se puede salir si quedan coleccionables
+        return ; // No se puede salir si quedan coleccionables
     }
 
     // 4. Si llegamos aquí, el movimiento es válido (a '0' o 'C')
@@ -88,7 +94,10 @@ void ft_move_player(t_game *game, int dx, int dy)
     if (target_tile == 'C')
     {
         game->map_info->collections--;
-        printf("Coleccionables restantes: %d\n", game->map_info->collections);
+        write(1, "Remaining collectibles: ", 24);
+        ft_putnbr_fd(game->map_info->collections, 1);
+        write(1, "\n", 1);
+        //printf("Coleccionables restantes: %d\n", game->map_info->collections);
     }
 
     // c) Mover el jugador a la nueva posición
@@ -98,7 +107,10 @@ void ft_move_player(t_game *game, int dx, int dy)
 
     // d) Incrementar y mostrar movimientos
     game->moves++;
-    printf("Movimientos: %d\n", game->moves);
+    write(1, "Movements: ", 11);
+    ft_putnbr_fd(game->moves, 1);
+    write(1, "\n", 1);
+    //printf("Movimientos: %d\n", game->moves);
 
     // e) Redibujar el mapa (Refrescar la ventana)
     ft_draw_map(game);
@@ -109,25 +121,15 @@ void ft_move_player(t_game *game, int dx, int dy)
 int ft_handle_keypress(int keycode, t_game *game)
 {
     if (keycode == KEY_ESC)
-    {
         mlx_loop_end(game->mlx); // Lógica de salida que ya tienes
-    }
     else if (keycode == KEY_W || keycode == KEY_Z || keycode == KEY_UP)
-    {
         ft_move_player(game, 0, -1); // Mover Arriba (dy = -1)
-    }
     else if (keycode == KEY_S || keycode == KEY_DOWN)
-    {
         ft_move_player(game, 0, 1);  // Mover Abajo (dy = 1)
-    }
     else if (keycode == KEY_A || keycode == KEY_Q || keycode == KEY_LEFT)
-    {
         ft_move_player(game, -1, 0); // Mover Izquierda (dx = -1)
-    }
     else if (keycode == KEY_D || keycode == KEY_RIGHT)
-    {
         ft_move_player(game, 1, 0);  // Mover Derecha (dx = 1)
-    }
     return (0);
 }
 
