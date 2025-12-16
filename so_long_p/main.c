@@ -47,8 +47,8 @@ int main(int argc, char **argv)
     int width;
     int height;
 
-    width = game.map_info->num_columns * 32;
-    height = game.map_info->num_rows * 32;
+    width = game.map_info->num_columns * 64;
+    height = game.map_info->num_rows * 64;
     printf("resolution width %d x height %d\n", width, height);
     
     game.window = mlx_new_window(game.mlx, width, height, "So Long");

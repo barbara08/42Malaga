@@ -19,9 +19,10 @@
 // (Debe llamarse después de cargar el mapa en main.c)
 void ft_find_initial_player_pos(t_game *game)
 {
-    int y = 0;
+    int y;
     int x;
 
+	y = 0;
     // Recorrer filas
     while (y < game->map_info->num_rows)
     {
@@ -45,60 +46,60 @@ void ft_find_initial_player_pos(t_game *game)
 // Función principal para gestionar un movimiento
 void ft_move_player(t_game *game, int dx, int dy)
 {
-    int new_x;
-    int new_y;
-    char target_tile;
+	int new_x;
+	int new_y;
+	char target_tile;
 
-    new_x = game->player_x + dx;
-    new_y = game->player_y + dy;
+	new_x = game->player_x + dx;
+	new_y = game->player_y + dy;
 
-    // 1. Verificar límites del mapa (aunque el borde es '1', es una buena práctica)
-    if (new_x < 0 || new_x >= game->map_info->num_columns ||
-        new_y < 0 || new_y >= game->map_info->num_rows)
-        return ;
+	// 1. Verificar límites del mapa (aunque el borde es '1', es una buena práctica)
+	if (new_x < 0 || new_x >= game->map_info->num_columns ||
+		new_y < 0 || new_y >= game->map_info->num_rows)
+		return ;
 
-    target_tile = game->map_info->map[new_y][new_x];
+	target_tile = game->map_info->map[new_y][new_x];
 
-    // 2. Comprobar si es un muro
-    if (target_tile == '1')
-        return ; // No se puede mover a un muro
-    
+	// 2. Comprobar si es un muro
+	if (target_tile == '1')
+		return ; // No se puede mover a un muro
+
     // 3. Comprobar si es la salida
-    if (target_tile == 'E')
-    {
-        if (game->map_info->collections == 0)
-        {
-            // ¡Ganaste!
-            // 1. Escribir la primera parte del mensaje
-            write(1, "¡Congratulations! You have won in", 34);
-            write(1, " ", 1);
-        
-            // 2. Escribir el número de movimientos (game->moves + 1)
-            ft_putnbr_fd(game->moves + 1, 1); 
-        
-            // 3. Escribir la parte final del mensaje (incluyendo el salto de línea '\n')
-            write(1, " movements.\n", 12);
+	if (target_tile == 'E')
+	{
+	if (game->map_info->collections == 0)
+	{
+		// ¡Ganaste!
+		// 1. Escribir la primera parte del mensaje
+		write(1, "¡Congratulations! You have won in", 34);
+		write(1, " ", 1);
 
-            //printf("¡Felicidades! Has ganado en %d movimientos.\n", game->moves + 1);
-            mlx_loop_end(game->mlx); // Terminar el juego
-        }
-        return ; // No se puede salir si quedan coleccionables
-    }
+		// 2. Escribir el número de movimientos (game->moves + 1)
+		ft_putnbr_fd(game->moves + 1, 1); 
 
-    // 4. Si llegamos aquí, el movimiento es válido (a '0' o 'C')
+		// 3. Escribir la parte final del mensaje (incluyendo el salto de línea '\n')
+		write(1, " movements.\n", 12);
 
-    // a) Limpiar la posición actual: Convertir 'P' a '0'
-    game->map_info->map[game->player_y][game->player_x] = '0';
+		//printf("¡Felicidades! Has ganado en %d movimientos.\n", game->moves + 1);
+		mlx_loop_end(game->mlx); // Terminar el juego
+	}
+	return ; // No se puede salir si quedan coleccionables
+	}
 
-    // b) Actualizar coleccionables
-    if (target_tile == 'C')
-    {
-        game->map_info->collections--;
-        write(1, "Remaining collectibles: ", 24);
-        ft_putnbr_fd(game->map_info->collections, 1);
-        write(1, "\n", 1);
-        //printf("Coleccionables restantes: %d\n", game->map_info->collections);
-    }
+	// 4. Si llegamos aquí, el movimiento es válido (a '0' o 'C')
+
+	// a) Limpiar la posición actual: Convertir 'P' a '0'
+	game->map_info->map[game->player_y][game->player_x] = '0';
+
+	// b) Actualizar coleccionables
+	if (target_tile == 'C')
+	{
+		game->map_info->collections--;
+		write(1, "Remaining collectibles: ", 24);
+		ft_putnbr_fd(game->map_info->collections, 1);
+		write(1, "\n", 1);
+		//printf("Coleccionables restantes: %d\n", game->map_info->collections);
+	}
 
     // c) Mover el jugador a la nueva posición
     game->player_y = new_y;

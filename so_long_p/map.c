@@ -11,8 +11,8 @@ int ft_validate_file(char *file_path)
         return(0);
     extension = ".ber";
     
-    len_extension = ft_strlenn(extension);
-    len_file_path = ft_strlenn(file_path);
+    len_extension = ft_strlen(extension);
+    len_file_path = ft_strlen(file_path);
     
     if (len_file_path <= len_extension)
         return(0);
@@ -181,7 +181,7 @@ int ft_readd_file(char *file_path, t_info_map *info_map)
 		printf("%s sin \n", line); //  11111111 o 10001E001
 
         // 2. Calcular la longitud LÓGICA
-        tmp_num_columns =ft_strlenn(line);
+        tmp_num_columns =ft_strlen(line);
         printf("tmp_num_columns %d --- %s\n", tmp_num_columns, line);
         // tmp_num_columns =ft_strlenn(line);
         // printf("tmp_num_columns %d --- %s\n", tmp_num_columns, line);
