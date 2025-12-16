@@ -64,7 +64,15 @@ int ft_validate_line(char *line, t_info_map *info_map)
                 return (0);
             }
             else
+            {
                 info_map->player = 1;
+                //Cuando ft_validate_line encuentra el jugador ('P'),
+                // guardamos su posición actual (pos para la columna x, 
+                // y info_map->num_rows para la fila y)
+                // La fila es el número de filas leídas hasta ahora
+                info_map->player_start_x = pos;
+                info_map->player_start_y = info_map->num_rows;
+            }
         }
         if(line[pos] == 'E')
         {

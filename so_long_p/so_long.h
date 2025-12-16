@@ -25,6 +25,9 @@
     int player;
     int exit;
     int collections;
+    //Para el Player
+    int player_start_x; 
+    int player_start_y;
  } t_info_map;
 
 typedef struct s_images {
@@ -59,6 +62,7 @@ int ft_readd_file(char *file_path, t_info_map *info_map);
 int ft_is_only_one(char *line);
 void ft_init_map(t_info_map *info_map);
 int ft_load_map(char *file_path, t_info_map *info_map);
+int ft_flood_fill(t_info_map *info_map);
 
 //draw_map.c
 void ft_draw_tile(t_game *game, int row, int col);

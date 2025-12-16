@@ -32,8 +32,13 @@ void ft_find_initial_player_pos(t_game *game)
         {
             if (game->map_info->map[y][x] == 'P')
             {
+                // Los campos para el juego
                 game->player_y = y;
                 game->player_x = x;
+                // Para guardar las coordenadas de inicio en t_info_map
+                game->map_info->player_start_y = y;
+                game->map_info->player_start_x = x;
+                
                 game->moves = 0;
                 return ; // Jugador encontrado, salimos.
             }

@@ -1,10 +1,11 @@
-#include "libft.h"
+#include "so_long.h"
 
 typedef struct  s_point
-  {
+{
     int           x;
     int           y;
-  }               t_point;
+}               t_point;
+
 char **make_area(char **zone, t_point size)
 {
 	//x => column;  y => row
@@ -33,23 +34,19 @@ char **make_area(char **zone, t_point size)
 	area[r] = NULL;  // Para terminar el array de cadenas
 	return(area);
 }
-
-void print_tab(char **area)
+void ft_free_area(char **area, int num_rows)
 {
-	int row = 0;
-	while (area[row] != NULL)
-	{
-		int column = 0;
-		while(area[row][column] != '\0')
-		{
-			printf("%c", area[row][column]);
-			column ++;
-		}
-		printf("\n");
-		//ft_putchar('\n'); No sale ver el porque
-		row++;
-	}
+    int i = 0;
+    if (!area)
+        return;
+    while (i < num_rows)
+    {
+        free(area[i]);
+        i++;
+    }
+    free(area);
 }
+
 
 void ft_fill(char **tab, t_point size, int y, int x)
 {
@@ -72,38 +69,6 @@ void ft_fill(char **tab, t_point size, int y, int x)
     ft_fill(tab, size, y, x - 1); // izquierda (x => column)
     ft_fill(tab, size, y - 1, x); // Arriba (y => fila)
 }
-
-int ft_flood_fill(t_info_map *info_map)
-{
-    t_point size;
-    t_point begin;
-    char **map_copy;
-    int validation_result;
-    
-    // 1. Configurar datos
-    size.x = info_map->num_columns;
-    size.y = info_map->num_rows;
-    begin.x = info_map->player_x; // Coordenadas 0-basadas (CORRECTO)
-    begin.y = info_map->player_y; // Coordenadas 0-basadas (CORRECTO)
-
-    // 2. Crear COPIA del mapa
-    map_copy = make_area(info_map->map, size);
-    if (!map_copy)
-        return (0); // Error de malloc
-
-    // 3. Ejecutar el Flood Fill con coordenadas 0-basadas
-    ft_fill(map_copy, size, begin.y, begin.x); // Usando fill(tab, size, y, x)
-
-    // 4. Comprobar jugabilidad
-    validation_result = ft_is_map_playable(map_copy, size);
-
-    // 5. Liberar memoria
-    ft_free_area(map_copy, size.y); // Asegúrate de que esta función exista
-    
-    return (validation_result);
-}
-
-
 
 //función que comprueba los resultados
 //Si después de rellenar, aún quedan caracteres 'C' o 'E' en el mapa copiado,
@@ -130,6 +95,41 @@ int ft_is_map_playable(char **map_copy, t_point size)
     return (1); // Éxito: todos los 'C' y la 'E' fueron visitados
 }
 
+
+
+int ft_flood_fill(t_info_map *info_map)
+{
+    t_point size;
+    t_point begin;
+    char **map_copy;
+    int validation_result;
+    
+    // 1. Configurar datos
+    size.x = info_map->num_columns;
+    size.y = info_map->num_rows;
+    begin.x = info_map->player_start_x; // Coordenadas 0-basadas 
+    begin.y = info_map->player_start_y; // Coordenadas 0-basadas
+
+    // 2. Crear COPIA del mapa
+    map_copy = make_area(info_map->map, size);
+    if (!map_copy)
+        return (0); // Error de malloc
+
+    // 3. Ejecutar el Flood Fill con coordenadas 0-basadas
+    ft_fill(map_copy, size, begin.y, begin.x); // Usando fill(tab, size, y, x)
+
+    // 4. Comprobar jugabilidad
+    validation_result = ft_is_map_playable(map_copy, size);
+
+    // 5. Liberar memoria
+    ft_free_area(map_copy, size.y);
+    
+    return (validation_result);
+}
+
+
+
+
 // Lógica para llamar:
 /*
 int validation_result = 0;
@@ -143,7 +143,24 @@ if (area_copy)
 }
 */
 
+//Auxiliar, no lo piden
 
+void print_tab(char **area)
+{
+	int row = 0;
+	while (area[row] != NULL)
+	{
+		int column = 0;
+		while(area[row][column] != '\0')
+		{
+			printf("%c", area[row][column]);
+			column ++;
+		}
+		printf("\n");
+		//ft_putchar('\n'); No sale ver el porque
+		row++;
+	}
+}
 
 
 
