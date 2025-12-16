@@ -313,7 +313,7 @@ int ft_load_map(char *file_path, t_info_map *info_map)
 
     printf("Loazzzzzzding file %s\n", file_path);
     printf("S0000\n");
-    
+    // 1. Validar la extensión del archivo.
     ok = ft_validate_file(file_path);
     printf("nt %d\n", ok);
     if (!ok)
@@ -321,9 +321,23 @@ int ft_load_map(char *file_path, t_info_map *info_map)
         write(1, "Error file\n", 11);
         return(0);
     }
-
+	// 2. Leer el archivo y validar el formato del mapa (muros, caracteres, un P, un E, coleccionables).
     ok = ft_readd_file(file_path, info_map);
+	if (!ok)
+    {
+        write(1, "Error file\n", 11);
+        return(0);
+    }
     printf("file read ? %d\n", ok);
+	//3. Verificar si 'P' puede alcanzar todas las 'C' y la 'E'.
+    if (!ft_flood_fill(info_map))
+    {
+        write(1, "Error: Map is not beatable (C or E unreachable)\n", 48);
+        // Debe haber una función de limpieza aquí si ft_load_map falla.
+        return (0);
+    }
+
+
     // Leer file 
     // Guardar map
 

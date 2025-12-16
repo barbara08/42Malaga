@@ -2,7 +2,7 @@ NAME = so_long
 
 SRC = main.c window.c map.c draw_map.c textures.c movements.c\
       gnl/get_next_line.c gnl/get_next_line_utils.c \
-      libft/ft_strdup.c libft/ft_memcpy.c libft/ft_putnbr_fd.c
+      libft/ft_strdup.c libft/ft_memcpy.c libft/ft_putnbr_fd.c libft/ft_flood_fill.c \
 
 OBJ = $(SRC:.c=.o)
 
