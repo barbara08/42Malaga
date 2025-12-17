@@ -46,16 +46,18 @@ int ft_validate_line(char *line, t_info_map *info_map)
     // printf("info_map->num_columns %d\n", info_map->num_columns);
     pos = info_map->num_columns - 1;
         // printf("pos %d - line[pos] %c\n", pos, line[pos]);
-
+    // 1. Validar muros laterales (primera y última columna)
     if(line[0] != '1' || line[info_map->num_columns - 1] != '1')
         return(0);
     pos = 1;
     while(pos < info_map->num_columns - 1)
     {
+        // 2. Validar caracteres permitidos
         // printf("pos %d - line[pos] %c\n", pos, line[pos]);
         if (line[pos] != '1' && line[pos] != 'P' 
             && line[pos] != 'E' && line[pos] != 'C' && line[pos] != '0')
             return(0);
+        // 3. Gestión del Jugador ('P')
         if (line[pos] =='P')
         {
             if (info_map->player == 1)
@@ -74,6 +76,7 @@ int ft_validate_line(char *line, t_info_map *info_map)
                 info_map->player_start_y = info_map->num_rows;
             }
         }
+        // 4. Gestión de la Salida ('E')
         if(line[pos] == 'E')
         {
             if(info_map->exit == 1)
@@ -82,8 +85,15 @@ int ft_validate_line(char *line, t_info_map *info_map)
                 return(0);
             }
             else
+            {
                 info_map->exit = 1;
+                // GUARDAR AQUÍ: Necesitas estas coordenadas para redibujar la E 
+                // cuando P pase por encima sin finalizar el juego.
+                info_map->exit_x = pos;
+                info_map->exit_y = info_map->num_rows;
+            }
         }
+        // 5. Gestión de Coleccionables ('C')
         if(line[pos] == 'C')
             info_map->collections++;
         pos++;
@@ -306,6 +316,10 @@ void ft_init_map(t_info_map *info_map)
     info_map->player = 0;
     info_map->exit = 0;
     info_map->collections = 0;
+    info_map->player_start_x = 0;
+    info_map->player_start_y = 0;
+    info_map->exit_x = 0;
+    info_map->exit_y = 0;
     info_map->map = NULL;
 }
 

@@ -25,9 +25,12 @@
     int player;
     int exit;
     int collections;
-    //Para el Player
+    // Posición inicial del jugador 'P'
     int player_start_x; 
     int player_start_y;
+    // Para 'E'
+    int     exit_x;      // Columna fija de la salida 'E'
+    int     exit_y;      // Fila fija de la salida 'E'
  } t_info_map;
 
 typedef struct s_images {

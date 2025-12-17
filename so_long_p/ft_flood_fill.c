@@ -63,7 +63,7 @@ void ft_fill(char **tab, t_point size, int y, int x)
     // No usamos la variable 'letter' porque queremos que pase por P, 0, C, y E.
     tab[y][x] = 'F';
 
-    // 4. Llamada recursiva de la función para cada dirección (¡Descomentarlas!)
+    // 4. Llamada recursiva de la función para cada dirección
     ft_fill(tab, size, y, x + 1); // Derecha (x => column)
     ft_fill(tab, size, y + 1, x); // Abajo (y => fila)
     ft_fill(tab, size, y, x - 1); // izquierda (x => column)

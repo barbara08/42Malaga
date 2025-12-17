@@ -51,6 +51,84 @@ void ft_find_initial_player_pos(t_game *game)
 // Función principal para gestionar un movimiento
 void ft_move_player(t_game *game, int dx, int dy)
 {
+    int new_x = game->player_x + dx;
+    int new_y = game->player_y + dy;
+    char target_tile;
+
+    if (new_x < 0 || new_x >= game->map_info->num_columns ||
+        new_y < 0 || new_y >= game->map_info->num_rows)
+        return ;
+
+    target_tile = game->map_info->map[new_y][new_x];
+
+    if (target_tile == '1')
+        return ;
+
+    // Lógica de salida
+    if (target_tile == 'E')
+    {
+        if (game->map_info->collections == 0)
+        {
+            write(1, "¡Congratulations!\n", 18);
+            mlx_loop_end(game->mlx);
+            return ;
+        }
+        // Si no tiene todos los C, permitimos que se mueva, pero NO borramos la E
+    }
+
+    // RESTAURAR la casilla anterior:
+    // Si el jugador estaba sobre la salida, al irse debe volver a ser 'E'
+    if (game->player_x == game->map_info->exit_x && game->player_y == game->map_info->exit_y)
+        game->map_info->map[game->player_y][game->player_x] = 'E';
+    else
+        game->map_info->map[game->player_y][game->player_x] = '0';
+
+    // Recoger coleccionable
+    if (target_tile == 'C')
+        game->map_info->collections--;
+
+    // Actualizar nueva posición
+    game->player_x = new_x;
+    game->player_y = new_y;
+    
+    // Si la nueva casilla no es la salida, la marcamos como 'P'
+    // Si ES la salida, no la sobrescribimos con 'P' en el char** para no perderla,
+    // simplemente dejamos que el dibujado ponga al jugador encima.
+    if (game->map_info->map[new_y][new_x] != 'E')
+        game->map_info->map[new_y][new_x] = 'P';
+
+    game->moves++;
+    ft_putnbr_fd(game->moves, 1);
+    write(1, "\n", 1);
+    ft_draw_map(game);
+}
+
+
+// Función que maneja todas las pulsaciones
+int ft_handle_keypress(int keycode, t_game *game)
+{
+    if (keycode == KEY_ESC)
+        mlx_loop_end(game->mlx); // Lógica de salida que ya tienes
+    else if (keycode == KEY_W || keycode == KEY_Z || keycode == KEY_UP)
+        ft_move_player(game, 0, -1); // Mover Arriba (dy = -1)
+    else if (keycode == KEY_S || keycode == KEY_DOWN)
+        ft_move_player(game, 0, 1);  // Mover Abajo (dy = 1)
+    else if (keycode == KEY_A || keycode == KEY_Q || keycode == KEY_LEFT)
+        ft_move_player(game, -1, 0); // Mover Izquierda (dx = -1)
+    else if (keycode == KEY_D || keycode == KEY_RIGHT)
+        ft_move_player(game, 1, 0);  // Mover Derecha (dx = 1)
+    return (0);
+}
+
+
+
+
+
+
+/*Función original OK, solo que la casilla E el P no puede pasar por ella
+
+void ft_move_player(t_game *game, int dx, int dy)
+{
 	int new_x;
 	int new_y;
 	char target_tile;
@@ -123,23 +201,9 @@ void ft_move_player(t_game *game, int dx, int dy)
 }
 
 
-// Función que maneja todas las pulsaciones
-int ft_handle_keypress(int keycode, t_game *game)
-{
-    if (keycode == KEY_ESC)
-        mlx_loop_end(game->mlx); // Lógica de salida que ya tienes
-    else if (keycode == KEY_W || keycode == KEY_Z || keycode == KEY_UP)
-        ft_move_player(game, 0, -1); // Mover Arriba (dy = -1)
-    else if (keycode == KEY_S || keycode == KEY_DOWN)
-        ft_move_player(game, 0, 1);  // Mover Abajo (dy = 1)
-    else if (keycode == KEY_A || keycode == KEY_Q || keycode == KEY_LEFT)
-        ft_move_player(game, -1, 0); // Mover Izquierda (dx = -1)
-    else if (keycode == KEY_D || keycode == KEY_RIGHT)
-        ft_move_player(game, 1, 0);  // Mover Derecha (dx = 1)
-    return (0);
-}
 
 
+*/
 /* Los pasos que hace la funcion ft_move_player
 
 static void ft_move_player(t_game *game, int dx, int dy)

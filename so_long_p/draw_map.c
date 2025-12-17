@@ -3,6 +3,51 @@
 // Función auxiliar para seleccionar y dibujar el tile
 void ft_draw_tile(t_game *game, int row, int col)
 {
+    int x = col * game->textures->img_size;
+    int y = row * game->textures->img_size;
+
+    // 1. Dibujar siempre el suelo de fondo
+    mlx_put_image_to_window(game->mlx, game->window, game->textures->floor, x, y);
+
+    // 2. Dibujar la salida si corresponde
+    if (game->map_info->map[row][col] == 'E')
+        mlx_put_image_to_window(game->mlx, game->window, game->textures->exit, x, y);
+    
+    // 3. Dibujar otros elementos
+    if (game->map_info->map[row][col] == '1')
+        mlx_put_image_to_window(game->mlx, game->window, game->textures->wall, x, y);
+    else if (game->map_info->map[row][col] == 'C')
+        mlx_put_image_to_window(game->mlx, game->window, game->textures->collect, x, y);
+
+    // 4. DIBUJAR AL JUGADOR SIEMPRE SEGÚN SUS COORDENADAS
+    // Esto es lo más importante: dibujamos a P por su posición X/Y, no solo por el char 'P'
+    if (row == game->player_y && col == game->player_x)
+        mlx_put_image_to_window(game->mlx, game->window, game->textures->player, x, y);
+}
+
+
+// Función principal para dibujar todo el mapa
+void ft_draw_map(t_game *game)
+{
+    int row;
+    int col;
+
+    row = 0;
+    while (row < game->map_info->num_rows)
+    {
+        col = 0;
+        while (col < game->map_info->num_columns)
+        {
+            ft_draw_tile(game, row, col);
+            col++;
+        }
+        row++;
+    }
+}
+
+/* Codigo original OK, salvo que P no puede pasar por E, 
+void ft_draw_tile(t_game *game, int row, int col)
+{
     char tile;
     void *img_ptr;
     int x;
@@ -36,25 +81,9 @@ void ft_draw_tile(t_game *game, int row, int col)
     // El XPM debe usar 'c None' para que el suelo azul se vea a través
     mlx_put_image_to_window(game->mlx, game->window, img_ptr, x, y);
 }
+*/
 
-// Función principal para dibujar todo el mapa
-void ft_draw_map(t_game *game)
-{
-    int row;
-    int col;
 
-    row = 0;
-    while (row < game->map_info->num_rows)
-    {
-        col = 0;
-        while (col < game->map_info->num_columns)
-        {
-            ft_draw_tile(game, row, col);
-            col++;
-        }
-        row++;
-    }
-}
 
 
 
