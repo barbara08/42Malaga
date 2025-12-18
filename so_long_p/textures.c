@@ -10,9 +10,11 @@ void *ft_load_img(t_game *game, char *path)
 	img_ptr = mlx_xpm_file_to_image(game->mlx, path, &w, &h);
 	if (!img_ptr)
 	{
-		//salida del archivo que no es correcto
+		//salida del archivo que no es correcto, quitar esta linea, no lo pide
 		fprintf(stderr, "Error: No se pudo cargar el archivo XPM: %s\n", path);
-		perror("Error loading img XPM");
+		//write(1, "Error loading img XPM\n", 22);
+		ft_print_error("Error loading ......");
+		//perror("Error loading img XPM");
 		exit(1);
 		// Añadir lógica para limpiar y salir
 	}
@@ -33,5 +35,5 @@ void ft_load_textures(t_game *game)
     game->textures->collect = ft_load_img(game, "assets/collect_64.xpm");
     game->textures->player = ft_load_img(game, "assets/player_64.xpm");
     game->textures->exit = ft_load_img(game, "assets/exit_64.xpm");
-    game->textures->img_size = 64; // Establece el tamaño de tu tile
+    game->textures->img_size = 64; // El tamaño de tile
 }

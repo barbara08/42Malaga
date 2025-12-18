@@ -1,6 +1,6 @@
 NAME = so_long
 
-SRC = main.c window.c map.c draw_map.c textures.c movements.c ft_flood_fill.c \
+SRC = main.c window.c aux_map.c draw_map.c textures.c aux_movements.c ft_flood_fill.c \
       gnl/get_next_line.c gnl/get_next_line_utils.c \
       libft/ft_strdup.c libft/ft_memcpy.c libft/ft_putnbr_fd.c \
 

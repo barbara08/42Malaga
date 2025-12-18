@@ -1,10 +1,13 @@
 #include "so_long.h"
 
 // Función auxiliar para seleccionar y dibujar el tile
-void ft_draw_tile(t_game *game, int row, int col)
+void	ft_draw_tile(t_game *game, int row, int col)
 {
-    int x = col * game->textures->img_size;
-    int y = row * game->textures->img_size;
+    int x;
+    int y;
+
+	x = col * game->textures->img_size;
+    y = row * game->textures->img_size;
 
     // 1. Dibujar siempre el suelo de fondo
     mlx_put_image_to_window(game->mlx, game->window, game->textures->floor, x, y);

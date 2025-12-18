@@ -30,6 +30,17 @@ int	ft_validate_file(char *file_path)
 
 int	ft_print_error(char *message)
 {
+	write(2, "Error -----\n", 12);
+	if (message)
+	{
+		write(2, message, ft_strlen(message));
+		write(2, "\n", 1);
+	}
+	return (0);
+}
+//Lo dejo por si acaso, pero es la funcion anterior
+int	ft_pprint_error(char *message)
+{
 	perror(message);
 		return (0);
 }

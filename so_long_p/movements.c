@@ -96,9 +96,9 @@ void ft_move_player(t_game *game, int dx, int dy)
     // simplemente dejamos que el dibujado ponga al jugador encima.
     if (game->map_info->map[new_y][new_x] != 'E')
         game->map_info->map[new_y][new_x] = 'P';
-
-    game->moves++;
-    ft_putnbr_fd(game->moves, 1);
+    //He cambiado game->moves++; por  ft_putnbr_fd(++game->moves, 1);
+    //game->moves++; 
+    ft_putnbr_fd(++game->moves, 1);
     write(1, "\n", 1);
     ft_draw_map(game);
 }

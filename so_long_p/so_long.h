@@ -61,11 +61,17 @@ void ft_manage_window(t_game *game);
 int ft_validate_file(char *file_path);
 int ft_validate_line(char *line, t_info_map *info_map);
 void ft_cut_newline(char *line);
-int ft_readd_file(char *file_path, t_info_map *info_map);
 int ft_is_only_one(char *line);
 void ft_init_map(t_info_map *info_map);
-int ft_load_map(char *file_path, t_info_map *info_map);
 int ft_flood_fill(t_info_map *info_map);
+int ft_validate_characters(char *line, t_info_map *info_map, int pos);
+int	ft_add_line(t_info_map *info, char *line);
+int	ft_check_final(t_info_map *info_map);
+int ft_readd_file(char *file_path, t_info_map *info_map);
+int ft_load_map(char *file_path, t_info_map *info_map);
+int	ft_free_all(t_info_map *info, char *line);
+int	ft_print_error(char *message);
+
 
 //draw_map.c
 void ft_draw_tile(t_game *game, int row, int col);
@@ -77,6 +83,7 @@ void ft_load_textures(t_game *game);
 
 //movements.c
 void ft_find_initial_player_pos(t_game *game);
+int    ft_handle_tile_events(t_game *game, int new_x, int new_y);
 void ft_move_player(t_game *game, int dx, int dy);
 int ft_handle_keypress(int keycode, t_game *game);
 
