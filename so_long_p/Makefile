@@ -1,8 +1,9 @@
 NAME = so_long
 
 SRC = main.c window.c aux_map.c draw_map.c textures.c aux_movements.c ft_flood_fill.c \
-      gnl/get_next_line.c gnl/get_next_line_utils.c \
       libft/ft_strdup.c libft/ft_memcpy.c libft/ft_putnbr_fd.c \
+	  get_next_line/get_next_line.c get_next_line/get_next_line_utils.c \
+      #gnl/get_next_line.c gnl/get_next_line_utils.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -14,7 +15,7 @@ CC = cc
 #LDFLAGS = -Lminilibx_opengl_20191021 -lmlx -framework OpenGL -framework AppKit
 
 # Para Linux
-CFLAGS = -Wall -Wextra -Werror -I./gnl -I./libft -I./minilibx-linux
+CFLAGS = -Wall -Wextra -Werror -I./get_next_line -I./libft -I./minilibx-linux
 LDFLAGS = -Lminilibx-linux -lmlx -lXext -lX11 -lm
 
 all: $(NAME)
@@ -32,7 +33,7 @@ libft/%.o: libft/%.c so_long.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # REGLA AÑADIDA: Para archivos dentro de gnl/
-gnl/%.o: gnl/%.c so_long.h
+get_next_line/%.o: get_next_line/%.c so_long.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:

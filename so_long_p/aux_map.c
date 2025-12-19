@@ -1,9 +1,5 @@
 #include "so_long.h"
 
-
-//TODAS LAS FUNCIONES DE MAP.C ARREGLADO POR LA NORMA
-//FALTA SEPARAR LAS FUNCIONES, LAS TENGO ANOTADAS EN PAPEL
-//FALTA ANOTAR EN MAKEFILE Y EN EL .h LAS NUEVAS FUNCIONES 
 int	ft_validate_file(char *file_path)
 {
 	char *extension;
@@ -27,14 +23,15 @@ int	ft_validate_file(char *file_path)
 	}
 	return(1);
 }
-
 int	ft_print_error(char *message)
 {
-	write(2, "Error -----\n", 12);
+	write(2, "Error\n", 6); // Obligatorio por el subject
 	if (message)
 	{
 		write(2, message, ft_strlen(message));
-		write(2, "\n", 1);
+		// Si el mensaje no trae ya el \n, añádelo
+		if (message[ft_strlen(message) - 1] != '\n')
+			write(2, "\n", 1);
 	}
 	return (0);
 }
