@@ -6,7 +6,7 @@
 /*   By: bmartin- <bmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 14:44:54 by bmartin-          #+#    #+#             */
-/*   Updated: 2025/12/19 17:17:55 by bmartin-         ###   ########.fr       */
+/*   Updated: 2025/12/19 19:57:15 by bmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,12 @@ void	*ft_load_img(t_game *game, char *path)
 	{
 		ft_print_error("Failed to load XPM file");
 		ft_close_game(game);
-		//ft_free_all(game->map_info, NULL);
-		//exit(1);
 	}
 	if (w != 64 || h != 64)
 	{
 		ft_print_error("Invalid image size. Must be 64x64");
 		mlx_destroy_image(game->mlx, img_ptr);
 		ft_close_game(game);
-		//ft_free_all(game->map_info, NULL);
-		//exit(1);
 	}
 	return (img_ptr);
 }
@@ -44,45 +40,21 @@ int	ft_load_textures(t_game *game)
 	{
 		ft_print_error("Malloc failed for textures");
 		return (0);
-
 	}
-	// Inicializamos todo a NULL para que ft_close_game no intente liberar basura
 	game->textures->wall = NULL;
 	game->textures->floor = NULL;
 	game->textures->collect = NULL;
 	game->textures->player = NULL;
 	game->textures->exit = NULL;
 	game->textures->img_size = 64;
-	// Cargamos las imágenes
 	game->textures->wall = ft_load_img(game, "assets/wall_64.xpm");
 	game->textures->floor = ft_load_img(game, "assets/floor_64.xpm");
 	game->textures->collect = ft_load_img(game, "assets/collect_64.xpm");
 	game->textures->player = ft_load_img(game, "assets/player_64.xpm");
 	game->textures->exit = ft_load_img(game, "assets/exit_64.xpm");
-	// Comprobamos si alguna falló
-	if (!game->textures->wall || !game->textures->floor || 
-		!game->textures->collect || !game->textures->player || 
-		!game->textures->exit)
+	if (!game->textures->wall || !game->textures->floor
+		|| !game->textures->collect || !game->textures->player
+		|| !game->textures->exit)
 		return (ft_print_error("Failed to load one or more textures"), 0);
 	return (1);
 }
-
-
-/* original 
-void	ft_load_textures(t_game *game)
-{
-	game->textures = (t_images *)malloc(sizeof(t_images));
-	if (!game->textures)
-	{
-		ft_print_error("Malloc failed for textures");
-		if (game->map_info)
-			ft_free_all(game->map_info, NULL);
-		exit(1);
-	}
-	game->textures->img_size = 64;
-	game->textures->wall = ft_load_img(game, "assets/wall_64.xpm");
-	game->textures->floor = ft_load_img(game, "assets/floor_64.xpm");
-	game->textures->collect = ft_load_img(game, "assets/collect_64.xpm");
-	game->textures->player = ft_load_img(game, "assets/player_64.xpm");
-	game->textures->exit = ft_load_img(game, "assets/exit_64.xpm");
-}*/

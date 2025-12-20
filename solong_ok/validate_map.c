@@ -6,7 +6,7 @@
 /*   By: bmartin- <bmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 14:45:27 by bmartin-          #+#    #+#             */
-/*   Updated: 2025/12/19 19:18:54 by bmartin-         ###   ########.fr       */
+/*   Updated: 2025/12/19 19:58:30 by bmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,14 @@ int	ft_validate_file(char *file_path)
 	return (1);
 }
 
-int ft_validate_characters(char *line, t_info_map *info_map, int pos)
+int	ft_validate_characters(char *line, t_info_map *info_map, int pos)
 {
-	// 1. Si el carácter no es uno de los permitidos, error inmediato
 	if (line[pos] != '1' && line[pos] != '0' && line[pos] != 'P'
 		&& line[pos] != 'E' && line[pos] != 'C')
 	{
 		ft_print_error("Invalid character in map\n");
 		return (0);
 	}
-	// 2. Validación y guardado del Jugador
 	if (line[pos] == 'P')
 	{
 		if (info_map->player >= 1)
@@ -54,7 +52,6 @@ int ft_validate_characters(char *line, t_info_map *info_map, int pos)
 		info_map->player_start_x = pos;
 		info_map->player_start_y = info_map->num_rows;
 	}
-	// 3. Validación y guardado de la Salida
 	else if (line[pos] == 'E')
 	{
 		if (info_map->exit >= 1)
@@ -63,7 +60,6 @@ int ft_validate_characters(char *line, t_info_map *info_map, int pos)
 		info_map->exit_x = pos;
 		info_map->exit_y = info_map->num_rows;
 	}
-	// 4. Conteo de coleccionables
 	else if (line[pos] == 'C')
 		info_map->collections++;
 	return (1);
@@ -118,35 +114,3 @@ int	ft_is_only_one(char *line)
 	}
 	return (1);
 }
-
-
-/*original 
-
-
-int	ft_validate_characters(char *line, t_info_map *info_map, int pos)
-{
-	if (line[pos] != '1' && line[pos] != 'P'
-		&& line[pos] != 'E' && line[pos] != 'C' && line[pos] != '0')
-		return (0);
-	if (line[pos] == 'P')
-	{
-		if (info_map->player == 1)
-			return (ft_print_error("more than 1 Player\n"));
-		info_map->player = 1;
-		info_map->player_start_x = pos;
-		info_map->player_start_y = info_map->num_rows;
-	}
-	if (line[pos] == 'E')
-	{
-		if (info_map->exit == 1)
-			return (ft_print_error("more than 1 Exit\n"));
-		info_map->exit = 1;
-		info_map->exit_x = pos;
-		info_map->exit_y = info_map->num_rows;
-	}
-	if (line[pos] == 'C')
-		info_map->collections++;
-	return (1);
-}
-
-*/

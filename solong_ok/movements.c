@@ -6,7 +6,7 @@
 /*   By: bmartin- <bmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 14:38:06 by bmartin-          #+#    #+#             */
-/*   Updated: 2025/12/19 17:36:18 by bmartin-         ###   ########.fr       */
+/*   Updated: 2025/12/19 19:54:03 by bmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,6 @@ int	ft_handle_tile_events(t_game *game, int new_x, int new_y)
 		{
 			write(1, "¡Congratulations!\n", 19);
 			ft_close_game(game);
-			//mlx_loop_end(game->mlx);
-			//return (1);
 		}
 	}
 	if (tile == 'C')
@@ -101,7 +99,6 @@ int	ft_handle_keypress(int keycode, t_game *game)
 {
 	if (keycode == KEY_ESC)
 		ft_close_game(game);
-		//mlx_loop_end(game->mlx);
 	else if (keycode == KEY_W || keycode == KEY_Z || keycode == KEY_UP)
 		ft_move_player(game, 0, -1);
 	else if (keycode == KEY_S || keycode == KEY_DOWN)
