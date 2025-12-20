@@ -6,7 +6,7 @@
 /*   By: bmartin- <bmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 14:27:13 by bmartin-          #+#    #+#             */
-/*   Updated: 2025/12/19 19:45:15 by bmartin-         ###   ########.fr       */
+/*   Updated: 2025/12/20 19:05:30 by bmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,8 @@ int	ft_check_final(t_info_map *info_map)
 		ft_print_error("Missing components (P, E or C)\n");
 		return (ft_free_all(info_map, NULL));
 	}
-	if (!ft_is_only_one(info_map->map[info_map->num_rows - 1]))
+	if (!ft_is_only_one(info_map->map[info_map->num_rows - 1])
+		|| !ft_is_only_one(info_map->map[0]))
 	{
 		ft_print_error("Map not closed by walls\n");
 		return (ft_free_all(info_map, NULL));

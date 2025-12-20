@@ -8,7 +8,7 @@ OBJ = $(SRC:.c=.o)
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -I./gnl -I./libft -I./minilibx-linux
+CFLAGS = -Wall -Wextra -Werror -g -I./gnl -I./libft -I./minilibx-linux
 LDFLAGS = -Lminilibx-linux -lmlx -lXext -lX11 -lm
 
 all: $(NAME)
