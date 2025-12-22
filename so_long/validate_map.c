@@ -1,0 +1,118 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   validate_map.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bmartin- <bmartin-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/19 14:45:27 by bmartin-          #+#    #+#             */
+/*   Updated: 2025/12/22 09:59:24 by bmartin-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "so_long.h"
+
+int	ft_validate_file(char *file_path)
+{
+	char	*extension;
+	int		len_extension;
+	int		len_file_path;
+	int		i;
+
+	if (file_path == NULL)
+		return (0);
+	extension = ".ber";
+	len_extension = ft_strlen(extension);
+	len_file_path = ft_strlen(file_path);
+	if (len_file_path <= len_extension)
+		return (0);
+	i = 0;
+	while (i < len_extension)
+	{
+		if (file_path[len_file_path - len_extension + i] != extension[i])
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int	ft_validate_characters(char *line, t_info_map *info_map, int pos)
+{
+	if (line[pos] != '1' && line[pos] != '0' && line[pos] != 'P'
+		&& line[pos] != 'E' && line[pos] != 'C')
+	{
+		ft_print_error("Invalid character in map\n");
+		return (0);
+	}
+	if (line[pos] == 'P')
+	{
+		if (info_map->player >= 1)
+			return (ft_print_error("More than 1 Player\n"));
+		info_map->player++;
+		info_map->player_start_x = pos;
+		info_map->player_start_y = info_map->num_rows;
+	}
+	else if (line[pos] == 'E')
+	{
+		if (info_map->exit >= 1)
+			return (ft_print_error("More than 1 Exit\n"));
+		info_map->exit++;
+		info_map->exit_x = pos;
+		info_map->exit_y = info_map->num_rows;
+	}
+	else if (line[pos] == 'C')
+		info_map->collections++;
+	return (1);
+}
+
+int	ft_validate_line(char *line, t_info_map *info_map)
+{
+	int	pos;
+	int	last;
+
+	if (info_map->num_rows > 0 && (int)ft_strlen(line) != info_map->num_columns)
+		return (ft_print_error("Map is not rectangular\n"));
+	last = info_map->num_columns - 1;
+	if (line[0] != '1' || line[last] != '1')
+	{
+		ft_print_error("Map not closed by walls");
+		return (0);
+	}
+	pos = 1;
+	while (pos < last)
+	{
+		if (!ft_validate_characters(line, info_map, pos))
+			return (0);
+		pos++;
+	}
+	return (1);
+}
+
+void	ft_cut_newline(char *line)
+{
+	int	len;
+
+	if (!line)
+		return ;
+	len = 0;
+	while (line[len])
+		len++;
+	if (len > 0 && line[len - 1] == '\n')
+		line[len - 1] = '\0';
+}
+
+int	ft_is_only_one(char *line)
+{
+	int	i;
+
+	if (!line || line[0] == '\0')
+		return (0);
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] != '1')
+			return (0);
+		i++;
+	}
+	return (1);
+}
