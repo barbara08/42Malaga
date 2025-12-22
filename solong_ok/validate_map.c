@@ -6,7 +6,7 @@
 /*   By: bmartin- <bmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 14:45:27 by bmartin-          #+#    #+#             */
-/*   Updated: 2025/12/19 19:58:30 by bmartin-         ###   ########.fr       */
+/*   Updated: 2025/12/22 09:59:24 by bmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ int	ft_validate_line(char *line, t_info_map *info_map)
 	int	pos;
 	int	last;
 
+	if (info_map->num_rows > 0 && (int)ft_strlen(line) != info_map->num_columns)
+		return (ft_print_error("Map is not rectangular\n"));
 	last = info_map->num_columns - 1;
 	if (line[0] != '1' || line[last] != '1')
 	{

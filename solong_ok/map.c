@@ -6,7 +6,7 @@
 /*   By: bmartin- <bmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 14:30:30 by bmartin-          #+#    #+#             */
-/*   Updated: 2025/12/20 18:58:14 by bmartin-         ###   ########.fr       */
+/*   Updated: 2025/12/22 09:58:08 by bmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,11 @@ int	ft_readd_file(char *file_path, t_info_map *info_map)
 		ft_cut_newline(line);
 		if (info_map->num_rows == 0)
 			info_map->num_columns = (int)ft_strlen(line);
-		if (info_map->num_columns != (int)ft_strlen(line)
-			|| !ft_validate_line(line, info_map)
-			|| !ft_add_line(info_map, line))
+		if (!ft_validate_line(line, info_map) || !ft_add_line(info_map, line))
 		{
-			ft_print_error("Map error in reading\n");
 			ft_free_all(info_map, line);
-			return (close(fd));
+			close(fd);
+			return (0);
 		}
 		free(line);
 		line = get_next_line(fd);

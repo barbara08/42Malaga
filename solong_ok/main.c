@@ -6,31 +6,35 @@
 /*   By: bmartin- <bmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 14:30:01 by bmartin-          #+#    #+#             */
-/*   Updated: 2025/12/19 19:53:08 by bmartin-         ###   ########.fr       */
+/*   Updated: 2025/12/22 15:35:30 by bmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+void	ft_free_textures(t_game *game)
+{
+	if (!game || !game->mlx || !game->textures)
+		return ;
+	if (game->textures->wall)
+		mlx_destroy_image(game->mlx, game->textures->wall);
+	if (game->textures->player)
+		mlx_destroy_image(game->mlx, game->textures->player);
+	if (game->textures->collect)
+		mlx_destroy_image(game->mlx, game->textures->collect);
+	if (game->textures->exit)
+		mlx_destroy_image(game->mlx, game->textures->exit);
+	if (game->textures->floor)
+		mlx_destroy_image(game->mlx, game->textures->floor);
+	free(game->textures);
+	game->textures = NULL;
+}
+
 int	ft_close_game(t_game *game)
 {
 	if (!game)
 		exit(0);
-	if (game->mlx && game->textures)
-	{
-		if (game->textures->wall)
-			mlx_destroy_image(game->mlx, game->textures->wall);
-		if (game->textures->player)
-			mlx_destroy_image(game->mlx, game->textures->player);
-		if (game->textures->collect)
-			mlx_destroy_image(game->mlx, game->textures->collect);
-		if (game->textures->exit)
-			mlx_destroy_image(game->mlx, game->textures->exit);
-		if (game->textures->floor)
-			mlx_destroy_image(game->mlx, game->textures->floor);
-		free(game->textures);
-		game->textures = NULL;
-	}
+	ft_free_textures(game);
 	if (game->mlx)
 	{
 		if (game->window)
@@ -63,14 +67,14 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		return (ft_print_error("Use => ./so_long [*.ber]"));
 	ft_init_game(&game, &info_map);
-	if (!ft_load_map(argv[1], &info_map))
-		return (1);
 	game.mlx = mlx_init();
 	if (!game.mlx)
 		return (ft_free_all(&info_map, NULL), 1);
-	ft_find_initial_player_pos(&game);
 	if (!ft_load_textures(&game))
 		ft_close_game(&game);
+	if (!ft_load_map(argv[1], &info_map))
+		ft_close_game(&game);
+	ft_find_initial_player_pos(&game);
 	game.window = mlx_new_window(game.mlx, info_map.num_columns * 64,
 			info_map.num_rows * 64, "so_long");
 	if (!game.window)
