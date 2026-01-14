@@ -20,7 +20,7 @@ int	ft_get_min_index(int *a, int size)
 	}
 	return (min_index);
 }
-
+ 
 int	ft_get_max_index(int *stack, int size)
 {
 	int	max;
