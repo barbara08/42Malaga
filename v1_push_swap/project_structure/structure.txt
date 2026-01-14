@@ -1,0 +1,48 @@
+
+VALIDACIONES
+Solo números enteros (atoi con manejo de errores).
+Números en el rango INT_MIN a INT_MAX.
+Sin duplicados.
+Al menos un argumento (si no hay, no imprime nada).
+Imprimir "Error\n" en stderr en caso de fallo
+
+INSTRUCCIONES PERMITIDAS
+Estas son las únicas operaciones que puedes usar y deben ser impresas en stdout:
+
+Categoría	Operación	Descripción
+Swap		sa			intercambia los dos primeros de a
+			sb			idem para b
+			ss			sa y sb a la vez
+Push		pa			mueve el primero de b a a
+			pb			mueve el primero de a a b
+Rotate		ra			rota a hacia arriba
+			rb			rota b hacia arriba
+			rr			ra y rb a la vez
+Reverse		rra			rota a hacia abajo
+			rrb			rota b hacia abajo
+			rrr			rra y rrb a la vez
+
+LOGICA DE ORDENAMIENTO
+Debes elegir la estrategia adecuada según la cantidad de números:
+
+🔹 Para 2 a 5 elementos:
+Implementa un algoritmo hardcodeado y óptimo (como bubble o combinaciones de swaps y rotates).
+
+🔹 Para muchos elementos (100+):
+Usa un algoritmo eficiente como:
+	Radix Sort adaptado a operaciones de pila.
+	Chunk sorting (dividir en bloques)
+
+CONSEJO TECNICOS
+Crea una estructura tipo:
+typedef struct s_node {
+    int             value;
+    int             index;
+    struct s_node   *next;
+} t_node;
+Y manipula stack_a y stack_b como listas enlazadas.
+
+* Usa index para normalizar valores (importante para radix).
+* No uses variables globales.
+* Imprime en stdout solo las instrucciones.
+

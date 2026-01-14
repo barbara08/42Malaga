@@ -1,0 +1,82 @@
+#include "push_swap.h"
+
+/*
+rra reverse rotate a: Desplaza hacia abajo todos los elementos del stack a 
+	una posición, de forma que el último elemento se convierte en el primero.
+rrb reverse rotate b: Desplaza hacia abajo todos los elementos del stack b
+	una posición, de forma que el último elemento se convierte en el primero.
+rrr rra y rrb al mismo tiempo.
+*/
+
+void reverse_rotate(int stack[], int len)
+{
+	int last; // guardará el último elemento del stack
+	int i;
+
+	if (len < 2) //Comprueba si el stack tiene menos de 2 elementos
+		return; //Si hay 0 o 1 elemento, no hay nada que rotar, así que sale inmediatamente de la función
+	
+	//Guarda en last el último elemento del array (stack[len-1]), porque ese valor se va a mover a la primera posición
+	last = stack[len - 1];
+
+	i = len - 1; // i comienza en la última posición del array
+	//con while desplaza todos los elementos una posición hacia abajo
+	while (i > 0)
+	{
+		//Copia el elemento anterior (stack[i-1]) a la posición actual stack[i]
+		//Esto desplaza cada elemento una posición hacia abajo (hacia índices mayores)
+		stack[i] = stack[i - 1];
+		i--;
+	}
+	//Coloca el valor guardado en last en la primera posición del array
+	//Con esto se completa la "reverse rotate": el último elemento pasa a ser el primero
+	stack[0] = last;
+}
+
+void rra(int a[], int len_a)
+{
+	reverse_rotate(a, len_a);
+	write(1, "rra\n", 4);
+}
+
+void rrb(int b[], int len_b)
+{
+	reverse_rotate(b, len_b);
+	write(1, "rrb\n", 4);
+}
+
+void rrr(int a[], int len_a, int b[], int len_b)
+{
+	reverse_rotate(a, len_a);
+	reverse_rotate(b, len_b);
+	write(1, "rrr\n", 4);
+}
+
+/*
+int main()
+{
+	int a[10] = {1, 2, 3, 4};
+	int b[10] = {5, 6, 7};
+	int len_a = 4;
+	int len_b = 3;
+
+	printf("\nStacks rra y rrb reverse original:\n");
+	ft_print_stack('a', a, len_a);
+	ft_print_stack('b', b, len_b);
+
+	rra(a, len_a);
+	rrb(b, len_b);
+
+	printf("\nDespués de rra y rrb reverse:\n");
+	ft_print_stack('a', a, len_a);
+	ft_print_stack('b', b, len_b);
+
+	rrr(a, len_a, b, len_b);
+
+	printf("\nDespués de rrr:\n");
+	ft_print_stack('a', a, len_a);
+	ft_print_stack('b', b, len_b);
+
+	return (0);
+}
+*/
