@@ -38,6 +38,4 @@ typedef struct s_philo
     t_rules         *rules;         // Puntero a las reglas globales
 }   t_philo;
 
-
-
 #endif
