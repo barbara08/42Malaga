@@ -1,6 +1,6 @@
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#ifndef PHILO_H
+# define PHILO_H
 
 #include <pthread.h>
 #include <stdio.h>
@@ -8,34 +8,31 @@
 #include <unistd.h>
 #include <sys/time.h>
 # include <string.h>
+#include "structs.h"
 
-typedef struct s_rules
-{
-    int             nb_philos;      // Número de filósofos
-    long            time_to_die;    // Tiempo máximo sin comer
-    long            time_to_eat;    // Tiempo de comer
-    long            time_to_sleep;  // Tiempo de dormir
-    int             must_eat;       // Opcional: cuántas veces debe comer cada filósofo
+// parse.c
+int ft_is_number(char *str);
+int ft_atoi_positive(char *str);
+int ft_parse_args(int argc, char **argv, t_rules *rules);
 
-    long            start_time;     // Momento de inicio
-    int             someone_died;   // Flag para parar la simulación
+// init.c
+int init_all(t_rules *rules, t_philo **philos);
+void clean_all(t_rules *rules, t_philo *philos);
 
-    pthread_mutex_t *forks;         // Array de mutex para tenedores
-    pthread_mutex_t print;          // Mutex para imprimir
-    pthread_mutex_t death;          // Mutex para controlar muerte
-}   t_rules;
+// time.c
+long ft_get_time_ms(void);
+void ft_smart_sleep(long time, t_rules *rules);
 
-typedef struct s_philo
-{
-    int             id;             // ID del filósofo (1..N)
-    int             meals_eaten;    // Cuántas veces ha comido
-    long            last_meal;      // Momento del último plato
+// routines.c
+void ft_print_action(t_philo *philo, char *msg);
+void *ft_philo_routine(void *arg);
+void ft_start_routines(t_rules *rules, t_philo *philos);
+void ft_join_routines(t_rules *rules, t_philo *philos);
 
-    pthread_t       thread;         // Thread del filósofo
-    pthread_mutex_t *left_fork;     // Puntero al tenedor izquierdo
-    pthread_mutex_t *right_fork;    // Puntero al tenedor derecho
-
-    t_rules         *rules;         // Puntero a las reglas globales
-}   t_philo;
+// monitor.c
+int ft_check_death(t_philo *philo, t_rules *rules);
+int ft_check_all_full(t_philo *philos, t_rules *rules);
+void *ft_monitor(void *arg);
+void ft_start_monitor(t_philo *philos);
 
 #endif

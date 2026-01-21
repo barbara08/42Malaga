@@ -1,6 +1,6 @@
 NAME = philo
 
-SRC = main.c 
+SRC = main.c parse.c init.c time.c routines.c monitor.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -14,7 +14,7 @@ $(NAME): $(OBJ)
 	$(CC) $(OBJ) $(LDFLAGS) -o $(NAME)
 	@echo "$(NAME) CREATED!"
 
-%.o: %.c philo.h
+%.o: %.c philo.h structs.h
 	$(CC) $(CFLAGS) -c $< -o $@
 	@echo "Compiled $<"
 clean:
@@ -25,4 +25,9 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+#Valdgrind para MAC, borrar para entregar
+asan:
+	clang -fsanitize=address -g *.c -pthread -o $(NAME)
+
+.PHONY: all clean fclean re asan
+
