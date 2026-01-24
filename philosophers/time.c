@@ -13,16 +13,19 @@ void ft_smart_sleep(long time, t_rules *rules)
 {
     long start_time;
 
-    start_time = ft_get_time_ms();      // tiempo al empezar
-    while (!rules->someone_died)     // bucle mientras nadie haya muerto
+    start_time = ft_get_time_ms();
+    while (1)
     {
-        if (ft_get_time_ms() - start_time >= time) // si pasó el tiempo deseado
-            break;                            // salir del bucle
-        usleep(100);            // dormir 100 microsegundos, evita que el bucle consuma 100% CPU
+        pthread_mutex_lock(&rules->dead_lock);
+        if (rules->someone_died || (ft_get_time_ms() - start_time >= time))
+        {
+            pthread_mutex_unlock(&rules->dead_lock);
+            break;
+        }
+        pthread_mutex_unlock(&rules->dead_lock);
+        usleep(200);
     }
 }
-
-
 
 
 /* ft_get_time_ms

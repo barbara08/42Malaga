@@ -16,7 +16,7 @@ typedef struct s_rules
 
     pthread_mutex_t *forks;         // Array de mutex para tenedores
     pthread_mutex_t print;          // Mutex para imprimir
-    pthread_mutex_t death;          // Mutex para controlar muerte
+    pthread_mutex_t dead_lock;     // Para proteger el flag someone_died
 }   t_rules;
 
 typedef struct s_philo
@@ -28,6 +28,7 @@ typedef struct s_philo
     pthread_t       thread;         // Thread del filósofo
     pthread_mutex_t *left_fork;     // Puntero al tenedor izquierdo
     pthread_mutex_t *right_fork;    // Puntero al tenedor derecho
+    pthread_mutex_t philo_lock;    // Para proteger last_meal y meals_eaten
 
     t_rules         *rules;         // Puntero a las reglas globales
 }   t_philo;
