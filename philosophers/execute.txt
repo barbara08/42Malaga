@@ -1,0 +1,22 @@
+Para ejecutar valdgrind en mac
+
+en Makefile he añadido la regla asan (quitar)
+tambien en PHONY (quitar)
+
+Terminal: ojo una cosa es asan y otra ver los leaks de memoria
+
+//1. Si lo hacemos con asan (Compilar con asan)
+$ make asan
+$ ./philo 5 800 200 200 7
+
+//2. Para ver leaks de memoria (sin asan)
+Hay que compilar sin asan (hacemos make fclean si hemos compilado con asan)
+$ make fclean (para borrar la compilacion anterior de asan)
+$ make
+$ leaks --atExit -- ./philo 5 800 200 200 7
+
+5: Número de filósofos
+800: Tiempo para morir
+200: Tiempo para comer
+200: Tiempo para dormir
+7: Cada uno debe comer 7 veces (opcional)
