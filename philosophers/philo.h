@@ -27,10 +27,12 @@ void	clean_all(t_rules *rules, t_philo *philos);
 long	ft_get_time_ms(void);
 void	ft_smart_sleep(long time, t_rules *rules);
 
-// routines.c
+// actions.c
 void	ft_print_action(t_philo *philo, char *msg);
 void	ft_philo_eat(t_philo *philo);
 void	ft_philo_actions(t_philo *philo);
+
+// routines.c
 void	*ft_philo_routine(void *arg);
 void	ft_start_routines(t_rules *rules, t_philo *philos);
 void	ft_join_routines(t_rules *rules, t_philo *philos);
