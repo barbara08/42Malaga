@@ -1,6 +1,16 @@
-Para ejecutar valdgrind en mac
+Los parámetros
 
-en Makefile he añadido la regla asan (quitar)
+5: Número de filósofos
+800: Tiempo para morir
+200: Tiempo para comer
+200: Tiempo para dormir
+7: Cada uno debe comer 7 veces (opcional)
+
+----------------------------------------------------------------------------------------
+Para ejecutar valdgrind en Mac 
+(no hay valdgrind en Mac, es con asan)
+
+En Makefile he añadido la regla asan (quitar)
 tambien en PHONY (quitar)
 
 Terminal: ojo una cosa es asan y otra ver los leaks de memoria
@@ -15,8 +25,24 @@ $ make fclean (para borrar la compilacion anterior de asan)
 $ make
 $ leaks --atExit -- ./philo 5 800 200 200 7
 
-5: Número de filósofos
-800: Tiempo para morir
-200: Tiempo para comer
-200: Tiempo para dormir
-7: Cada uno debe comer 7 veces (opcional)
+----------------------------------------------------------------------------------------
+
+Para ejecutar con valdgrind en Linux
+?
+?
+?
+
+
+----------------------------------------------------------------------------------------
+
+Para detectar Data Race
+Es obligatorio (o al menos muy recomendable) compilar con este flag durante el desarrollo:
+cc -fsanitize=thread -g3 ...
+
+Si hay un Data Race, el programa se detendrá y te dirá exactamente:
+
+Qué hilo escribió.
+Qué hilo leyó.
+En qué línea de código ocurrió el conflicto.
+
+
