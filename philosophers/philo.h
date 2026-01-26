@@ -41,6 +41,5 @@ void	ft_join_routines(t_rules *rules, t_philo *philos);
 int		ft_check_death(t_philo *philo, t_rules *rules);
 int		ft_check_all_full(t_philo *philos, t_rules *rules);
 void	*ft_monitor(void *arg);
-void	ft_start_monitor(t_philo *philos);
 
 #endif

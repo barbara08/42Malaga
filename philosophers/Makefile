@@ -25,9 +25,5 @@ fclean: clean
 
 re: fclean all
 
-#Valdgrind para MAC, borrar para entregar
-asan:
-	clang -fsanitize=address -g *.c -pthread -o $(NAME)
-
-.PHONY: all clean fclean re asan
+.PHONY: all clean fclean re
 

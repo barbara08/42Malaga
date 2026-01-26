@@ -27,10 +27,14 @@ $ leaks --atExit -- ./philo 5 800 200 200 7
 
 ----------------------------------------------------------------------------------------
 
-Para ejecutar con valdgrind en Linux
-?
-?
-?
+Para ejecutar con valdgrind en Linux (varios comandos)
+
+Largo
+valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all --track-origins=yes --undef-value-errors=yes --error-limit=no --read-var-info=yes --malloc-fill=0xAA --free-fill=0x55 --log-file=valgrind-out.txt --verbose ./tu_programa arg1 arg2
+Intermedio
+valgrind --leak-check=full --track-origins=yes ./tu_programa arg1 arg2
+Corto
+valgrind --leak-check=full ./tu_programa arg1 arg2
 
 
 ----------------------------------------------------------------------------------------
