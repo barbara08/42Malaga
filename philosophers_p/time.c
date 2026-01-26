@@ -11,7 +11,7 @@ long ft_get_time_ms(void)
 
 void ft_smart_sleep(long time, t_rules *rules)
 {
-	long start_time;
+	long	start_time;
 
 	start_time = ft_get_time_ms();
 	while (1)

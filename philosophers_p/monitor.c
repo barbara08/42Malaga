@@ -75,6 +75,33 @@ void	*ft_monitor(void *arg)
 	return (NULL);
 }
 
+
+
+/* Estas dos funciones van juntas pero se ha suprimido en una que es ft_monitor
+void	*ft_monitor(void *arg)
+{
+	t_philo	*philos;
+	t_rules	*rules;
+	int		i;
+
+	philos = (t_philo *)arg;
+	rules = philos[0].rules;
+	while (1)
+	{
+		i = 0;
+		while (i < rules->nb_philos)
+		{
+			if (ft_check_death(&philos[i], rules))
+				return (NULL);
+			i++;
+		}
+		if (ft_check_all_full(philos, rules))
+			return (NULL);
+		usleep(100);
+	}
+	return (NULL);
+}
+
 void	ft_start_monitor(t_philo *philos)
 {
 	pthread_t	monitor_thread;
@@ -85,7 +112,9 @@ void	ft_start_monitor(t_philo *philos)
 		return ;
 	}
 	pthread_detach(monitor_thread);
-}
+}*/
+
+
 
 /* ft_start_monitor
 
