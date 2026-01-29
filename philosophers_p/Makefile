@@ -6,10 +6,10 @@ OBJ = $(SRC:.c=.o)
 
 CC = cc
 
-#CFLAGS  = -Wall -Wextra -Werror
+CFLAGS  = -Wall -Wextra -Werror
 
-CFLAGS  = -Wall -Wextra -Werror -fsanitize=thread -g3 -pthread
-LDFLAGS = -fsanitize=thread -pthread
+#CFLAGS  = -Wall -Wextra -Werror -fsanitize=thread -g3 -pthread
+#LDFLAGS = -fsanitize=thread -pthread
 
 all: $(NAME)
 

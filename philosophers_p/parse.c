@@ -75,3 +75,27 @@ int	ft_parse_args(int argc, char **argv, t_rules *rules)
 	}
 	return (0);
 }
+
+// Funcion ft_parse_args
+/*
+Linea =>    rules->must_eat = -1;
+El parámetro must_eat es opcional:
+Si el usuario no lo pone, significa que los filósofos pueden comer indefinidamente.
+Si el usuario sí lo pone, el programa puede terminar cuando todos hayan comido al menos esa cantidad.
+
+Se inicializa a -1 porque:
+Es un valor “bandera”.
+Indica: "no se ha definido un límite" o "sin límite".
+Si no se inicializa, el valor sería indeterminado, 
+y podría tener comportamiento errático.
+
+En esta linea:
+if(argc == 6)
+{
+    rules->must_eat = ft_atoi_positive(argv[5]);
+    if (rules->must_eat < 1)
+        return (ft_print_error("invalid must_eat"));
+}
+Aquí  se sobreescribe el -1 con el valor del usuario.
+Si el usuario no da argv[5], sigue siendo -1 → significa “sin límite”
+*/
