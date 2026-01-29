@@ -40,6 +40,17 @@ valgrind --leak-check=full ./tu_programa arg1 arg2
 ----------------------------------------------------------------------------------------
 
 Para detectar Data Race
+OJO no se puede ejecutar TSAN junto con valdgrin, es decir,
+En makefile si usamos TSAN hay que anadir estas 2 lineas:
+
+CFLAGS  = -Wall -Wextra -Werror -fsanitize=thread -g3 -pthread
+LDFLAGS = -fsanitize=thread -pthread
+
+Pero para valdgrind
+Para valdgrin solo hay que poner esta linea
+CFLAGS  = -Wall -Wextra -Werror
+Esta linea es la que hay que entregar, NO la de TSAN
+
 Es obligatorio (o al menos muy recomendable) compilar con este flag durante el desarrollo:
 cc -fsanitize=thread -g3 ...
 
