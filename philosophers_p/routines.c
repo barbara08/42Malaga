@@ -2,6 +2,9 @@
 
 
 //Función que ejecuta cada hilo (filósofo)
+//Esta función no es un thread, es la rutina que ejecuta el thread
+//El thread lo crea pthread_create,
+//esta función es la routine que ejecuta el thread.
 //Recibe arg → un puntero genérico void* que será un t_philo*
 //Cast de void* a t_philo* para usar la estructura t_philo
 void	*ft_philo_routine(void *arg)
@@ -23,39 +26,62 @@ void	*ft_philo_routine(void *arg)
 		return (NULL);
 	}
 	/*
-		Evitar que todos coman al mismo tiempo
-		Si el ID es par, duerme 1.5 ms al inicio.
-		Esto desfase los hilos para que no todos intenten coger los tenedores a la vez → previene deadlocks.
+		Si el ID es par (philo par), duerme 1.5 ms al inicio.
+		Para evitar que todos coman al mismo tiempo, es decir, 
+		que todos los filósofos con ID par intenten coger primero 
+		el tenedor izquierdo al mismo tiempo → prevenir los deadlocks.
 	*/
 	if (philo->id % 2 == 0)
 		usleep(1500);
 	/* Rutina normal
-		Llama a la función que implementa el ciclo de vida del filósofo: pensar → coger tenedores → comer → dormir.
+		Llama a la función (ft_philo_actions) que es la que implementa
+		el ciclo de vida del filósofo: pensar → coger tenedores → comer → dormir.
 		return NULL → finaliza el hilo.
 	*/
 	ft_philo_actions(philo);
 	return (NULL);
 }
 
-void	ft_start_routines(t_rules *rules, t_philo *philos)
+// Funcion para crear los threads de los filósofos
+void	ft_create_threads(t_rules *rules, t_philo *philos)
 {
 	int	i;
 
 	i = 0;
 	while (i < rules->nb_philos)
 	{
+		/* Crea un thread para cada filósofo (estructura t_philo => pthread_t thread;)
+			Guarda su ID en philos[i].thread
+			Ejecuta ft_philo_routine
+			Le pasa SU propio filósofo
+			Each thread → 1 filósofo → 1 rutina 
+		*/
 		pthread_create(&philos[i].thread, NULL, ft_philo_routine, &philos[i]);
 		i++;
 	}
 }
 
-void	ft_join_routines(t_rules *rules, t_philo *philos)
+// Esperar a que todos los filósofos terminen
+// Llama a pthread_join para cada hilo de filósofo
+/* Garantiza:
+	NO destruir mutex
+	NO liberar memoria
+	hasta que TODOS los threads estén join
+*/
+void	ft_join_threads(t_rules *rules, t_philo *philos)
 {
 	int	i;
 
 	i = 0;
 	while (i < rules->nb_philos)
 	{
+		/*
+			Bloquea el thread principal
+			Espera a que ese philo termine
+			Garantiza:
+				no destruir mutex antes de tiempo
+				no salir del programa antes
+		*/
 		pthread_join(philos[i].thread, NULL);
 		i++;
 	}
@@ -106,3 +132,4 @@ void *ft_philo_routine(void *arg)
 
 	return (NULL);
 }*/
+
