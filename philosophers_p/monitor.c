@@ -2,12 +2,12 @@
 
 int	ft_check_death(t_philo *philo, t_rules *rules)
 {
-	long	time_since_last;
+	long	time_since_last_meal;
 
 	pthread_mutex_lock(&philo->philo_lock);
-	time_since_last = ft_get_time_ms() - philo->last_meal;
+	time_since_last_meal = ft_get_time_ms() - philo->last_meal;
 	pthread_mutex_unlock(&philo->philo_lock);
-	if (time_since_last > rules->time_to_die)
+	if (time_since_last_meal > rules->time_to_die)
 	{
 		pthread_mutex_lock(&rules->dead_lock);
 		if (!rules->someone_died)

@@ -107,3 +107,72 @@ Incluso si alguien murió
 
 /* ft_philo_actions
 
+*ft_philo_actions implementa el ciclo de vida del filósofo.
+Antes de cada iteración comprueba con dead_lock si alguien murió,
+y si no, ejecuta comer, dormir y pensar.
+El bucle termina de forma segura cuando someone_died se activa.
+
+*Rutina interna que ejecuta cada filósofo una vez arrancado el thread. Repite el ciclo:
+comer → dormir → pensar
+hasta que alguien muere.
+1. while (1)
+El filósofo vive en un ciclo infinito.
+Sale del bucle solo cuando:
+someone_died == 1
+2. Bloquear dead_lock
+pthread_mutex_lock(&philo->rules->dead_lock);
+Protege la variable global: rules->someone_died
+Por qué se bloquea aquí (leen y escriben)
+- Muchos threads leen esta variable
+- Alguno (el monitor) la escribe
+- Sin mutex → race condition
+3. Comprobar si alguien murió
+if (philo->rules->someone_died)
+Si es 1:
+- Algún filósofo murió
+- La simulación debe parar
+4. Desbloquear y salir del bucle
+{
+    pthread_mutex_unlock(&philo->rules->dead_lock);
+    break ;
+}
+Se libera el mutex antes de salir (importantísimo)
+break:
+sale del while
+el thread terminará después
+* Nunca salimos de una función dejando un mutex bloqueado.
+5. Desbloqueo cuando sigue vivo
+pthread_mutex_unlock(&philo->rules->dead_lock);
+Si nadie ha muerto:
+Se libera dead_lock
+Otros threads pueden acceder a someone_died
+Importante:
+No mantenemos el mutex bloqueado durante comer/dormir/pensar
+Evitamos bloqueos globales innecesarios.
+6. Comer
+ft_philo_eat(philo);
+Dentro ocurre:
+- coger forks (mutex)
+- actualizar last_meal (philo_lock)
+- imprimir
+- dormir time_to_eat
+- incrementar meals_eaten
+- soltar forks
+Es la parte más crítica.
+7. Dormir
+ft_print_action(philo, "is sleeping");
+- Se imprime la acción
+- Protegido por mutex (print + dead_lock)
+ft_smart_sleep(philo->rules->time_to_sleep, philo->rules);
+- Simula el sueño
+- Se despierta a intervalos
+- Permite reaccionar si alguien muere
+8. Pensar
+ft_print_action(philo, "is thinking");
+- Última acción del ciclo
+- No hay sleep obligatorio
+- Da tiempo a otros filósofos a competir por forks
+9. Vuelta al inicio del bucle
+Después de pensar:
+- vuelve al while (1)
+- vuelve a comprobar someone_died
