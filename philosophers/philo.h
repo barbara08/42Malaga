@@ -34,8 +34,8 @@ void	ft_philo_actions(t_philo *philo);
 
 // routines.c
 void	*ft_philo_routine(void *arg);
-void	ft_start_routines(t_rules *rules, t_philo *philos);
-void	ft_join_routines(t_rules *rules, t_philo *philos);
+void	ft_create_threads(t_rules *rules, t_philo *philos);
+void	ft_join_threads(t_rules *rules, t_philo *philos);
 
 // monitor.c
 int		ft_check_death(t_philo *philo, t_rules *rules);

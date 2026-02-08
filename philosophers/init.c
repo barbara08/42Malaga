@@ -7,7 +7,10 @@ int	init_rules(t_rules *rules)
 	if (pthread_mutex_init(&rules->print, NULL))
 		return (1);
 	if (pthread_mutex_init(&rules->dead_lock, NULL))
+	{
+		pthread_mutex_destroy(&rules->print);
 		return (1);
+	}
 	return (0);
 }
 
@@ -22,7 +25,12 @@ int	init_forks(t_rules *rules)
 	while (i < rules->nb_philos)
 	{
 		if (pthread_mutex_init(&rules->forks[i], NULL))
+		{
+			while (--i >= 0)
+				pthread_mutex_destroy(&rules->forks[i]);
+			free(rules->forks);
 			return (1);
+		}
 		i++;
 	}
 	return (0);
@@ -45,7 +53,12 @@ int	init_philos(t_rules *rules, t_philo **philos)
 		(*philos)[i].left_fork = &rules->forks[i];
 		(*philos)[i].right_fork = &rules->forks[(i + 1) % rules->nb_philos];
 		if (pthread_mutex_init(&(*philos)[i].philo_lock, NULL))
+		{
+			while (--i >= 0)
+				pthread_mutex_destroy(&(*philos)[i].philo_lock);
+			free(*philos);
 			return (1);
+		}
 	}
 	return (0);
 }

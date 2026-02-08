@@ -17,7 +17,7 @@ void	*ft_philo_routine(void *arg)
 	return (NULL);
 }
 
-void	ft_start_routines(t_rules *rules, t_philo *philos)
+void	ft_create_threads(t_rules *rules, t_philo *philos)
 {
 	int	i;
 
@@ -29,7 +29,7 @@ void	ft_start_routines(t_rules *rules, t_philo *philos)
 	}
 }
 
-void	ft_join_routines(t_rules *rules, t_philo *philos)
+void	ft_join_threads(t_rules *rules, t_philo *philos)
 {
 	int	i;
 

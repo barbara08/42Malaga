@@ -19,12 +19,12 @@ void	ft_philo_eat(t_philo *philo)
 		pthread_mutex_lock(philo->right_fork);
 	else
 		pthread_mutex_lock(philo->left_fork);
-	ft_print_action(philo, "has taken a fork");
+	ft_print_action(philo, "has taken a fork right");
 	if (philo->id % 2 == 0)
 		pthread_mutex_lock(philo->left_fork);
 	else
 		pthread_mutex_lock(philo->right_fork);
-	ft_print_action(philo, "has taken a fork");
+	ft_print_action(philo, "has taken a fork left");
 	pthread_mutex_lock(&philo->philo_lock);
 	philo->last_meal = ft_get_time_ms();
 	pthread_mutex_unlock(&philo->philo_lock);
