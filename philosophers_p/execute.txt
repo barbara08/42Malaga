@@ -1,56 +1,112 @@
 Los parámetros
 
 5: Número de filósofos
-800: Tiempo para morir
+800: Tiempo para morir si no comen
 200: Tiempo para comer
 200: Tiempo para dormir
 7: Cada uno debe comer 7 veces (opcional)
+TESTS
+./philo 5 800 200 200 7 => todos comen 7 veces, nadie muere, los estados siguen el ciclo correcto
+./philo 1 800 200 200 => debe morir
+./philo 5 310 200 200 => con poco tiempo alguien muere
+
+./philo 2 800 200 200 => alternan bien (bucle infinito) EXPLICACION
+
+philo 1: take fork -> eat -> sleep -> think -> repeat
+philo 2: take fork -> eat -> sleep -> think -> repeat
+time_to_die = 800 ms
+time_to_eat = 200 ms
+time_to_sleep = 200 ms
+
+¿Deberían morir?
+Veamos:
+Un filósofo tarda 200 ms comiendo + 200 ms durmiendo + tiempo de pensar (casi 0)
+Entonces pasa aprox 400-500 ms por ciclo completo
+Como time_to_die = 800 ms
+Ninguno excede 800 ms sin comer → no mueren
+
+Resultado:
+Ambos filósofos comen alternando
+Nunca se cumple someone_died
+Nunca se cumple must_eat → ciclo infinito
+Por eso no termina.
+
+Para hacer que termine habría que añadir must_eat o time_to_die muy pequeño EJ:
+./philo 2 800 200 200 3 (must_eat) el programa terminará solo cuando hayan comido 3 veces cada uno
+./philo 2 310 200 200 (monitor ve que alguien muere, el programa termina porque ft_check_death marca someone_died = 1)
+
 
 ----------------------------------------------------------------------------------------
-Para ejecutar valdgrind en Mac 
+MAKEFILE:
+Usar uno de los 3 (nunca juntos)
+
+#1. Para compilar en Linux
+CC = cc
+CFLAGS  = -Wall -Wextra -Werror
+
+#2. Para compilar en Mac (ASAN)
+CC      = clang
+CFLAGS  = -Wall -Wextra -Werror -g \
+		  -fsanitize=address -O1 -fno-omit-frame-pointer
+
+#3. Para detectar Data Races (TSAN)
+CFLAGS  = -Wall -Wextra -Werror -fsanitize=thread -g3 -pthread
+LDFLAGS = -fsanitize=thread -pthread
+
+#OJO solo modicar esta linea =>	$(CC) $(LDFLAGS) $(OBJ) -o $(NAME) => Cuando usemos TSAN (LDFLAGS)
+# Por esta => 					$(CC) $(CFLAGS) $(OBJ) -o $(NAME) => Para compilar en Linux o en Mac (ASAN) (CFLAGS)
+
+$(NAME): $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+	@echo "$(NAME) CREATED!"
+
+# Estas lineas se quedan igual 
+%.o: %.c philo.h structs.h
+	$(CC) $(CFLAGS) -c $< -o $@
+	@echo "Compiled $<"
+
+----------------------- EXPLICACION -----------------------------------------------------------------
+*** Para ejecutar valdgrind en Mac 
+
 (no hay valdgrind en Mac, es con asan)
-
-En Makefile he añadido la regla asan (quitar)
-tambien en PHONY (quitar)
-
-Terminal: ojo una cosa es asan y otra ver los leaks de memoria
-
-//1. Si lo hacemos con asan (Compilar con asan)
-$ make asan
-$ ./philo 5 800 200 200 7
-
-//2. Para ver leaks de memoria (sin asan)
-Hay que compilar sin asan (hacemos make fclean si hemos compilado con asan)
-$ make fclean (para borrar la compilacion anterior de asan)
-$ make
-$ leaks --atExit -- ./philo 5 800 200 200 7
+En mac, ASAN funciona con clang, no con gcc
+Nunca mezclar ASAN (compilar en mac) y TSAN (compila para detectar Data Race)
+CC      = clang
+CFLAGS  = -Wall -Wextra -Werror -g \
+		  -fsanitize=address -O1 -fno-omit-frame-pointer
+Con esto ya:
+	detecta leaks
+	detecta use-after-free
+	detecta double free
+	-O1 mejora stack traces
+	-fno-omit-frame-pointer hace que ASAN sea más preciso
+OJO: Pero en mac, ASAN NO siempre detecta el 100% de los leaks,
+por lo que es recomendable ejecutarlo después así:
+leaks --atExit -- ./philo 5 800 200 200 7
 
 ----------------------------------------------------------------------------------------
-
-Para ejecutar con valdgrind en Linux (varios comandos)
+*** Para ejecutar con valdgrind en Linux (varios comandos)
 
 Largo
 valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all --track-origins=yes --undef-value-errors=yes --error-limit=no --read-var-info=yes --malloc-fill=0xAA --free-fill=0x55 --log-file=valgrind-out.txt --verbose ./tu_programa arg1 arg2
 valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all --track-origins=yes --undef-value-errors=yes --error-limit=no --read-var-info=yes --malloc-fill=0xAA --free-fill=0x55 --log-file=valgrind-out.txt --verbose ./philo 5 800 200 200 7
+
 Intermedio
 valgrind --leak-check=full --track-origins=yes ./tu_programa arg1 arg2
+
 Corto
 valgrind --leak-check=full ./tu_programa arg1 arg2
-
-
 ----------------------------------------------------------------------------------------
-
-Para detectar Data Race
+*** Para detectar Data Race
 OJO no se puede ejecutar TSAN junto con valdgrin, es decir,
 En makefile si usamos TSAN hay que anadir estas 2 lineas:
 
 CFLAGS  = -Wall -Wextra -Werror -fsanitize=thread -g3 -pthread
 LDFLAGS = -fsanitize=thread -pthread
 
-Pero para valdgrind
-Para valdgrin solo hay que poner esta linea
+Pero para valdgrind solo hay que poner esta linea:
 CFLAGS  = -Wall -Wextra -Werror
-Esta linea es la que hay que entregar, NO la de TSAN
+Esta linea es la que hay que entregar, NO la de TSAN, ni ASAN (que es la de Mac)
 
 Es obligatorio (o al menos muy recomendable) compilar con este flag durante el desarrollo:
 cc -fsanitize=thread -g3 ...
