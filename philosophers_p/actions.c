@@ -15,6 +15,17 @@ void	ft_print_action(t_philo *philo, char *msg)
 
 void	ft_philo_eat(t_philo *philo)
 {
+	/* 
+	//chequeo al inicio para no empezar a comer si ya terminó todo
+	//Esto evita que el filósofo entre en el ciclo de comer si el monitor ya puso someone_died en 1.
+	pthread_mutex_lock(&philo->rules->dead_lock);
+	if (philo->rules->someone_died)
+	{
+		pthread_mutex_unlock(&philo->rules->dead_lock);
+		return ;
+	}
+	pthread_mutex_unlock(&philo->rules->dead_lock);*/
+	
 	if (philo->id % 2 == 0)
 		pthread_mutex_lock(philo->right_fork);
 	else
