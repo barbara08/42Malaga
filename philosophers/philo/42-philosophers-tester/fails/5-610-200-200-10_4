@@ -1,0 +1,76 @@
+1 1 has taken a fork right
+1 1 has taken a fork left
+1 1 is eating
+1 3 has taken a fork right
+1 3 has taken a fork left
+1 3 is eating
+1 5 has taken a fork right
+201 1 is sleeping
+201 3 is sleeping
+201 5 has taken a fork left
+201 5 is eating
+201 2 has taken a fork right
+201 2 has taken a fork left
+201 2 is eating
+401 2 is sleeping
+401 5 is sleeping
+401 4 has taken a fork right
+401 4 has taken a fork left
+401 4 is eating
+401 3 is thinking
+401 3 has taken a fork right
+401 1 is thinking
+401 1 has taken a fork right
+401 1 has taken a fork left
+401 1 is eating
+601 2 is thinking
+601 3 has taken a fork left
+601 3 is eating
+601 1 is sleeping
+601 5 is thinking
+601 5 has taken a fork right
+601 5 has taken a fork left
+601 5 is eating
+601 4 is sleeping
+801 4 is thinking
+801 3 is sleeping
+801 5 is sleeping
+801 2 has taken a fork right
+801 2 has taken a fork left
+801 2 is eating
+801 1 is thinking
+801 4 has taken a fork right
+801 4 has taken a fork left
+801 4 is eating
+801 1 has taken a fork right
+1001 5 is thinking
+1001 3 is thinking
+1001 2 is sleeping
+1001 1 has taken a fork left
+1001 1 is eating
+1001 3 has taken a fork right
+1001 4 is sleeping
+1001 5 has taken a fork right
+1001 3 has taken a fork left
+1001 3 is eating
+1201 2 is thinking
+1201 3 is sleeping
+1201 1 is sleeping
+1201 4 is thinking
+1201 2 has taken a fork right
+1201 2 has taken a fork left
+1201 2 is eating
+1201 5 has taken a fork left
+1201 5 is eating
+1401 1 is thinking
+1401 2 is sleeping
+1401 5 is sleeping
+1401 3 is thinking
+1401 3 has taken a fork right
+1401 3 has taken a fork left
+1401 3 is eating
+1401 1 has taken a fork right
+1401 1 has taken a fork left
+1401 1 is eating
+1401 4 has taken a fork right
+1412 4 died
