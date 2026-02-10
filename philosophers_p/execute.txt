@@ -93,9 +93,11 @@ valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all --track-origins
 
 Intermedio
 valgrind --leak-check=full --track-origins=yes ./tu_programa arg1 arg2
+valgrind --leak-check=full --track-origins=yes ./philo 5 800 200 200 4
 
 Corto
 valgrind --leak-check=full ./tu_programa arg1 arg2
+
 ----------------------------------------------------------------------------------------
 *** Para detectar Data Race
 OJO no se puede ejecutar TSAN junto con valdgrin, es decir,

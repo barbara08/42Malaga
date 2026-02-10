@@ -32,7 +32,7 @@ void	*ft_philo_routine(void *arg)
 		el tenedor izquierdo al mismo tiempo → prevenir los deadlocks.
 	*/
 	if (philo->id % 2 == 0)
-		usleep(1500);
+		usleep(10000);
 	/* Rutina normal
 		Llama a la función (ft_philo_actions) que es la que implementa
 		el ciclo de vida del filósofo: pensar → coger tenedores → comer → dormir.

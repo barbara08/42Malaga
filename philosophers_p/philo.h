@@ -28,6 +28,7 @@ long	ft_get_time_ms(void);
 void	ft_smart_sleep(long time, t_rules *rules);
 
 // actions.c
+int		ft_simulation_finished(t_rules *rules);
 void	ft_print_action(t_philo *philo, char *msg);
 void	ft_philo_eat(t_philo *philo);
 void	ft_philo_actions(t_philo *philo);

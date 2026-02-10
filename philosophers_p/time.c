@@ -1,6 +1,6 @@
 #include "philo.h"
 
-long ft_get_time_ms(void)
+long	ft_get_time_ms(void)
 {
 	struct	timeval tv;
 
@@ -9,7 +9,30 @@ long ft_get_time_ms(void)
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
 
-void ft_smart_sleep(long time, t_rules *rules)
+
+void	ft_smart_sleep(long time_ms, t_rules *rules)
+{
+	long start_time = ft_get_time_ms();
+	long elapsed;
+
+	while (1)
+	{
+		// Usamos tu función para comprobar si la simulación terminó
+		if (ft_simulation_finished(rules))
+			break;
+
+		// Calculamos tiempo transcurrido
+		elapsed = ft_get_time_ms() - start_time;
+		if (elapsed >= time_ms)
+			break ;
+
+		usleep(1000); // 1 ms para no saturar CPU
+	}
+}
+
+
+/* original, se puede borrar
+void	ft_smart_sleep(long time, t_rules *rules)
 {
 	long	start_time;
 
@@ -25,5 +48,5 @@ void ft_smart_sleep(long time, t_rules *rules)
 		pthread_mutex_unlock(&rules->dead_lock);
 		usleep(200);
 	}
-}
+}*/
 

@@ -5,12 +5,12 @@ SRC = main.c parse.c init.c time.c routines.c monitor.c actions.c
 OBJ = $(SRC:.c=.o)
 
 #Para compilar en Linux
-#CC = cc
-#CFLAGS  = -Wall -Wextra -Werror
+CC = cc
+CFLAGS  = -Wall -Wextra -Werror
 
 #Para compilar en Mac (ASAN)
-CC      = clang
-CFLAGS  = -Wall -Wextra -Werror -g \
+#CC      = clang
+#CFLAGS  = -Wall -Wextra -Werror -g \
 		  -fsanitize=address -O1 -fno-omit-frame-pointer
 
 #Para detectar Data Races (TSAN)
