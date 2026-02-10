@@ -8,12 +8,16 @@ OBJ = $(SRC:.c=.o)
 CC = cc
 CFLAGS  = -Wall -Wextra -Werror
 
+#Para detectar Data Races  para Linux
+#CFLAGS  = -Wall -Wextra -Werror -g3 -pthread
+#LDFLAGS = -pthread
+
 #Para compilar en Mac (ASAN)
 #CC      = clang
 #CFLAGS  = -Wall -Wextra -Werror -g \
 		  -fsanitize=address -O1 -fno-omit-frame-pointer
 
-#Para detectar Data Races (TSAN)
+#Para detectar Data Races (TSAN) en Mac (linux no compatible)
 #CFLAGS  = -Wall -Wextra -Werror -fsanitize=thread -g3 -pthread
 #LDFLAGS = -fsanitize=thread -pthread
 
