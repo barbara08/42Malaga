@@ -15,26 +15,41 @@
 //echo 'abcdefaaaabcdeabcabcdabc' | ./filter abc | cat -e
 //Result => ***defaaa***de******d***$
 
+/* 
+echo "ababcabababc" | ./filter ababc | cat -e
+Result => *****ab*****$
+echo 'abcdefaaaabcdeabcabcdabc' | ./filter abc | cat -e
+Result => ***defaaa***de******d***$
+echo "holabmbmbxbm1b" | ./filter bmb 
+Result => hola***mbxbm1b$
+echo "hola bmb que tal" | ./filter bmb 
+Result => hola *** que tal$
+*/
+
 int	main(int argc, char **argv)
 {
-	char    read_buf[BUFFER_SIZE];
-	char    *buf = NULL;
-	size_t  buf_len = 0;
-	ssize_t bytes;
-	size_t  target_len;
-	char    *pos;
-	size_t  i;
+	char    read_buf[BUFFER_SIZE]; //buffer temporal para cada read, no se garantiza que contenga una coincidencia completa
+	char    *buf = NULL; //buffer dinámico para almacenar lo leído
+	size_t  s_len = 0; //longitud actual de s
+	ssize_t bytes; //bytes leídos en cada read
+	size_t  str_len; //longitud de la cadena a filtrar, len de argv[1]
+	char    *pos; //ptr a la primera ocurrencia de target en buf
+	size_t  i; //contador para escribir los '*' sin riesgo de cortar una coincidencia
+
+	char *tmp; //ptr para realloc
+	size_t before; //bytes antes de la ocurrencia encontrada
+	size_t safe; //bytes seguros para escribir (sin riesgo de cortar una coincidencia)
 
 	/* Validación de argumentos */
 	if (argc != 2 || argv[1][0] == '\0')
 		return 1;
 
-	target_len = strlen(argv[1]);
+	str_len = strlen(argv[1]);
 
 	/* Lectura de stdin */
 	while ((bytes = read(0, read_buf, BUFFER_SIZE)) > 0)
 	{
-		char *tmp = realloc(buf, buf_len + bytes);
+		tmp = realloc(buf, s_len + bytes);
 		if (!tmp)
 		{
 			fprintf(stderr, "Error: ");
@@ -43,37 +58,36 @@ int	main(int argc, char **argv)
 			return 1;
 		}
 		buf = tmp;
-		memmove(buf + buf_len, read_buf, bytes);
-		buf_len += bytes;
+		memmove(buf + s_len, read_buf, bytes);
+		s_len += bytes;
 
 		/* Reemplazar coincidencias completas */
-		while ((pos = memmem(buf, buf_len, argv[1], target_len)))
+		while ((pos = memmem(buf, s_len, argv[1], str_len)))
 		{
-			size_t before = pos - buf;
+			before = pos - buf;
 
 			if (before > 0)
 				write(1, buf, before);
 
 			/* Escribir los '*' directamente */
 			i = 0;
-			while (i < target_len)
+			while (i < str_len)
 			{
 				write(1, "*", 1);
 				i++;
 			}
 
-			memmove(buf, pos + target_len,
-					buf_len - before - target_len);
-			buf_len -= before + target_len;
+			memmove(buf, pos + str_len, s_len - before - str_len);
+			s_len -= before + str_len;
 		}
 
 		/* Escribir parte segura */
-		if (buf_len >= target_len)
+		if (s_len >= str_len)
 		{
-			size_t safe = buf_len - (target_len - 1);
+			safe = s_len - (str_len - 1);
 			write(1, buf, safe);
-			memmove(buf, buf + safe, buf_len - safe);
-			buf_len -= safe;
+			memmove(buf, buf + safe, s_len - safe);
+			s_len -= safe;
 		}
 	}
 
@@ -87,9 +101,10 @@ int	main(int argc, char **argv)
 	}
 
 	/* Escribir lo que quede */
-	if (buf_len > 0)
-		write(1, buf, buf_len);
+	if (s_len > 0)
+		write(1, buf, s_len);
 
 	free(buf);
 	return (0);
 }
+
