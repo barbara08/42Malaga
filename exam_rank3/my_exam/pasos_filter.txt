@@ -1,0 +1,42 @@
+
+LIBRERIAS
+
+int main(int argc, char **argv)
+{
+	/* 1. Declaración de las variables necesarias */
+
+		//buffer
+		//arg 
+		//bytes
+        //iterador
+        //tmp para realloc
+
+	/* 2. Validación de argumentos */
+	
+	/* 3. Saber len de argv[1] */
+
+	/* 4. Lectura de stdin por bloques */
+		/* 4.1. Ampliar buffer para añadir lo recién leído */
+
+		/* 4.2. Copiar los bytes leídos al buffer */
+
+		/* 4.3. Reemplazar las ocurrencias por *  */
+			/* 4.3.1. Calcular cuántos bytes hay antes de la coincidencia */
+			/* 4.3.2. Escribir lo que está antes de la coincidencia */
+			/* 4.3.3. Escribir los '*' */
+			/* 4.3.4. Mover el buffer para eliminar lo escrito */
+
+		/* 4.4. Escribir la parte segura del buffer */
+			/* 4.4.1. Calcular cuántos bytes son seguros para escribir (sin riesgo de cortar una coincidencia) */
+			/* 4.4.2. Escribir la parte segura */
+			/* 4.4.3. Mover el buffer para eliminar lo escrito */
+
+	/* 5. Error de read */
+
+	/* 6. Escribir lo que quede */
+		/* Vacía el buffer final (no puede haber coincidencias incompletas ya) */
+
+	/* 7. Liberar memoria y salir */
+	free(buffer);
+	return (0);
+}
