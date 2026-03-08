@@ -40,3 +40,123 @@ int main(int argc, char **argv)
 	free(buffer);
 	return (0);
 }
+
+// para pythontutor
+
+#define _GNU_SOURCE 	// Te lo dan (va junto string.h) (para memmem)
+#include <string.h> 	// (strlen, memmem, memmove)
+#include <errno.h> 		// Te lo dan (errno)
+#include <unistd.h> 	// (read, write)
+#include <stdlib.h> 	// (realloc, free)
+#include <stdio.h> 		// (perror, fprintf)
+//#include <fcntl.h> 	// No se necesita (no se van a usar open ni close)
+
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 5
+#endif
+
+
+/* 
+"hola bmb que tal" | ./filter bmb
+Result => hola *** que tal$
+*/
+/* Tester
+
+./tester.sh "echo 'hola bmb que tal' | ./filter bmb | cat -e"
+
+*/
+
+//Para probar en pythontutor
+#define _GNU_SOURCE
+#include <string.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
+
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 5
+#endif
+
+int main(void)
+{
+    char *pattern = "bmb";
+    char *input = "Hola bmb que tal bmb amigo";
+
+    char read_buffer[BUFFER_SIZE];
+    char *buffer = NULL;
+    char *pos_buffer;
+    size_t buffer_len = 0;
+
+    size_t pattern_len;
+    size_t before_bytes_ocurrence;
+    size_t safe_bytes_to_write;
+
+    //size_t i;
+    char *tmp;
+
+    size_t input_len = strlen(input);
+    size_t index = 0;
+    size_t chunk;
+
+    pattern_len = strlen(pattern);
+
+    /* Simular lectura por bloques */
+    while (index < input_len)
+    {
+        chunk = BUFFER_SIZE;
+        if (index + chunk > input_len)
+            chunk = input_len - index;
+
+        memcpy(read_buffer, input + index, chunk);
+        index += chunk;
+
+        /* ampliar buffer */
+        tmp = realloc(buffer, buffer_len + chunk);
+        if (!tmp)
+            return (1);
+        buffer = tmp;
+
+        memcpy(buffer + buffer_len, read_buffer, chunk);
+        buffer_len += chunk;
+
+        /* buscar ocurrencias */
+        while ((pos_buffer = memmem(buffer, buffer_len, pattern, pattern_len)))
+        {
+            before_bytes_ocurrence = pos_buffer - buffer;
+
+            if (before_bytes_ocurrence > 0)
+                write(1, buffer, before_bytes_ocurrence);
+
+            i = 0;
+            while (i < pattern_len)
+            {
+                write(1, "*", 1);
+                i++;
+            }
+
+            memmove(buffer,
+                pos_buffer + pattern_len,
+                buffer_len - before_bytes_ocurrence - pattern_len);
+
+            buffer_len -= before_bytes_ocurrence + pattern_len;
+        }
+
+        if (buffer_len >= pattern_len)
+        {
+            safe_bytes_to_write = buffer_len - (pattern_len - 1);
+
+            write(1, buffer, safe_bytes_to_write);
+
+            memmove(buffer,
+                buffer + safe_bytes_to_write,
+                buffer_len - safe_bytes_to_write);
+
+            buffer_len -= safe_bytes_to_write;
+        }
+    }
+
+    if (buffer_len > 0)
+        write(1, buffer, buffer_len);
+
+    free(buffer);
+}
